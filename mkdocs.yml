@@ -1,0 +1,100 @@
+site_name: 模拟电子技术自学指南
+site_description: 从电路基础到面试表达的 30 天双轨模拟电子技术自学指南
+docs_dir: docs
+site_dir: _site
+use_directory_urls: true
+
+theme:
+  name: material
+  language: zh
+  font: false
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
+
+nav:
+  - 开始学习:
+      - 指南首页: index.md
+      - 路线与方法: 学习路线与使用方法.md
+  - 30 天路线:
+      - 第 1 周: sprint/week-1.md
+      - 第 2 周: sprint/week-2.md
+      - 第 3 周: sprint/week-3.md
+      - 第 4 周: sprint/week-4.md
+  - 完整教材:
+      - 第 1 章 · 最小电路基础: guide/01-最小电路基础.md
+      - 第 2 章 · 二极管与半导体: guide/02-二极管与半导体基础.md
+      - 第 3 章 · BJT 与 MOSFET: guide/03-BJT与MOSFET.md
+      - 第 4 章 · 基本放大电路: guide/04-基本放大电路.md
+      - 第 5 章 · 运算放大器: guide/05-运算放大器.md
+      - 第 6 章 · 反馈与频率响应: guide/06-反馈与频率响应.md
+      - 第 7 章 · 差分、功放与电源: guide/07-差分功放与电源.md
+  - 分层练习:
+      - 练习题: exercises/练习题.md
+      - 详细解答: exercises/详细解答.md
+  - 技术面试:
+      - 高频问题与追问: interview/高频问题与追问.md
+      - 两套模拟面试: interview/两套模拟面试.md
+      - 评分标准: interview/评分标准.md
+  - 交互实验:
+      - RC 阶跃响应: labs/rc-step-response.html
+      - BJT 负载线: labs/bjt-load-line.html
+      - 运放反馈: labs/opamp-feedback.html
+  - 速查表:
+      - 一页公式表: cheatsheets/一页公式表.md
+      - 典型电路速查: cheatsheets/典型电路速查.md
+  - 使用学习助手: assistant/使用学习助手.md
+  - 拓展应用:
+      - 智能系统中的模拟边界: extensions/agent-systems.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      permalink_title: 复制此节链接
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+copyright: 内容采用 CC BY 4.0；代码采用 MIT License

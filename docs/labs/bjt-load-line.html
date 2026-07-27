@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BJT 直流负载线实验</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f4efe2; --paper-deep: #e8e0cf; --ink: #172127; --muted: #59676d;
+      --rule: #9eaa9f; --grid: rgba(45, 66, 72, .11); --trace: #006f78; --q: #ad4f16;
+      --zone-sat: rgba(173, 79, 22, .14); --zone-active: rgba(0, 111, 120, .08);
+      --focus: #005fcc; --field: rgba(255,255,255,.58);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #11191c; --paper-deep: #192428; --ink: #e8eee8; --muted: #aebcb9;
+        --rule: #607076; --grid: rgba(187,218,211,.10); --trace: #65d7dc; --q: #ffad6f;
+        --zone-sat: rgba(255,173,111,.13); --zone-active: rgba(101,215,220,.07);
+        --focus: #8ac7ff; --field: rgba(255,255,255,.06);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; color: var(--ink); background-color: var(--paper);
+      background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 24px 24px; font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.55;
+    }
+    main { width: min(1100px, 100%); margin: 0 auto; padding: clamp(18px, 4vw, 46px); }
+    header { border-top: 4px solid var(--ink); border-bottom: 1px solid var(--rule); padding: 14px 0 18px; }
+    .eyebrow { margin: 0 0 4px; color: var(--muted); font: 500 12px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 0; font-family: "Songti SC","STSong",Georgia,serif; font-size: clamp(25px,5vw,46px); font-weight: 500; letter-spacing: -.02em; }
+    .lede { max-width: 780px; margin: 8px 0 0; color: var(--muted); }
+    .controls { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px 18px; padding: 20px 0 16px; border-bottom: 1px solid var(--rule); }
+    label { display: grid; gap: 6px; font-weight: 500; }
+    label span { display: block; }
+    label small { float: right; margin-left: 8px; color: var(--muted); font: 400 11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    input { width: 100%; min-width: 0; padding: 9px 10px; color: var(--ink); background: var(--field); border: 1px solid var(--rule); border-radius: 2px; font: 500 16px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+    .metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); border-bottom: 1px solid var(--rule); }
+    .metric { padding: 14px 14px 12px 0; }
+    .metric + .metric { padding-left: 14px; border-left: 1px solid var(--rule); }
+    .metric span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .08em; }
+    .metric strong { display: block; margin-top: 2px; font: 500 clamp(16px,3vw,22px)/1.25 ui-monospace,SFMono-Regular,Menlo,monospace; overflow-wrap: anywhere; }
+    .detail { min-height: 1.55em; margin: 9px 0 0; color: var(--muted); font-size: 12px; }
+    figure { margin: 10px 0 0; }
+    svg { display: block; width: 100%; height: 430px; overflow: visible; background: color-mix(in srgb,var(--paper-deep) 48%,transparent); border-block: 1px solid var(--rule); }
+    .axis { stroke: var(--rule); stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .gridline { stroke: var(--grid); stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .loadline { fill: none; stroke: var(--trace); stroke-width: 3; vector-effect: non-scaling-stroke; }
+    .boundary { stroke: var(--q); stroke-width: 1.2; stroke-dasharray: 2 4; vector-effect: non-scaling-stroke; }
+    .projection { stroke: var(--q); stroke-width: 1.2; stroke-dasharray: 4 5; vector-effect: non-scaling-stroke; }
+    .qpoint { fill: var(--q); stroke: var(--paper); stroke-width: 3; vector-effect: non-scaling-stroke; }
+    .endpoint { fill: var(--paper); stroke: var(--trace); stroke-width: 2; vector-effect: non-scaling-stroke; }
+    .sat-fill { fill: var(--zone-sat); } .active-fill { fill: var(--zone-active); }
+    .label,.tick-label { font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .label { fill: var(--ink); font-size: 12px; font-weight: 500; paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
+    .tick-label { fill: var(--muted); font-size: 11px; }
+    figcaption,footer { color: var(--muted); font-size: 12px; }
+    figcaption { margin-top: 10px; }
+    .formula { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--rule); font: 400 13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    footer { margin-top: 18px; }
+    @media (max-width: 560px) {
+      main { padding: 14px 12px 28px; }
+      .controls { grid-template-columns: 1fr; gap: 10px; }
+      .metrics { grid-template-columns: 1fr; }
+      .metric { padding: 9px 0; }
+      .metric + .metric { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); }
+      svg { height: 400px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">AE · BIAS BENCH 02</p>
+      <h1>BJT 直流负载线</h1>
+      <p class="lede">外电路先画出所有可能点；目标集电极电流再决定 Q 点。注意“目标”不保证晶体管仍在正向有源区。</p>
+    </header>
+
+    <section class="controls" aria-label="负载线参数">
+      <label for="vcc"><span>电源 V<sub>CC</sub> <small>V</small></span><input id="vcc" type="number" min="1" max="50" step="0.1" value="10" inputmode="decimal"></label>
+      <label for="collectorResistance"><span>集电电阻 R<sub>C</sub> <small>kΩ</small></span><input id="collectorResistance" type="number" min="0.1" max="100" step="0.1" value="2" inputmode="decimal"></label>
+      <label for="targetCurrent"><span>目标 I<sub>C</sub> <small>mA</small></span><input id="targetCurrent" type="number" min="0" max="100" step="0.1" value="2" inputmode="decimal"></label>
+    </section>
+
+    <section class="metrics" aria-live="polite" aria-label="Q 点读数">
+      <div class="metric"><span>实际 I<sub>C</sub></span><strong id="currentReadout">2.000 mA</strong></div>
+      <div class="metric"><span>实际 V<sub>CE</sub></span><strong id="voltageReadout">6.000 V</strong></div>
+      <div class="metric"><span>工作区</span><strong id="regionReadout">正向有源</strong></div>
+    </section>
+    <p class="detail" id="detailLine">目标 2.000 mA 可由负载线实现。</p>
+
+    <figure>
+      <svg id="plot" role="img" aria-labelledby="plotTitle plotDesc">
+        <title id="plotTitle">BJT 直流负载线与静态工作点</title>
+        <desc id="plotDesc">横轴是集电极发射极电压，纵轴是集电极电流。图中标出负载线、截止端点、正向有源区、饱和区和静态工作点。</desc>
+      </svg>
+      <figcaption>先用两个截距固定直线，再读 Q 点。沿负载线向左上移动到 V<sub>CE,sat</sub> 是饱和；向右下到 I<sub>C</sub>≈0 的端点是截止。</figcaption>
+    </figure>
+
+    <p class="formula">V<sub>CE</sub> = V<sub>CC</sub> − I<sub>C</sub>R<sub>C</sub>；本实验取 V<sub>CE,sat</sub>=0.20 V，并把它作为简化的饱和钳位边界。</p>
+    <footer>模型限制：目标 I<sub>C</sub> 代表基极驱动在正向有源近似下请求的电流；忽略 β 变化、Early 效应、自热、击穿和动态电荷存储。</footer>
+  </main>
+
+  <script>
+    "use strict";
+    function clampNumber(value, minimum, maximum, fallback) {
+      const number = Number(value);
+      return Number.isFinite(number) ? Math.min(maximum, Math.max(minimum, number)) : fallback;
+    }
+
+    function calculateLoadLine(vccVolts, resistanceKOhm, targetMilliAmp, saturationVoltage = 0.2) {
+      const yInterceptMilliAmp = vccVolts / resistanceKOhm;
+      const saturationCurrentMilliAmp = Math.max(0, (vccVolts - saturationVoltage) / resistanceKOhm);
+      let actualCurrentMilliAmp;
+      let vceVolts;
+      let region;
+      if (targetMilliAmp <= 0) {
+        actualCurrentMilliAmp = 0;
+        vceVolts = vccVolts;
+        region = "截止";
+      } else if (targetMilliAmp >= saturationCurrentMilliAmp) {
+        actualCurrentMilliAmp = saturationCurrentMilliAmp;
+        vceVolts = Math.min(vccVolts, saturationVoltage);
+        region = "饱和";
+      } else {
+        actualCurrentMilliAmp = targetMilliAmp;
+        vceVolts = vccVolts - targetMilliAmp * resistanceKOhm;
+        region = "正向有源";
+      }
+      return { vccVolts, resistanceKOhm, targetMilliAmp, saturationVoltage, yInterceptMilliAmp, saturationCurrentMilliAmp, actualCurrentMilliAmp, vceVolts, region };
+    }
+
+    const defaultLine = calculateLoadLine(10, 2, 2);
+    console.assert(Math.abs(defaultLine.vccVolts - 10) < 1e-12, "负载线横轴截距应为 VCC");
+    console.assert(Math.abs(defaultLine.yInterceptMilliAmp - 5) < 1e-12, "负载线纵轴截距应为 VCC/RC");
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const fields = {
+        vcc: document.getElementById("vcc"),
+        resistance: document.getElementById("collectorResistance"),
+        target: document.getElementById("targetCurrent")
+      };
+      const plot = document.getElementById("plot");
+      const currentReadout = document.getElementById("currentReadout");
+      const voltageReadout = document.getElementById("voltageReadout");
+      const regionReadout = document.getElementById("regionReadout");
+      const detailLine = document.getElementById("detailLine");
+
+      function svgElement(name, attributes = {}, text = "") {
+        const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, String(value)));
+        if (text) element.textContent = text;
+        return element;
+      }
+
+      function sanitizedModel() {
+        const vcc = clampNumber(fields.vcc.value, 1, 50, 10);
+        const resistance = clampNumber(fields.resistance.value, 0.1, 100, 2);
+        const target = clampNumber(fields.target.value, 0, 100, 2);
+        fields.vcc.value = String(vcc);
+        fields.resistance.value = String(resistance);
+        fields.target.value = String(target);
+        return calculateLoadLine(vcc, resistance, target);
+      }
+
+      function render() {
+        const model = sanitizedModel();
+        currentReadout.textContent = `${model.actualCurrentMilliAmp.toFixed(3)} mA`;
+        voltageReadout.textContent = `${model.vceVolts.toFixed(3)} V`;
+        regionReadout.textContent = model.region;
+        if (model.region === "饱和" && model.targetMilliAmp > model.actualCurrentMilliAmp + 1e-9) {
+          detailLine.textContent = `目标 ${model.targetMilliAmp.toFixed(3)} mA 超出负载线；实际被钳在约 ${model.actualCurrentMilliAmp.toFixed(3)} mA。`;
+        } else {
+          detailLine.textContent = `目标 ${model.targetMilliAmp.toFixed(3)} mA ${model.region === "截止" ? "对应截止端点" : "可由负载线实现"}。`;
+        }
+
+        const title = plot.querySelector("title").cloneNode(true);
+        const desc = plot.querySelector("desc").cloneNode(true);
+        plot.replaceChildren(title, desc);
+        const width = Math.max(300, Math.round(plot.getBoundingClientRect().width || 900));
+        const height = width < 430 ? 400 : 430;
+        plot.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        const margin = { left: width < 430 ? 54 : 68, right: width < 430 ? 14 : 34, top: 34, bottom: 54 };
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+        const xMax = model.vccVolts * 1.08;
+        const yMax = Math.max(0.1, model.yInterceptMilliAmp * 1.12);
+        const x = voltage => margin.left + (voltage / xMax) * innerWidth;
+        const y = current => margin.top + ((yMax - current) / yMax) * innerHeight;
+        const baseY = height - margin.bottom;
+        const rightX = width - margin.right;
+
+        const saturationBoundaryX = x(Math.min(model.saturationVoltage, model.vccVolts));
+        const saturationWidth = Math.max(1, saturationBoundaryX - x(0));
+        plot.append(svgElement("rect", { x: margin.left, y: margin.top, width: saturationWidth, height: innerHeight, class: "sat-fill" }));
+        plot.append(svgElement("rect", { x: margin.left + saturationWidth, y: margin.top, width: Math.max(0, innerWidth - saturationWidth), height: innerHeight, class: "active-fill" }));
+        plot.append(svgElement("line", { x1: saturationBoundaryX, y1: margin.top, x2: saturationBoundaryX, y2: baseY, class: "boundary" }));
+
+        for (let index = 0; index <= 4; index += 1) {
+          const voltage = (model.vccVolts / 4) * index;
+          const px = x(voltage);
+          plot.append(svgElement("line", { x1: px, y1: margin.top, x2: px, y2: baseY, class: "gridline" }));
+          plot.append(svgElement("text", { x: px, y: baseY + 23, "text-anchor": "middle", class: "tick-label" }, voltage.toFixed(voltage < 10 ? 1 : 0)));
+          const current = (model.yInterceptMilliAmp / 4) * index;
+          const py = y(current);
+          plot.append(svgElement("line", { x1: margin.left, y1: py, x2: rightX, y2: py, class: "gridline" }));
+          plot.append(svgElement("text", { x: margin.left - 7, y: py + 4, "text-anchor": "end", class: "tick-label" }, current.toFixed(current < 10 ? 1 : 0)));
+        }
+        plot.append(svgElement("line", { x1: margin.left, y1: baseY, x2: rightX, y2: baseY, class: "axis" }));
+        plot.append(svgElement("line", { x1: margin.left, y1: margin.top, x2: margin.left, y2: baseY, class: "axis" }));
+        plot.append(svgElement("path", { d: `M ${x(0)} ${y(model.yInterceptMilliAmp)} L ${x(model.vccVolts)} ${y(0)}`, class: "loadline" }));
+        plot.append(svgElement("circle", { cx: x(model.vccVolts), cy: y(0), r: 4.5, class: "endpoint" }));
+
+        const qx = x(model.vceVolts);
+        const qy = y(model.actualCurrentMilliAmp);
+        plot.append(svgElement("line", { x1: qx, y1: qy, x2: qx, y2: baseY, class: "projection" }));
+        plot.append(svgElement("line", { x1: margin.left, y1: qy, x2: qx, y2: qy, class: "projection" }));
+        plot.append(svgElement("circle", { cx: qx, cy: qy, r: 7, class: "qpoint" }));
+        const qAnchorEnd = qx > width * .72;
+        const qLabelY = model.region === "饱和" ? Math.min(baseY - 30, qy + 24) : model.region === "截止" ? qy - 28 : Math.max(margin.top + 15, qy - 12);
+        plot.append(svgElement("text", { x: qx + (qAnchorEnd ? -10 : 10), y: qLabelY, "text-anchor": qAnchorEnd ? "end" : "start", class: "label" }, `Q · ${model.region}`));
+
+        plot.append(svgElement("text", { x: margin.left + 7, y: margin.top + 18, class: "label" }, "饱和区"));
+        plot.append(svgElement("text", { x: margin.left + innerWidth * .56, y: margin.top + 18, "text-anchor": "middle", class: "label" }, "正向有源区"));
+        plot.append(svgElement("text", { x: x(model.vccVolts) - 6, y: baseY - 10, "text-anchor": "end", class: "label" }, `截止端点 VCC=${model.vccVolts.toFixed(1)} V`));
+        plot.append(svgElement("text", { x: margin.left + 8, y: y(model.yInterceptMilliAmp) + 17, class: "label" }, `截距 ${model.yInterceptMilliAmp.toFixed(2)} mA`));
+        plot.append(svgElement("text", { x: rightX, y: height - 7, "text-anchor": "end", class: "tick-label" }, "VCE / V"));
+        plot.append(svgElement("text", { x: margin.left, y: 17, "text-anchor": "start", class: "tick-label" }, "IC / mA"));
+      }
+
+      Object.values(fields).forEach(field => {
+        field.addEventListener("input", render);
+        field.addEventListener("change", render);
+      });
+      const observer = new ResizeObserver(render);
+      observer.observe(plot);
+      render();
+    });
+  </script>
+</body>
+</html>

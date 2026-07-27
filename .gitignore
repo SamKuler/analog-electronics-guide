@@ -1,0 +1,11 @@
+.learning/
+.internal/
+.superpowers/
+.pytest_cache/
+__pycache__/
+*.pyc
+.DS_Store
+site/
+_site/
+.venv/
+venv/

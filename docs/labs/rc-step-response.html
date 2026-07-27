@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RC 阶跃响应实验</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f4efe2;
+      --paper-deep: #e8e0cf;
+      --ink: #172127;
+      --muted: #59676d;
+      --rule: #9eaa9f;
+      --grid: rgba(45, 66, 72, .11);
+      --trace-a: #006f78;
+      --trace-b: #ad4f16;
+      --mark: #5d4b8c;
+      --focus: #005fcc;
+      --field: rgba(255, 255, 255, .58);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #11191c;
+        --paper-deep: #192428;
+        --ink: #e8eee8;
+        --muted: #aebcb9;
+        --rule: #607076;
+        --grid: rgba(187, 218, 211, .10);
+        --trace-a: #65d7dc;
+        --trace-b: #ffad6f;
+        --mark: #c6b2ff;
+        --focus: #8ac7ff;
+        --field: rgba(255, 255, 255, .06);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 24px 24px;
+      font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.55;
+    }
+    main { width: min(1100px, 100%); margin: 0 auto; padding: clamp(18px, 4vw, 46px); }
+    header { border-top: 4px solid var(--ink); border-bottom: 1px solid var(--rule); padding: 14px 0 18px; }
+    .eyebrow { margin: 0 0 4px; color: var(--muted); font: 500 12px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 0; font-family: "Songti SC", "STSong", Georgia, serif; font-size: clamp(25px, 5vw, 46px); font-weight: 500; letter-spacing: -.02em; }
+    .lede { max-width: 760px; margin: 8px 0 0; color: var(--muted); }
+    .controls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 18px; padding: 20px 0 16px; border-bottom: 1px solid var(--rule); }
+    label { display: grid; gap: 6px; font-weight: 500; }
+    label span { display: block; }
+    label small { float: right; margin-left: 8px; color: var(--muted); font: 400 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    input {
+      width: 100%; min-width: 0; padding: 9px 10px; color: var(--ink); background: var(--field);
+      border: 1px solid var(--rule); border-radius: 2px; font: 500 16px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+    .reading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px; padding: 16px 0 6px; }
+    .reading strong { font: 500 clamp(17px, 3vw, 22px)/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .reading span { color: var(--muted); font-size: 12px; }
+    figure { margin: 8px 0 0; }
+    svg { display: block; width: 100%; height: 420px; overflow: visible; background: color-mix(in srgb, var(--paper-deep) 48%, transparent); border-block: 1px solid var(--rule); }
+    .axis, .tick { stroke: var(--rule); stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .gridline { stroke: var(--grid); stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .trace-input { fill: none; stroke: var(--trace-a); stroke-width: 2.5; stroke-dasharray: 8 5; vector-effect: non-scaling-stroke; }
+    .trace-cap { fill: none; stroke: var(--trace-b); stroke-width: 3; vector-effect: non-scaling-stroke; }
+    .guide { stroke: var(--mark); stroke-width: 1.5; stroke-dasharray: 3 5; vector-effect: non-scaling-stroke; }
+    .dot { fill: var(--paper); stroke: var(--mark); stroke-width: 2; vector-effect: non-scaling-stroke; }
+    .label, .tick-label { fill: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .label { font-size: 12px; font-weight: 500; paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
+    .tick-label { fill: var(--muted); font-size: 11px; }
+    figcaption, footer { color: var(--muted); font-size: 12px; }
+    figcaption { margin-top: 10px; }
+    .formula { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--rule); font: 400 13px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    footer { margin-top: 18px; }
+    @media (max-width: 720px) { .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 420px) {
+      main { padding: 14px 12px 28px; }
+      .controls { grid-template-columns: 1fr; gap: 10px; }
+      svg { height: 390px; }
+      .reading { gap: 5px 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">AE · TRANSIENT BENCH 01</p>
+      <h1>RC 阶跃响应</h1>
+      <p class="lede">先预测时间常数和曲线方向，再一次只改一个量。输入阶跃用虚线，电容电压用实线。</p>
+    </header>
+
+    <section class="controls" aria-label="RC 参数">
+      <label for="resistance"><span>电阻 R <small>kΩ</small></span><input id="resistance" type="number" min="0.1" max="100" step="0.1" value="1" inputmode="decimal"></label>
+      <label for="capacitance"><span>电容 C <small>μF</small></span><input id="capacitance" type="number" min="0.1" max="10000" step="0.1" value="100" inputmode="decimal"></label>
+      <label for="stepVoltage"><span>输入阶跃 V<sub>f</sub> <small>V</small></span><input id="stepVoltage" type="number" min="-20" max="20" step="0.1" value="5" inputmode="decimal"></label>
+      <label for="initialVoltage"><span>初始电压 V<sub>0</sub> <small>V</small></span><input id="initialVoltage" type="number" min="-20" max="20" step="0.1" value="0" inputmode="decimal"></label>
+    </section>
+
+    <div class="reading" aria-live="polite">
+      <strong id="tauReadout">τ = 100 ms</strong>
+      <span id="tauPointReadout">vC(τ) = 3.161 V</span>
+      <span id="directionReadout">电压上升 · 完成总变化的 63.2%</span>
+    </div>
+
+    <figure>
+      <svg id="plot" role="img" aria-labelledby="plotTitle plotDesc">
+        <title id="plotTitle">RC 电路输入阶跃与电容电压曲线</title>
+        <desc id="plotDesc">横轴为以时间常数表示的时间，虚线是输入阶跃，实线是电容电压，并标出初值、一个时间常数处的值和终值。</desc>
+      </svg>
+      <figcaption>读图法：τ 只决定“横向快慢”；V<sub>0</sub> 与 V<sub>f</sub> 决定起点、终点和变化方向。</figcaption>
+    </figure>
+
+    <p class="formula" id="formulaLine">τ = RC；vC(t) = Vf + (V0 − Vf)e<sup>−t/τ</sup>，适用于单一等效电阻驱动的一阶线性 RC，且 t ≥ 0。</p>
+    <footer>模型限制：忽略电源内阻、电容漏电/ESR、寄生参数与元件容差；电容电压连续的前提是没有理想冲激电流。</footer>
+  </main>
+
+  <script>
+    "use strict";
+    function clampNumber(value, minimum, maximum, fallback) {
+      const number = Number(value);
+      return Number.isFinite(number) ? Math.min(maximum, Math.max(minimum, number)) : fallback;
+    }
+
+    function calculateRC(resistanceKOhm, capacitanceMicroF, finalVoltage, initialVoltage) {
+      const resistanceOhm = resistanceKOhm * 1000;
+      const capacitanceFarad = capacitanceMicroF * 1e-6;
+      const tauSeconds = resistanceOhm * capacitanceFarad;
+      const voltageAtTau = finalVoltage + (initialVoltage - finalVoltage) * Math.exp(-1);
+      return { resistanceOhm, capacitanceFarad, tauSeconds, finalVoltage, initialVoltage, voltageAtTau };
+    }
+
+    function capacitorVoltage(model, timeSeconds) {
+      if (timeSeconds < 0) return model.initialVoltage;
+      return model.finalVoltage + (model.initialVoltage - model.finalVoltage) * Math.exp(-timeSeconds / model.tauSeconds);
+    }
+
+    function describeRCTransition(model) {
+      const delta = model.finalVoltage - model.initialVoltage;
+      if (Math.abs(delta) < 1e-9) return "无暂态 · 初值等于终值";
+      return `${delta > 0 ? "电压上升" : "电压下降"} · 完成总变化的 63.2%`;
+    }
+
+    const defaultRC = calculateRC(1, 100, 5, 0);
+    console.assert(Math.abs(defaultRC.tauSeconds - 0.1) < 1e-12, "默认 RC 时间常数应为 0.1 s");
+    console.assert(Math.abs(defaultRC.voltageAtTau - 3.160602794) < 1e-6, "t=τ 时应达到总变化的约 63.2%");
+    console.assert(describeRCTransition(defaultRC) === "电压上升 · 完成总变化的 63.2%", "默认正阶跃应显示电压上升");
+    console.assert(describeRCTransition(calculateRC(1, 100, -5, 0)) === "电压下降 · 完成总变化的 63.2%", "负方向阶跃应显示电压下降");
+    console.assert(describeRCTransition(calculateRC(1, 100, 5, 5)) === "无暂态 · 初值等于终值", "初值等于终值时应明确显示无暂态");
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const fields = {
+        resistance: document.getElementById("resistance"),
+        capacitance: document.getElementById("capacitance"),
+        stepVoltage: document.getElementById("stepVoltage"),
+        initialVoltage: document.getElementById("initialVoltage")
+      };
+      const plot = document.getElementById("plot");
+      const tauReadout = document.getElementById("tauReadout");
+      const tauPointReadout = document.getElementById("tauPointReadout");
+      const directionReadout = document.getElementById("directionReadout");
+
+      function svgElement(name, attributes = {}, text = "") {
+        const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, String(value)));
+        if (text) element.textContent = text;
+        return element;
+      }
+
+      function formatTime(seconds) {
+        if (seconds < 0.001) return `${(seconds * 1e6).toFixed(2)} μs`;
+        if (seconds < 1) return `${(seconds * 1000).toFixed(seconds < 0.01 ? 2 : 1)} ms`;
+        return `${seconds.toFixed(seconds < 10 ? 2 : 1)} s`;
+      }
+
+      function sanitizedModel() {
+        const r = clampNumber(fields.resistance.value, 0.1, 100, 1);
+        const c = clampNumber(fields.capacitance.value, 0.1, 10000, 100);
+        const vf = clampNumber(fields.stepVoltage.value, -20, 20, 5);
+        const v0 = clampNumber(fields.initialVoltage.value, -20, 20, 0);
+        fields.resistance.value = String(r);
+        fields.capacitance.value = String(c);
+        fields.stepVoltage.value = String(vf);
+        fields.initialVoltage.value = String(v0);
+        return calculateRC(r, c, vf, v0);
+      }
+
+      function render() {
+        const model = sanitizedModel();
+        tauReadout.textContent = `τ = ${formatTime(model.tauSeconds)}`;
+        tauPointReadout.textContent = `vC(τ) = ${model.voltageAtTau.toFixed(3)} V`;
+        const delta = model.finalVoltage - model.initialVoltage;
+        directionReadout.textContent = describeRCTransition(model);
+
+        const title = plot.querySelector("title").cloneNode(true);
+        const desc = plot.querySelector("desc").cloneNode(true);
+        plot.replaceChildren(title, desc);
+        const width = Math.max(300, Math.round(plot.getBoundingClientRect().width || 900));
+        const height = width < 430 ? 390 : 420;
+        plot.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        const margin = { left: width < 430 ? 48 : 62, right: width < 430 ? 14 : 30, top: 30, bottom: 48 };
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+        const tMin = -0.4 * model.tauSeconds;
+        const tMax = 5 * model.tauSeconds;
+        const allVoltages = [0, model.initialVoltage, model.finalVoltage, model.voltageAtTau];
+        let yMin = Math.min(...allVoltages);
+        let yMax = Math.max(...allVoltages);
+        const span = Math.max(1, yMax - yMin);
+        yMin -= span * 0.16;
+        yMax += span * 0.16;
+        const x = t => margin.left + ((t - tMin) / (tMax - tMin)) * innerWidth;
+        const y = voltage => margin.top + ((yMax - voltage) / (yMax - yMin)) * innerHeight;
+
+        const ticksX = [-0.4, 0, 1, 2, 3, 4, 5];
+        const ticksY = [yMin, yMin + (yMax - yMin) / 2, yMax];
+        ticksX.forEach(multiplier => {
+          const px = x(multiplier * model.tauSeconds);
+          plot.append(svgElement("line", { x1: px, y1: margin.top, x2: px, y2: height - margin.bottom, class: "gridline" }));
+          if (multiplier >= 0) plot.append(svgElement("text", { x: px, y: height - 20, "text-anchor": "middle", class: "tick-label" }, multiplier === 0 ? "0" : `${multiplier}τ`));
+        });
+        ticksY.forEach(value => {
+          const py = y(value);
+          plot.append(svgElement("line", { x1: margin.left, y1: py, x2: width - margin.right, y2: py, class: "gridline" }));
+          plot.append(svgElement("text", { x: margin.left - 7, y: py + 4, "text-anchor": "end", class: "tick-label" }, `${value.toFixed(1)} V`));
+        });
+        plot.append(svgElement("line", { x1: margin.left, y1: height - margin.bottom, x2: width - margin.right, y2: height - margin.bottom, class: "axis" }));
+        plot.append(svgElement("line", { x1: margin.left, y1: margin.top, x2: margin.left, y2: height - margin.bottom, class: "axis" }));
+
+        const inputPoints = [[tMin, 0], [0, 0], [0, model.finalVoltage], [tMax, model.finalVoltage]];
+        plot.append(svgElement("path", { d: inputPoints.map((point, index) => `${index ? "L" : "M"} ${x(point[0]).toFixed(2)} ${y(point[1]).toFixed(2)}`).join(" "), class: "trace-input" }));
+        const curve = [[tMin, model.initialVoltage], [0, model.initialVoltage]];
+        for (let index = 0; index <= 140; index += 1) {
+          const time = (index / 140) * tMax;
+          curve.push([time, capacitorVoltage(model, time)]);
+        }
+        plot.append(svgElement("path", { d: curve.map((point, index) => `${index ? "L" : "M"} ${x(point[0]).toFixed(2)} ${y(point[1]).toFixed(2)}`).join(" "), class: "trace-cap" }));
+
+        const tauX = x(model.tauSeconds);
+        const tauY = y(model.voltageAtTau);
+        plot.append(svgElement("line", { x1: tauX, y1: margin.top, x2: tauX, y2: height - margin.bottom, class: "guide" }));
+        plot.append(svgElement("circle", { cx: tauX, cy: tauY, r: 4.5, class: "dot" }));
+        plot.append(svgElement("circle", { cx: x(0), cy: y(model.initialVoltage), r: 4.5, class: "dot" }));
+        plot.append(svgElement("text", { x: tauX + 7, y: margin.top + 16, class: "label" }, "τ"));
+        plot.append(svgElement("text", { x: x(0) + 7, y: y(model.initialVoltage) + (delta >= 0 ? 18 : -10), class: "label" }, `vC(0+) ${model.initialVoltage.toFixed(2)} V`));
+        plot.append(svgElement("text", { x: tauX + 7, y: tauY + (delta >= 0 ? -10 : 18), class: "label" }, `vC(τ) ${model.voltageAtTau.toFixed(2)} V`));
+        plot.append(svgElement("text", { x: width - margin.right - 4, y: y(model.finalVoltage) - 9, "text-anchor": "end", class: "label" }, `终值 ${model.finalVoltage.toFixed(2)} V`));
+        plot.append(svgElement("text", { x: width - margin.right - 4, y: y(model.finalVoltage) + 18, "text-anchor": "end", class: "label" }, "vi ··· / vC ━"));
+        plot.append(svgElement("text", { x: width - margin.right, y: height - 5, "text-anchor": "end", class: "tick-label" }, `时间（τ = ${formatTime(model.tauSeconds)}）`));
+      }
+
+      Object.values(fields).forEach(field => {
+        field.addEventListener("input", render);
+        field.addEventListener("change", render);
+      });
+      const observer = new ResizeObserver(render);
+      observer.observe(plot);
+      render();
+    });
+  </script>
+</body>
+</html>

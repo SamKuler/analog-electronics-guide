@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>运算放大器反馈实验</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper:#f4efe2; --paper-deep:#e8e0cf; --ink:#172127; --muted:#59676d; --rule:#9eaa9f;
+      --grid:rgba(45,66,72,.11); --input:#006f78; --output:#ad4f16; --clip:#8e2f31;
+      --clip-fill:rgba(142,47,49,.11); --focus:#005fcc; --field:rgba(255,255,255,.58);
+    }
+    @media (prefers-color-scheme:dark) {
+      :root {
+        --paper:#11191c; --paper-deep:#192428; --ink:#e8eee8; --muted:#aebcb9; --rule:#607076;
+        --grid:rgba(187,218,211,.10); --input:#65d7dc; --output:#ffad6f; --clip:#ff8f97;
+        --clip-fill:rgba(255,143,151,.10); --focus:#8ac7ff; --field:rgba(255,255,255,.06);
+      }
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; color:var(--ink); background-color:var(--paper);
+      background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+      background-size:24px 24px; font-family:"Avenir Next","PingFang SC","Microsoft YaHei",sans-serif; line-height:1.55;
+    }
+    main { width:min(1100px,100%); margin:0 auto; padding:clamp(18px,4vw,46px); }
+    header { border-top:4px solid var(--ink); border-bottom:1px solid var(--rule); padding:14px 0 18px; }
+    .eyebrow { margin:0 0 4px; color:var(--muted); font:500 12px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.12em; text-transform:uppercase; }
+    h1 { margin:0; font-family:"Songti SC","STSong",Georgia,serif; font-size:clamp(25px,5vw,46px); font-weight:500; letter-spacing:-.02em; }
+    .lede { max-width:790px; margin:8px 0 0; color:var(--muted); }
+    .controls { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px 18px; padding:20px 0 16px; border-bottom:1px solid var(--rule); }
+    label { display:grid; gap:6px; font-weight:500; }
+    label span { display:block; }
+    label small { float:right; margin-left:8px; color:var(--muted); font:400 11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    input,select { width:100%; min-width:0; padding:9px 10px; color:var(--ink); background:var(--field); border:1px solid var(--rule); border-radius:2px; font:500 16px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    input:focus-visible,select:focus-visible { outline:3px solid var(--focus); outline-offset:2px; }
+    .metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-bottom:1px solid var(--rule); }
+    .metric { padding:14px 14px 12px 0; }
+    .metric + .metric { padding-left:14px; border-left:1px solid var(--rule); }
+    .metric span { display:block; color:var(--muted); font-size:11px; letter-spacing:.08em; }
+    .metric strong { display:block; margin-top:2px; font:500 clamp(15px,2.8vw,21px)/1.25 ui-monospace,SFMono-Regular,Menlo,monospace; overflow-wrap:anywhere; }
+    .detail { min-height:1.55em; margin:9px 0 0; color:var(--muted); font-size:12px; }
+    .detail.is-clipped { color:var(--clip); font-weight:500; }
+    figure { margin:10px 0 0; }
+    svg { display:block; width:100%; height:430px; overflow:visible; background:color-mix(in srgb,var(--paper-deep) 48%,transparent); border-block:1px solid var(--rule); }
+    .axis { stroke:var(--rule); stroke-width:1; vector-effect:non-scaling-stroke; }
+    .gridline { stroke:var(--grid); stroke-width:1; vector-effect:non-scaling-stroke; }
+    .input-trace { fill:none; stroke:var(--input); stroke-width:2.4; stroke-dasharray:8 5; vector-effect:non-scaling-stroke; }
+    .output-trace { fill:none; stroke:var(--output); stroke-width:3; vector-effect:non-scaling-stroke; }
+    .rail { stroke:var(--clip); stroke-width:1.5; stroke-dasharray:3 5; vector-effect:non-scaling-stroke; }
+    .clip-band { fill:var(--clip-fill); }
+    .label,.tick-label { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .label { fill:var(--ink); font-size:12px; font-weight:500; paint-order:stroke; stroke:var(--paper); stroke-width:4px; stroke-linejoin:round; }
+    .clip-label { fill:var(--clip); }
+    .tick-label { fill:var(--muted); font-size:11px; }
+    figcaption,footer { color:var(--muted); font-size:12px; }
+    figcaption { margin-top:10px; }
+    .formula { margin:14px 0 0; padding-top:12px; border-top:1px solid var(--rule); font:400 13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    footer { margin-top:18px; }
+    @media (max-width:720px) { .controls { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (max-width:460px) {
+      main { padding:14px 12px 28px; }
+      .controls { grid-template-columns:1fr; gap:10px; }
+      .metrics { grid-template-columns:1fr; }
+      .metric { padding:9px 0; }
+      .metric + .metric { padding-left:0; border-left:0; border-top:1px solid var(--rule); }
+      svg { height:400px; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; transition:none !important; animation:none !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">AE · FEEDBACK BENCH 03</p>
+      <h1>运放闭环与削顶</h1>
+      <p class="lede">把“理想电阻比”与“有限开环增益”分开看；若计算输出越过电源轨，图中按简化的对称轨限幅。</p>
+    </header>
+
+    <section class="controls" aria-label="运算放大器反馈参数">
+      <label for="mode"><span>闭环组态 <small>模式</small></span><select id="mode"><option value="inverting" selected>反相</option><option value="noninverting">同相</option></select></label>
+      <label for="inputAmplitude"><span>输入峰值 V<sub>i,pk</sub> <small>V</small></span><input id="inputAmplitude" type="number" min="0.01" max="20" step="0.01" value="0.5" inputmode="decimal"></label>
+      <label for="inputResistance"><span id="inputResistanceLabel">输入电阻 R<sub>in</sub> <small>kΩ</small></span><input id="inputResistance" type="number" min="0.1" max="1000" step="0.1" value="10" inputmode="decimal"></label>
+      <label for="feedbackResistance"><span>反馈电阻 R<sub>f</sub> <small>kΩ</small></span><input id="feedbackResistance" type="number" min="0.1" max="1000" step="0.1" value="40" inputmode="decimal"></label>
+      <label for="openLoopGain"><span>开环增益 A <small>V/V</small></span><input id="openLoopGain" type="number" min="1" max="10000000" step="100" value="100000" inputmode="numeric"></label>
+      <label for="supplyRail"><span>对称电源轨 ±V<sub>S</sub> <small>V</small></span><input id="supplyRail" type="number" min="1" max="30" step="0.1" value="12" inputmode="decimal"></label>
+    </section>
+
+    <section class="metrics" aria-live="polite" aria-label="闭环读数">
+      <div class="metric"><span>理想闭环增益</span><strong id="idealGainReadout">−4.000 V/V</strong></div>
+      <div class="metric"><span>有限 A 增益</span><strong id="finiteGainReadout">−3.9998 V/V</strong></div>
+      <div class="metric"><span>输出状态</span><strong id="statusReadout">线性</strong></div>
+    </section>
+    <p class="detail" id="detailLine">输出峰值 2.000 V，未触及 ±12.0 V 简化轨限。</p>
+
+    <figure>
+      <svg id="plot" role="img" aria-labelledby="plotTitle plotDesc">
+        <title id="plotTitle">运算放大器输入与闭环输出正弦波</title>
+        <desc id="plotDesc">虚线是输入，实线是按有限开环增益计算并由对称电源轨限幅的输出；电源轨和削顶区有明确标记。</desc>
+      </svg>
+      <figcaption>输入与输出共用纵轴。反相模式相差 180°；同相模式同相。平顶或平底表示候选输出越过简化电源轨。</figcaption>
+    </figure>
+
+    <p class="formula" id="formulaLine">反相：G<sub>ideal</sub>=−R<sub>f</sub>/R<sub>in</sub>；G<sub>A</sub>=−AR<sub>f</sub>/[R<sub>f</sub>+(A+1)R<sub>in</sub>]。</p>
+    <footer>模型限制：只演示低频、纯电阻负反馈和对称理想轨限；忽略 GBW、压摆率、输入共模范围、输出电流、失调、噪声及距离真实电源轨的余量。</footer>
+  </main>
+
+  <script>
+    "use strict";
+    function clampNumber(value, minimum, maximum, fallback) {
+      const number = Number(value);
+      return Number.isFinite(number) ? Math.min(maximum, Math.max(minimum, number)) : fallback;
+    }
+
+    function calculateFeedback(mode, inputAmplitude, inputOrGroundKOhm, feedbackKOhm, openLoopGain, supplyRail) {
+      const ratio = feedbackKOhm / inputOrGroundKOhm;
+      let idealGain;
+      let finiteGain;
+      if (mode === "noninverting") {
+        const beta = inputOrGroundKOhm / (inputOrGroundKOhm + feedbackKOhm);
+        idealGain = 1 + ratio;
+        finiteGain = openLoopGain / (1 + openLoopGain * beta);
+      } else {
+        idealGain = -ratio;
+        finiteGain = -(openLoopGain * ratio) / (openLoopGain + 1 + ratio);
+      }
+      const requestedOutputPeak = Math.abs(finiteGain * inputAmplitude);
+      const clipped = requestedOutputPeak > supplyRail;
+      return { mode, inputAmplitude, inputOrGroundKOhm, feedbackKOhm, openLoopGain, supplyRail, idealGain, finiteGain, requestedOutputPeak, clipped };
+    }
+
+    function clippedOutput(model, phaseRadians) {
+      const candidate = model.finiteGain * model.inputAmplitude * Math.sin(phaseRadians);
+      return Math.max(-model.supplyRail, Math.min(model.supplyRail, candidate));
+    }
+
+    const defaultFeedback = calculateFeedback("inverting", 0.5, 10, 40, 100000, 12);
+    console.assert(Math.abs(defaultFeedback.idealGain - (-4)) < 1e-12, "默认反相理想增益应为 -Rf/Rin = -4");
+    console.assert(Math.abs(defaultFeedback.finiteGain - (-400000 / 100005)) < 1e-12, "默认反相有限 A 结果应满足精确式");
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const fields = {
+        mode: document.getElementById("mode"),
+        inputAmplitude: document.getElementById("inputAmplitude"),
+        inputResistance: document.getElementById("inputResistance"),
+        feedbackResistance: document.getElementById("feedbackResistance"),
+        openLoopGain: document.getElementById("openLoopGain"),
+        supplyRail: document.getElementById("supplyRail")
+      };
+      const plot = document.getElementById("plot");
+      const idealGainReadout = document.getElementById("idealGainReadout");
+      const finiteGainReadout = document.getElementById("finiteGainReadout");
+      const statusReadout = document.getElementById("statusReadout");
+      const detailLine = document.getElementById("detailLine");
+      const formulaLine = document.getElementById("formulaLine");
+      const inputResistanceLabel = document.getElementById("inputResistanceLabel");
+
+      function svgElement(name, attributes = {}, text = "") {
+        const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, String(value)));
+        if (text) element.textContent = text;
+        return element;
+      }
+
+      function sanitizedModel() {
+        const mode = fields.mode.value === "noninverting" ? "noninverting" : "inverting";
+        const inputAmplitude = clampNumber(fields.inputAmplitude.value, 0.01, 20, 0.5);
+        const inputResistance = clampNumber(fields.inputResistance.value, 0.1, 1000, 10);
+        const feedbackResistance = clampNumber(fields.feedbackResistance.value, 0.1, 1000, 40);
+        const openLoopGain = clampNumber(fields.openLoopGain.value, 1, 10000000, 100000);
+        const supplyRail = clampNumber(fields.supplyRail.value, 1, 30, 12);
+        fields.inputAmplitude.value = String(inputAmplitude);
+        fields.inputResistance.value = String(inputResistance);
+        fields.feedbackResistance.value = String(feedbackResistance);
+        fields.openLoopGain.value = String(openLoopGain);
+        fields.supplyRail.value = String(supplyRail);
+        return calculateFeedback(mode, inputAmplitude, inputResistance, feedbackResistance, openLoopGain, supplyRail);
+      }
+
+      function signed(value, digits = 4) {
+        const magnitude = Math.abs(value).toFixed(digits);
+        return `${value < 0 ? "−" : "+"}${magnitude}`;
+      }
+
+      function render() {
+        const model = sanitizedModel();
+        const isInverting = model.mode === "inverting";
+        inputResistanceLabel.innerHTML = `${isInverting ? "输入电阻 R<sub>in</sub>" : "接地电阻 R<sub>g</sub>"} <small>kΩ</small>`;
+        idealGainReadout.textContent = `${signed(model.idealGain, 3)} V/V`;
+        finiteGainReadout.textContent = `${signed(model.finiteGain, 4)} V/V`;
+        statusReadout.textContent = model.clipped ? "饱和 / 削顶" : "线性";
+        detailLine.classList.toggle("is-clipped", model.clipped);
+        detailLine.textContent = model.clipped
+          ? `候选输出峰值 ${model.requestedOutputPeak.toFixed(3)} V 超过 ±${model.supplyRail.toFixed(1)} V，已按轨限削顶。`
+          : `输出峰值 ${model.requestedOutputPeak.toFixed(3)} V，未触及 ±${model.supplyRail.toFixed(1)} V 简化轨限。`;
+        formulaLine.innerHTML = isInverting
+          ? "反相：G<sub>ideal</sub>=−R<sub>f</sub>/R<sub>in</sub>；G<sub>A</sub>=−AR<sub>f</sub>/[R<sub>f</sub>+(A+1)R<sub>in</sub>]。"
+          : "同相：β=R<sub>g</sub>/(R<sub>g</sub>+R<sub>f</sub>)；G<sub>ideal</sub>=1/β；G<sub>A</sub>=A/(1+Aβ)。";
+
+        const title = plot.querySelector("title").cloneNode(true);
+        const desc = plot.querySelector("desc").cloneNode(true);
+        plot.replaceChildren(title, desc);
+        const width = Math.max(300, Math.round(plot.getBoundingClientRect().width || 900));
+        const height = width < 430 ? 400 : 430;
+        plot.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        const margin = { left: width < 430 ? 52 : 66, right: width < 430 ? 14 : 32, top: 32, bottom: 48 };
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+        const visiblePeak = Math.max(model.inputAmplitude, model.supplyRail, Math.min(model.requestedOutputPeak, model.supplyRail));
+        const yMax = Math.max(1, visiblePeak * 1.18);
+        const x = phase => margin.left + (phase / (4 * Math.PI)) * innerWidth;
+        const y = voltage => margin.top + ((yMax - voltage) / (2 * yMax)) * innerHeight;
+        const baseY = height - margin.bottom;
+        const rightX = width - margin.right;
+
+        if (model.clipped) {
+          plot.append(svgElement("rect", { x: margin.left, y: margin.top, width: innerWidth, height: Math.max(0, y(model.supplyRail) - margin.top), class: "clip-band" }));
+          plot.append(svgElement("rect", { x: margin.left, y: y(-model.supplyRail), width: innerWidth, height: Math.max(0, baseY - y(-model.supplyRail)), class: "clip-band" }));
+        }
+        for (let index = 0; index <= 4; index += 1) {
+          const phase = index * Math.PI;
+          const px = x(phase);
+          plot.append(svgElement("line", { x1: px, y1: margin.top, x2: px, y2: baseY, class: "gridline" }));
+          plot.append(svgElement("text", { x: px, y: baseY + 23, "text-anchor": "middle", class: "tick-label" }, index === 0 ? "0" : index % 2 ? `${index}π` : `${index / 2}·2π`));
+        }
+        [-1, -0.5, 0, 0.5, 1].forEach(multiplier => {
+          const voltage = multiplier * yMax;
+          const py = y(voltage);
+          plot.append(svgElement("line", { x1: margin.left, y1: py, x2: rightX, y2: py, class: "gridline" }));
+          plot.append(svgElement("text", { x: margin.left - 7, y: py + 4, "text-anchor": "end", class: "tick-label" }, voltage.toFixed(yMax < 10 ? 1 : 0)));
+        });
+        plot.append(svgElement("line", { x1: margin.left, y1: y(0), x2: rightX, y2: y(0), class: "axis" }));
+        plot.append(svgElement("line", { x1: margin.left, y1: margin.top, x2: margin.left, y2: baseY, class: "axis" }));
+        [model.supplyRail, -model.supplyRail].forEach(rail => plot.append(svgElement("line", { x1: margin.left, y1: y(rail), x2: rightX, y2: y(rail), class: "rail" })));
+
+        const inputPoints = [];
+        const outputPoints = [];
+        for (let index = 0; index <= 240; index += 1) {
+          const phase = (index / 240) * 4 * Math.PI;
+          inputPoints.push([phase, model.inputAmplitude * Math.sin(phase)]);
+          outputPoints.push([phase, clippedOutput(model, phase)]);
+        }
+        const pathData = points => points.map((point, index) => `${index ? "L" : "M"} ${x(point[0]).toFixed(2)} ${y(point[1]).toFixed(2)}`).join(" ");
+        plot.append(svgElement("path", { d: pathData(inputPoints), class: "input-trace" }));
+        plot.append(svgElement("path", { d: pathData(outputPoints), class: "output-trace" }));
+        plot.append(svgElement("text", { x: rightX - 4, y: y(model.supplyRail) - 7, "text-anchor": "end", class: `label ${model.clipped ? "clip-label" : ""}` }, `+轨 ${model.supplyRail.toFixed(1)} V`));
+        plot.append(svgElement("text", { x: rightX - 4, y: y(-model.supplyRail) + 16, "text-anchor": "end", class: `label ${model.clipped ? "clip-label" : ""}` }, `−轨 ${model.supplyRail.toFixed(1)} V`));
+        plot.append(svgElement("text", { x: margin.left + 10, y: margin.top + 19, class: "label" }, "vi ··· / vo ━"));
+        if (model.clipped) plot.append(svgElement("text", { x: width / 2, y: y(0) - 10, "text-anchor": "middle", class: "label clip-label" }, "饱和：输出削顶"));
+        plot.append(svgElement("text", { x: rightX, y: height - 7, "text-anchor": "end", class: "tick-label" }, "归一化相位 / rad"));
+        plot.append(svgElement("text", { x: margin.left, y: 17, class: "tick-label" }, "电压 / V"));
+      }
+
+      Object.values(fields).forEach(field => {
+        field.addEventListener("input", render);
+        field.addEventListener("change", render);
+      });
+      const observer = new ResizeObserver(render);
+      observer.observe(plot);
+      render();
+    });
+  </script>
+</body>
+</html>
