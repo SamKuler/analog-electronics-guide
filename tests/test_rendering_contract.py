@@ -44,6 +44,18 @@ class RenderingContractTests(unittest.TestCase):
         self.assertIn("background-color: var(--ae-nav-bg);", css)
         self.assertIn("color: var(--ae-nav-fg);", css)
 
+    def test_mermaid_fences_use_material_native_renderer(self):
+        config = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
+
+        self.assertIn("- pymdownx.superfences:", config)
+        self.assertIn("custom_fences:", config)
+        self.assertIn("- name: mermaid", config)
+        self.assertIn("class: mermaid", config)
+        self.assertIn(
+            "format: !!python/name:pymdownx.superfences.fence_code_format",
+            config,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
