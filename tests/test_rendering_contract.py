@@ -88,10 +88,6 @@ class RenderingContractTests(unittest.TestCase):
             "repo_url: https://github.com/SamKuler/analog-electronics-guide",
             config,
         )
-        self.assertIn(
-            "repo_name: analog-electronics-guide · Star",
-            config,
-        )
         self.assertIn("repo: fontawesome/brands/github", config)
 
     def test_homepage_hero_separates_actions_from_metrics(self):

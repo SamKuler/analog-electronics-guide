@@ -1,7 +1,7 @@
 site_name: 模拟电子技术自学指南
 site_description: 从电路基础到面试表达的 30 天双轨模拟电子技术自学指南
 repo_url: https://github.com/SamKuler/analog-electronics-guide
-repo_name: analog-electronics-guide · Star
+repo_name: analog-electronics-guide
 docs_dir: docs
 site_dir: _site
 use_directory_urls: true
