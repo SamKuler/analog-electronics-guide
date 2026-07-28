@@ -1,20 +1,19 @@
-# 模拟电子技术 30 天双轨自学指南
-
 <div class="ae-hero" markdown>
-<div>
 <p class="ae-kicker">Analog Electronics · Field Notes 01–30</p>
 
-这份指南面向希望在短时间内系统补齐模拟电子技术的学习者。目标是用 30 天建立可计算、可解释、可追问的模拟电路知识框架：每天先守住冲刺轨，再按余力进入深入轨。
+# 模拟电子技术 30 天双轨自学指南
 
+<p class="ae-lead">从电路语言与器件模型出发，建立能计算、能解释、能承受追问的模拟电路知识框架。</p>
+
+<div class="ae-hero__actions">
 <a class="ae-start" href="sprint/week-1/#day-1">开始 Day 1　→</a>
+<a class="ae-route" href="学习路线与使用方法/">先看学习路线</a>
 </div>
 
-<div class="ae-hero__panel">
-<div class="ae-metrics">
-<div class="ae-metric"><strong>30</strong><span>天双轨路线</span></div>
-<div class="ae-metric"><strong>23.4h</strong><span>冲刺轨总时长</span></div>
-<div class="ae-metric"><strong>7</strong><span>章完整教材</span></div>
-</div>
+<div class="ae-metrics" aria-label="课程规模">
+<div class="ae-metric"><strong>30 天</strong><span>连续冲刺路线</span></div>
+<div class="ae-metric"><strong>23.4 h</strong><span>已计时学习任务</span></div>
+<div class="ae-metric"><strong>7 章</strong><span>完整教材与推导</span></div>
 </div>
 </div>
 

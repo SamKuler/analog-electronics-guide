@@ -56,6 +56,35 @@ class RenderingContractTests(unittest.TestCase):
             config,
         )
 
+    def test_header_links_the_public_github_repository(self):
+        config = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
+
+        self.assertIn(
+            "repo_url: https://github.com/SamKuler/analog-electronics-guide",
+            config,
+        )
+        self.assertIn(
+            "repo_name: analog-electronics-guide · Star",
+            config,
+        )
+        self.assertIn("repo: fontawesome/brands/github", config)
+
+    def test_homepage_hero_separates_actions_from_metrics(self):
+        index = (DOCS / "index.md").read_text(encoding="utf-8")
+        css = (DOCS / "assets" / "stylesheets" / "extra.css").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('class="ae-hero__actions"', index)
+        self.assertIn('class="ae-route"', index)
+        self.assertIn("先看学习路线", index)
+        self.assertNotIn('class="ae-hero__panel"', index)
+        self.assertLess(index.index("ae-hero__actions"), index.index("ae-metrics"))
+        self.assertIn(".ae-hero__actions", css)
+        self.assertIn(".ae-route", css)
+        self.assertIn("border-top: 1px solid var(--ae-line);", css)
+        self.assertIn("border-bottom: 1px solid var(--ae-line);", css)
+
 
 if __name__ == "__main__":
     unittest.main()

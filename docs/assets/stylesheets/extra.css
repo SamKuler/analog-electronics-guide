@@ -178,10 +178,8 @@ body {
 }
 
 .ae-hero {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 0.65fr);
   margin: 0.5rem 0 2.6rem;
+  max-width: 48rem;
   position: relative;
 }
 
@@ -206,31 +204,43 @@ body {
   text-transform: uppercase;
 }
 
+.ae-hero h1 {
+  margin-top: 0;
+  max-width: 44rem;
+}
+
 .ae-lead {
   font-size: clamp(1rem, 2vw, 1.25rem);
   line-height: 1.75;
   margin: 0;
-  max-width: 44rem;
+  max-width: 38rem;
 }
 
-.ae-hero__panel {
-  align-self: end;
-  background: var(--ae-paper-raised);
-  border: 1px solid var(--ae-ink);
-  box-shadow: var(--ae-shadow);
-  padding: 1.1rem;
+.ae-hero__actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.35rem;
 }
 
 .ae-metrics {
+  border-bottom: 1px solid var(--ae-line);
+  border-top: 1px solid var(--ae-line);
   display: grid;
-  gap: 0.7rem;
-  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 2rem;
+  padding: 0.9rem 0;
 }
 
 .ae-metric {
-  border-left: 2px solid var(--ae-trace);
   min-width: 0;
-  padding-left: 0.65rem;
+}
+
+.ae-metric + .ae-metric {
+  border-left: 1px solid var(--ae-line);
+  padding-left: 1rem;
 }
 
 .ae-metric strong {
@@ -256,7 +266,6 @@ body {
   font-family: "Avenir Next Condensed", "DIN Condensed", sans-serif;
   font-weight: 750;
   gap: 0.5rem;
-  margin-top: 1.2rem;
   padding: 0.65rem 0.95rem;
   text-decoration: none !important;
   transition: transform 130ms ease, box-shadow 130ms ease;
@@ -266,6 +275,16 @@ body {
   box-shadow: 2px 2px 0 var(--ae-ink);
   color: #fffaf0 !important;
   transform: translate(2px, 2px);
+}
+
+.ae-route {
+  font-family: "Avenir Next Condensed", "DIN Condensed", sans-serif;
+  font-weight: 750;
+  text-decoration-thickness: 0.1em !important;
+}
+
+.ae-route::after {
+  content: " →";
 }
 
 .ae-path-grid {
@@ -329,10 +348,6 @@ body {
 }
 
 @media (max-width: 52rem) {
-  .ae-hero {
-    grid-template-columns: 1fr;
-  }
-
   .ae-path-grid {
     grid-template-columns: 1fr;
   }
@@ -344,11 +359,25 @@ body {
   }
 
   .ae-metrics {
-    grid-template-columns: 1fr;
+    gap: 0.45rem;
   }
 
   .ae-metric {
-    padding: 0.25rem 0 0.25rem 0.65rem;
+    padding-left: 0;
+  }
+
+  .ae-metric + .ae-metric {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .ae-metric strong {
+    font-size: 1rem;
+  }
+
+  .ae-metric span {
+    font-size: 0.56rem;
+    line-height: 1.35;
   }
 }
 
