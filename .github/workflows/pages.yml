@@ -20,26 +20,26 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8
         with:
           python-version: "3.13"
-          cache: pip
+          enable-cache: true
 
       - name: Install site dependencies
-        run: python -m pip install -r requirements.txt
+        run: uv sync --locked
 
       - name: Test content validator
-        run: python -m unittest discover -s tests -v
+        run: uv run --locked python -m unittest discover -s tests -v
 
       - name: Test interactive lab models
-        run: node --test tests/labs/*.test.mjs
+        run: node --test tests/**/*.test.mjs
 
       - name: Validate public course
-        run: python scripts/validate_guide.py .
+        run: uv run --locked python scripts/validate_guide.py .
 
       - name: Build static site
-        run: mkdocs build --strict
+        run: uv run --locked mkdocs build --strict
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

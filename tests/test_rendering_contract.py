@@ -1,4 +1,7 @@
 import re
+import subprocess
+import sys
+import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -228,7 +231,7 @@ class RenderingContractTests(unittest.TestCase):
             encoding="utf-8"
         )
 
-        self.assertIn("node --test tests/labs/*.test.mjs", workflow)
+        self.assertIn("node --test tests/**/*.test.mjs", workflow)
 
     def test_lab_plots_scroll_locally_at_narrow_widths(self):
         css = (DOCS / "assets" / "stylesheets" / "lab.css").read_text(
@@ -301,6 +304,59 @@ class RenderingContractTests(unittest.TestCase):
                 match = figure.search(guides)
                 self.assertIsNotNone(match)
                 self.assertTrue(match.group(1).strip())
+
+
+class BuiltSiteRenderingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls._temporary_site = tempfile.TemporaryDirectory()
+        cls.site_dir = Path(cls._temporary_site.name)
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "mkdocs",
+                "build",
+                "--strict",
+                "--site-dir",
+                str(cls.site_dir),
+            ],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+    @classmethod
+    def tearDownClass(cls):
+        cls._temporary_site.cleanup()
+
+    def test_teaching_figures_are_inlined_for_site_theme_control(self):
+        html = (
+            self.site_dir / "guide" / "03-BJT与MOSFET" / "index.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertRegex(
+            html,
+            r'<svg\b[^>]*class="[^"]*\bae-figure\b[^"]*"',
+        )
+        self.assertIn('id="ae-bjt-regions-a"', html)
+        self.assertIn("url(#ae-bjt-regions-a)", html)
+        self.assertNotRegex(
+            html,
+            r'<img\b[^>]*\bsrc="[^"]*/assets/figures/[^"]+\.svg"',
+        )
+
+    def test_absolute_value_math_survives_markdown_table_parsing(self):
+        html = (
+            self.site_dir / "guide" / "03-BJT与MOSFET" / "index.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            r'<span class="arithmatex">\(\lvert\tilde v_{be}\rvert\ll V_T\)</span>',
+            html,
+        )
+        self.assertNotIn("<td>边界：正向有源、低频、(</td>", html)
 
 
 if __name__ == "__main__":

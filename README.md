@@ -41,18 +41,17 @@ cd analog-electronics-guide
 ## 本地预览与验证
 
 ```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-python3 -m unittest discover -s tests -v
-node --test tests/labs/*.test.mjs
-python3 scripts/validate_guide.py .
-.venv/bin/mkdocs serve
+uv sync
+uv run python -m unittest discover -s tests -v
+node --test tests/**/*.test.mjs
+uv run python scripts/validate_guide.py .
+uv run mkdocs serve
 ```
 
 生产构建使用：
 
 ```bash
-.venv/bin/mkdocs build --strict
+uv run mkdocs build --strict
 ```
 
 ## 许可证

@@ -1,0 +1,12 @@
+[project]
+name = "analog-electronics-guide"
+version = "0.1.0"
+description = "A 30-day analog electronics self-study guide"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mkdocs-material==9.7.7",
+]
+
+[tool.uv]
+package = false

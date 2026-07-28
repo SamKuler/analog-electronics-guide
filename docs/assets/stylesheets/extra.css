@@ -388,6 +388,37 @@ body {
   width: 100%;
 }
 
+.md-typeset svg.ae-figure .bg {
+  fill: var(--ae-paper-raised);
+}
+
+.md-typeset svg.ae-figure .ink,
+.md-typeset svg.ae-figure .axis {
+  stroke: var(--ae-ink);
+}
+
+.md-typeset svg.ae-figure .node {
+  fill: var(--ae-ink);
+}
+
+.md-typeset svg.ae-figure .dot {
+  stroke: var(--ae-ink);
+}
+
+.md-typeset svg.ae-figure .txt,
+.md-typeset svg.ae-figure .head,
+.md-typeset svg.ae-figure .math {
+  fill: var(--ae-ink);
+}
+
+.md-typeset svg.ae-figure .small {
+  fill: var(--ae-muted);
+}
+
+.md-typeset svg.ae-figure .panel {
+  stroke: color-mix(in srgb, var(--ae-muted) 72%, transparent);
+}
+
 .md-typeset .ae-figure-frame figcaption {
   color: var(--ae-muted);
   font-family: "Avenir Next Condensed", "DIN Condensed", sans-serif;
