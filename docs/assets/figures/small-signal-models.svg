@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 560" role="img">
+  <title>从静态工作点线性化到 BJT 与 MOSFET 小信号模型</title>
+  <desc>左侧展示非线性曲线在 Q 点的切线近似；中间是 BJT 的混合-π 模型；右侧是 MOSFET 的跨导模型，并标出模型成立的微小扰动条件。</desc>
+  <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker></defs>
+  <style>
+    .panel{fill:none;stroke:#87979a}.ink{stroke:#172127;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}.axis{stroke:#87979a;fill:none}.trace{stroke:#006f78;fill:none;stroke-width:3}.accent{stroke:#ad4f16;fill:none;stroke-width:3}.node{fill:#172127}.txt{fill:#172127;font:18px sans-serif}.head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:14px sans-serif}.math{fill:#172127;font:17px monospace}@media(prefers-color-scheme:dark){.ink{stroke:#e8eee8}.node{fill:#e8eee8}.txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}}
+    .bg{fill:#fffaf0}@media(prefers-color-scheme:dark){.bg{fill:#121a1d}}
+  </style>
+  <rect class="bg" width="1080" height="560"/>
+  <g transform="translate(20 24)">
+    <rect class="panel" width="325" height="505" rx="8"/><text class="head" x="20" y="38">1 · 在 Q 点取切线</text>
+    <line class="axis" x1="52" y1="392" x2="292" y2="392"/><line class="axis" x1="52" y1="392" x2="52" y2="86"/>
+    <path class="trace" d="M55 378 C105 370 128 330 176 247 C215 180 245 125 284 105"/>
+    <line class="accent" x1="92" y1="365" x2="284" y2="95"/>
+    <circle data-role="curve-q" cx="176" cy="247" r="6" fill="#ad4f16"/><text class="txt" x="188" y="242">Q</text>
+    <line class="axis" x1="176" y1="247" x2="176" y2="392" stroke-dasharray="5 5"/><line class="axis" x1="52" y1="247" x2="176" y2="247" stroke-dasharray="5 5"/>
+    <text class="math" x="74" y="430">Δi ≈ g · Δv</text><text class="small" x="74" y="458">偏置决定 Q；交流只看增量</text>
+    <text class="small" x="74" y="481">扰动过大时切线不再代表曲线</text>
+  </g>
+  <g transform="translate(370 24)">
+    <rect class="panel" width="335" height="505" rx="8"/><text class="head" x="20" y="38">2 · BJT 混合-π 模型</text>
+    <text class="txt" x="25" y="90">b</text><text class="txt" x="293" y="90">c</text><text class="txt" x="161" y="458">e</text>
+    <line class="ink" x1="45" y1="85" x2="110" y2="85"/><line class="ink" x1="230" y1="85" x2="290" y2="85"/>
+    <polyline class="ink" points="110,85 110,118 98,130 122,144 98,158 122,172 110,184 110,270"/>
+    <text class="math" x="128" y="154">rπ</text><line class="ink" x1="110" y1="270" x2="165" y2="270"/>
+    <g data-role="bjt-gm-source"><line class="ink" x1="230" y1="85" x2="230" y2="135"/><circle class="trace" cx="230" cy="180" r="45"/><line class="trace" x1="230" y1="150" x2="230" y2="205" marker-end="url(#arr)"/><line class="ink" x1="230" y1="225" x2="230" y2="270"/></g>
+    <text class="math" x="137" y="112">gm·vπ</text><line class="ink" x1="165" y1="270" x2="230" y2="270"/>
+    <line class="ink" x1="165" y1="270" x2="165" y2="430"/><circle class="node" cx="165" cy="270" r="4"/>
+    <text class="math" x="44" y="325">rπ = β/gm</text><text class="math" x="44" y="354">gm = IC/VT</text>
+    <text class="small" x="44" y="392">受控源方向：c → e</text><text class="small" x="44" y="417">忽略 Early 效应时 ro → ∞</text>
+  </g>
+  <g transform="translate(730 24)">
+    <rect class="panel" width="330" height="505" rx="8"/><text class="head" x="20" y="38">3 · MOSFET 跨导模型</text>
+    <text class="txt" x="25" y="118">g</text><text class="txt" x="286" y="90">d</text><text class="txt" x="286" y="440">s</text>
+    <line class="ink" x1="45" y1="113" x2="115" y2="113"/><circle class="node" cx="115" cy="113" r="3"/>
+    <line class="ink" x1="180" y1="82" x2="285" y2="82"/><line class="ink" x1="180" y1="418" x2="285" y2="418"/>
+    <g data-role="mos-gm-source"><line class="ink" x1="195" y1="82" x2="195" y2="145"/><circle class="trace" cx="195" cy="205" r="45"/><line class="trace" x1="195" y1="172" x2="195" y2="228" marker-end="url(#arr)"/><line class="ink" x1="195" y1="250" x2="195" y2="418"/></g>
+    <g data-role="mos-ro"><line class="ink" x1="255" y1="82" x2="255" y2="145"/><polyline class="ink" points="255,145 235,157 275,177 235,197 275,217 235,237 275,257 235,277 255,289"/><line class="ink" x1="255" y1="289" x2="255" y2="418"/></g>
+    <text class="math" x="137" y="137">gm·vgs</text><text class="math" x="278" y="222">ro</text>
+    <text class="math" x="43" y="355">ig ≈ 0</text><text class="math" x="43" y="384">id = gm·vgs + vds/ro</text>
+    <text class="small" x="43" y="430">饱和区附近的小扰动模型</text><text class="small" x="43" y="455">若忽略沟道长度调制：ro → ∞</text>
+  </g>
+</svg>

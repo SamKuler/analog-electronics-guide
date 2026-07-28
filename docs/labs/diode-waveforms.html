@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>二极管状态与波形实验</title>
+  <link rel="stylesheet" href="../assets/stylesheets/lab.css">
+  <style>
+    @media (prefers-color-scheme: dark) { html { color-scheme: dark; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">AE · STATE BENCH 04</p>
+      <h1>二极管状态与波形</h1>
+      <p class="lede">把一个周期切成导通与截止两种状态，观察整流、限幅和钳位究竟改变了波形的哪一部分。</p>
+      <p class="method"><strong>先预测：</strong>写出门槛与导通区，再一次只改一个参数；最后用阴影区、关键电平和输出波形解释预测。</p>
+    </header>
+
+    <section class="controls" aria-label="二极管波形参数">
+      <label for="mode"><span>拓扑 <small>MODE</small></span><select id="mode"><option value="rectifier">半波整流</option><option value="limiter">上限幅</option><option value="clamper">正钳位</option></select></label>
+      <label for="amplitude"><span>输入峰值 <small>V</small></span><input id="amplitude" type="number" min="0.1" max="20" step="0.1" value="5"></label>
+      <label for="offset"><span>输入偏置 <small>V</small></span><input id="offset" type="number" min="-10" max="10" step="0.1" value="0"></label>
+      <label for="drop"><span>正向压降 <small>V</small></span><input id="drop" type="number" min="0" max="2" step="0.05" value="0.7"></label>
+      <label for="reference"><span>参考电平 <small>V</small></span><input id="reference" type="number" min="-10" max="10" step="0.1" value="0"></label>
+      <label for="rcPeriods"><span>钳位 RC/T <small>周期</small></span><input id="rcPeriods" type="number" min="0.1" max="50" step="0.1" value="10"></label>
+    </section>
+
+    <section class="metrics" aria-live="polite" aria-label="二极管状态读数">
+      <div class="metric"><span>状态门槛</span><strong id="thresholdReadout">0.700 V</strong></div>
+      <div class="metric"><span>输出范围</span><strong id="rangeReadout">0.000～4.300 V</strong></div>
+      <div class="metric"><span id="dutyLabel">导通占比</span><strong id="dutyReadout">45.2%</strong></div>
+    </section>
+    <p class="detail" id="detailLine">输出只保留超过正向门槛的正半周，并扣除简化压降。</p>
+
+    <figure>
+      <svg id="plot" class="lab-plot" viewBox="0 0 960 460" role="img" aria-labelledby="plotTitle plotDesc">
+        <title id="plotTitle">二极管输入输出波形和导通区</title>
+        <desc id="plotDesc">横轴为一个周期，青色虚线表示输入，橙色实线表示输出，紫色阴影表示二极管导通区。</desc>
+      </svg>
+      <figcaption>颜色不是唯一编码：输入标为“vi · 虚线”，输出标为“vo · 实线”，导通区同时用紫色阴影表示。</figcaption>
+    </figure>
+
+    <p class="formula" id="formulaLine">半波整流：v<sub>o</sub>=max(0, v<sub>i</sub>−V<sub>D</sub>)。</p>
+    <footer>模型限制：采用恒压降与理想开关近似；钳位下垂使用稳态指数保持量，只表达 RC/T 趋势。由于忽略源内阻，钳位模式只标重充时刻，不给导通角。模型还忽略结电容、反向恢复、负载反馈与温度变化。</footer>
+  </main>
+
+  <script type="module">
+    import { diodeWaveform } from "../assets/javascripts/labs/diode-waveforms.mjs";
+
+    const fields = Object.fromEntries(
+      ["mode", "amplitude", "offset", "drop", "reference", "rcPeriods"]
+        .map((id) => [id, document.getElementById(id)]),
+    );
+    const plot = document.getElementById("plot");
+    const thresholdReadout = document.getElementById("thresholdReadout");
+    const rangeReadout = document.getElementById("rangeReadout");
+    const dutyLabel = document.getElementById("dutyLabel");
+    const dutyReadout = document.getElementById("dutyReadout");
+    const detailLine = document.getElementById("detailLine");
+    const formulaLine = document.getElementById("formulaLine");
+
+    const svgElement = (name, attributes = {}, text = "") => {
+      const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+      Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, String(value)));
+      if (text) element.textContent = text;
+      return element;
+    };
+
+    const pathFrom = (points, x, y, key) => points
+      .map((point, index) => `${index ? "L" : "M"} ${x(point.phase)} ${y(point[key])}`)
+      .join(" ");
+
+    function parameters() {
+      return {
+        mode: fields.mode.value,
+        amplitude: Number(fields.amplitude.value),
+        offset: Number(fields.offset.value),
+        drop: Number(fields.drop.value),
+        reference: Number(fields.reference.value),
+        rcPeriods: Number(fields.rcPeriods.value),
+      };
+    }
+
+    function render() {
+      const model = parameters();
+      const points = diodeWaveform(model, 361);
+      fields.rcPeriods.disabled = model.mode !== "clamper";
+      const outputs = points.map((point) => point.output);
+      const conductingCount = points.filter((point) => point.conducting).length;
+      const threshold = model.mode === "rectifier" ? model.drop : model.reference + model.drop;
+      thresholdReadout.textContent = `${threshold.toFixed(3)} V`;
+      rangeReadout.textContent = `${Math.min(...outputs).toFixed(3)}～${Math.max(...outputs).toFixed(3)} V`;
+      if (model.mode === "clamper") {
+        dutyLabel.textContent = "重充标记";
+        dutyReadout.textContent = "负峰附近";
+      } else {
+        dutyLabel.textContent = "导通占比";
+        dutyReadout.textContent = `${(100 * conductingCount / points.length).toFixed(1)}%`;
+      }
+
+      const copy = {
+        rectifier: ["输出只保留超过正向门槛的正半周，并扣除简化压降。", "半波整流：v<sub>o</sub>=max(0, v<sub>i</sub>−V<sub>D</sub>)。"],
+        limiter: ["输入超过参考电平与正向压降之和时，输出被钳在上门槛。", "上限幅：v<sub>o</sub>=min(v<sub>i</sub>, V<sub>ref</sub>+V<sub>D</sub>)。"],
+        clamper: ["电容保存的电压平移整条波形；RC/T 变小会增加峰间下垂。紫色仅标记负峰附近的理想重充时刻，不表示可计算的导通角。", "正钳位稳态：负峰约钳在 V<sub>ref</sub>+V<sub>D</sub>；峰间保持量按 e<sup>−t/RC</sup> 衰减。"],
+      }[model.mode];
+      detailLine.textContent = copy[0];
+      formulaLine.innerHTML = copy[1];
+
+      const title = plot.querySelector("title").cloneNode(true);
+      const desc = plot.querySelector("desc").cloneNode(true);
+      plot.replaceChildren(title, desc);
+      const width = 960;
+      const height = 460;
+      const margin = { left: 66, right: 24, top: 28, bottom: 52 };
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+      const values = points.flatMap((point) => [point.input, point.output, 0, threshold]);
+      let yMin = Math.min(...values);
+      let yMax = Math.max(...values);
+      const span = Math.max(1, yMax - yMin);
+      yMin -= 0.14 * span;
+      yMax += 0.14 * span;
+      const x = (phase) => margin.left + phase / (2 * Math.PI) * innerWidth;
+      const y = (voltage) => margin.top + (yMax - voltage) / (yMax - yMin) * innerHeight;
+
+      for (let index = 0; index <= 4; index += 1) {
+        const phase = index * Math.PI / 2;
+        const px = x(phase);
+        plot.append(svgElement("line", { x1: px, y1: margin.top, x2: px, y2: height - margin.bottom, class: "gridline" }));
+        plot.append(svgElement("text", { x: px, y: height - 22, "text-anchor": "middle", class: "tick-label" }, ["0", "π/2", "π", "3π/2", "2π"][index]));
+      }
+      for (let index = 0; index <= 4; index += 1) {
+        const value = yMin + index / 4 * (yMax - yMin);
+        const py = y(value);
+        plot.append(svgElement("line", { x1: margin.left, y1: py, x2: width - margin.right, y2: py, class: "gridline" }));
+        plot.append(svgElement("text", { x: margin.left - 8, y: py + 4, "text-anchor": "end", class: "tick-label" }, value.toFixed(1)));
+      }
+      const cellWidth = innerWidth / (points.length - 1);
+      points.forEach((point) => {
+        if (point.conducting) {
+          plot.append(svgElement("rect", { x: x(point.phase) - cellWidth / 2, y: margin.top, width: cellWidth + 1, height: innerHeight, class: "conduction" }));
+        }
+      });
+      plot.append(svgElement("line", { x1: margin.left, y1: y(0), x2: width - margin.right, y2: y(0), class: "axis" }));
+      plot.append(svgElement("line", { x1: margin.left, y1: margin.top, x2: margin.left, y2: height - margin.bottom, class: "axis" }));
+      plot.append(svgElement("line", { x1: margin.left, y1: y(threshold), x2: width - margin.right, y2: y(threshold), class: "guide" }));
+      plot.append(svgElement("path", { d: pathFrom(points, x, y, "input"), class: "trace-a", "stroke-dasharray": "8 5" }));
+      plot.append(svgElement("path", { d: pathFrom(points, x, y, "output"), class: "trace-b" }));
+      plot.append(svgElement("text", { x: width - 142, y: margin.top + 20, class: "label" }, "vi · 虚线"));
+      plot.append(svgElement("text", { x: width - 142, y: margin.top + 40, class: "label" }, "vo · 实线"));
+      plot.append(svgElement("text", { x: width - 142, y: y(threshold) - 7, class: "label" }, `门槛 ${threshold.toFixed(2)} V`));
+      plot.append(svgElement("text", { x: width - margin.right, y: height - 8, "text-anchor": "end", class: "tick-label" }, "相位"));
+      plot.append(svgElement("text", { x: 18, y: margin.top, class: "tick-label" }, "电压 / V"));
+    }
+
+    Object.values(fields).forEach((field) => field.addEventListener("input", render));
+    render();
+  </script>
+</body>
+</html>

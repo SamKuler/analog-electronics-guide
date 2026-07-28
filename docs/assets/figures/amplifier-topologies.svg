@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 560" role="img">
+  <title>三种基本放大组态的端口、相位与用途比较</title>
+  <desc>从左到右比较共射或共源、射极或源极跟随器、共基或共栅，标出输入端、输出端、交流公共端、相位关系和典型阻抗特征。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker></defs>
+  <style>
+    .panel{fill:none;stroke:#87979a}.ink{stroke:#172127;fill:none;stroke-width:2.6;stroke-linecap:round}.flow{stroke:#006f78;fill:none;stroke-width:2.6}.accent{stroke:#ad4f16;fill:none;stroke-width:2.8}.common{stroke:#5d4b8c;stroke-width:4}.txt{fill:#172127;font:18px sans-serif}.head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:14px sans-serif}.math{fill:#172127;font:16px monospace}@media(prefers-color-scheme:dark){.ink{stroke:#e8eee8}.txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}}
+    .bg{fill:#fffaf0}@media(prefers-color-scheme:dark){.bg{fill:#121a1d}}
+  </style>
+  <rect class="bg" width="1080" height="560"/>
+  <g transform="translate(20 22)"><rect class="panel" width="330" height="515" rx="8"/><text class="head" x="18" y="38">共射 / 共源</text>
+    <line class="ink" x1="160" y1="112" x2="160" y2="330"/><line class="ink" x1="70" y1="220" x2="160" y2="220"/><line class="ink" x1="160" y1="172" x2="245" y2="100"/><line class="ink" x1="160" y1="268" x2="245" y2="346"/>
+    <line class="flow" x1="24" y1="220" x2="68" y2="220" marker-end="url(#a)"/><text class="small" x="22" y="202">输入</text>
+    <line class="flow" x1="245" y1="100" x2="300" y2="100" marker-end="url(#a)"/><text class="small" x="256" y="83">输出</text>
+    <line class="ink" x1="245" y1="346" x2="245" y2="370"/><line class="common" x1="215" y1="370" x2="282" y2="370"/><text class="small" x="210" y="394">发射/源为交流公共端</text>
+    <path class="flow" d="M42 440 C62 414 82 414 102 440 S142 466 162 440"/><path class="accent" d="M185 440 C205 474 225 474 245 440 S285 406 305 440"/>
+    <text class="math" x="27" y="494">Av &lt; 0 · 电压增益大</text>
+  </g>
+  <g transform="translate(375 22)"><rect class="panel" width="330" height="515" rx="8"/><text class="head" x="18" y="38">射极 / 源极跟随器</text>
+    <line class="ink" x1="160" y1="112" x2="160" y2="330"/><line class="ink" x1="70" y1="220" x2="160" y2="220"/><line class="ink" x1="160" y1="172" x2="245" y2="100"/><line class="ink" x1="160" y1="268" x2="245" y2="346"/>
+    <line class="flow" x1="24" y1="220" x2="68" y2="220" marker-end="url(#a)"/><text class="small" x="22" y="202">输入</text>
+    <line class="flow" x1="245" y1="346" x2="300" y2="346" marker-end="url(#a)"/><text class="small" x="256" y="329">输出</text>
+    <line class="ink" x1="245" y1="82" x2="245" y2="100"/><line class="common" x1="215" y1="82" x2="282" y2="82"/><text class="small" x="207" y="67">集电/漏为交流公共端</text>
+    <path class="flow" d="M42 440 C62 414 82 414 102 440 S142 466 162 440"/><path class="accent" d="M185 440 C205 418 225 418 245 440 S285 462 305 440"/>
+    <text class="math" x="27" y="494">Av ≈ +1 · 高 Zin · 低 Zout</text>
+  </g>
+  <g transform="translate(730 22)"><rect class="panel" width="330" height="515" rx="8"/><text class="head" x="18" y="38">共基 / 共栅</text>
+    <line class="ink" x1="160" y1="112" x2="160" y2="330"/><line class="ink" x1="70" y1="220" x2="160" y2="220"/><line class="ink" x1="160" y1="172" x2="245" y2="100"/><line class="ink" x1="160" y1="268" x2="245" y2="346"/>
+    <line class="flow" x1="24" y1="346" x2="242" y2="346" marker-end="url(#a)"/><text class="small" x="22" y="329">输入</text>
+    <line class="flow" x1="245" y1="100" x2="300" y2="100" marker-end="url(#a)"/><text class="small" x="256" y="83">输出</text>
+    <line class="ink" x1="90" y1="220" x2="90" y2="245"/><line class="common" x1="58" y1="245" x2="124" y2="245"/><text class="small" x="35" y="268">基/栅为交流公共端</text>
+    <path class="flow" d="M42 440 C62 414 82 414 102 440 S142 466 162 440"/><path class="accent" d="M185 440 C205 410 225 410 245 440 S285 470 305 440"/>
+    <text class="math" x="27" y="494">Av &gt; 0 · 低 Zin · 高频好</text>
+  </g>
+</svg>

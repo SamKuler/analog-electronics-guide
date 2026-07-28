@@ -58,14 +58,16 @@ nav:
       - 评分标准: interview/评分标准.md
   - 交互实验:
       - RC 阶跃响应: labs/rc-step-response.html
+      - 二极管状态与波形: labs/diode-waveforms.html
       - BJT 负载线: labs/bjt-load-line.html
+      - 晶体管放大器信号链: labs/transistor-amplifier.html
       - 运放反馈: labs/opamp-feedback.html
+      - Bode 与环路稳定性: labs/bode-stability.html
+      - 隔离低压整流滤波: labs/rectifier-filter.html
   - 速查表:
       - 一页公式表: cheatsheets/一页公式表.md
       - 典型电路速查: cheatsheets/典型电路速查.md
   - 使用学习助手: assistant/使用学习助手.md
-  - 拓展应用:
-      - 智能系统中的模拟边界: extensions/agent-systems.md
 
 markdown_extensions:
   - admonition

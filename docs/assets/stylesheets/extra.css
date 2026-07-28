@@ -141,6 +141,24 @@ body {
   border-radius: 0;
 }
 
+.md-typeset mjx-container[jax="CHTML"][display="true"] {
+  box-sizing: border-box;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.15rem;
+  width: 100%;
+}
+
+.md-typeset span.arithmatex {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: middle;
+}
+
 .md-typeset table:not([class]) {
   background: var(--ae-paper-raised);
   border: 1px solid var(--ae-line);
@@ -345,6 +363,37 @@ body {
 .ae-signal-chain i {
   color: var(--ae-accent);
   font-style: normal;
+}
+
+.md-typeset .ae-figure-frame {
+  background: color-mix(in srgb, var(--ae-paper-raised) 88%, transparent);
+  border-block: 1px solid var(--ae-line);
+  box-sizing: border-box;
+  margin: 1.25rem 0 1.65rem;
+  overflow-x: auto;
+  padding: 0.7rem;
+  width: 100%;
+}
+
+.md-typeset .ae-figure-frame > p {
+  margin: 0;
+}
+
+.md-typeset .ae-figure {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-width: none;
+  min-width: 38rem;
+  width: 100%;
+}
+
+.md-typeset .ae-figure-frame figcaption {
+  color: var(--ae-muted);
+  font-family: "Avenir Next Condensed", "DIN Condensed", sans-serif;
+  font-size: 0.68rem;
+  line-height: 1.55;
+  margin: 0.55rem 0 0;
 }
 
 @media (max-width: 52rem) {

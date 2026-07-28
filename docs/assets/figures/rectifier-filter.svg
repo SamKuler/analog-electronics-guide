@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 610" role="img">
+  <title>桥式整流与电容滤波的电流路径、充放电和纹波</title>
+  <desc>左侧标出桥式整流在输入正负半周各有两只二极管导通，负载电流方向不变；右侧将全波整流波形、电容峰值充电和负载放电造成的纹波对齐，并给出近似关系。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker><marker id="b" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker></defs>
+  <style>
+    .panel{fill:none;stroke:#87979a}.ink{stroke:#172127;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}.flow{stroke:#006f78;fill:none;stroke-width:3}.alt{stroke:#ad4f16;fill:none;stroke-width:3;stroke-dasharray:7 5}.axis{stroke:#87979a}.raw{stroke:#87979a;fill:none;stroke-width:2;stroke-dasharray:5 5}.out{stroke:#ad4f16;fill:none;stroke-width:3}.node{fill:#172127}.txt{fill:#172127;font:18px sans-serif}.head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:14px sans-serif}.math{fill:#172127;font:17px monospace}@media(prefers-color-scheme:dark){.ink{stroke:#e8eee8}.node{fill:#e8eee8}.txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}}
+    .bg{fill:#fffaf0}@media(prefers-color-scheme:dark){.bg{fill:#121a1d}}
+  </style>
+  <rect class="bg" width="1080" height="610"/>
+  <g transform="translate(20 22)"><rect class="panel" width="500" height="565" rx="8"/><text class="head" x="20" y="40">桥式整流：每半周两管导通</text>
+    <text class="txt" x="28" y="245">~ A</text><text class="txt" x="432" y="245">B ~</text><text class="math" x="228" y="82">+</text><text class="math" x="228" y="438">−</text>
+    <circle class="node" cx="90" cy="235" r="5"/><circle class="node" cx="410" cy="235" r="5"/><circle class="node" cx="250" cy="105" r="5"/><circle class="node" cx="250" cy="405" r="5"/>
+    <path class="ink" d="M90 235L170 170 M170 150L170 190L210 170Z M210 148V192 L250 105"/>
+    <path class="ink" d="M410 235L330 170 M330 150L330 190L290 170Z M290 148V192 L250 105"/>
+    <path class="ink" d="M250 405L210 300 M210 278V322 M210 300L170 300L170 280L130 300L170 320 M130 300L90 235"/>
+    <path class="ink" d="M250 405L290 300 M290 278V322 M290 300L330 300L330 280L370 300L330 320 M370 300L410 235"/>
+    <line class="ink" x1="250" y1="105" x2="335" y2="105"/><line class="ink" x1="250" y1="405" x2="335" y2="405"/>
+    <polyline class="ink" points="335,105 335,145 323,157 347,173 323,189 347,205 323,221 347,237 335,250 335,405"/><text class="small" x="355" y="260">RL</text>
+    <path class="flow" d="M90 235L170 170L250 105L335 105L335 405L250 405L290 300L410 235" marker-end="url(#a)"/>
+    <path class="alt" d="M410 235L330 170L250 105L335 105L335 405L250 405L210 300L90 235" marker-end="url(#b)"/>
+    <text class="small" x="32" y="480">蓝色：A 高于 B；橙色：B 高于 A</text><text class="small" x="32" y="508">两条路径都让负载电流从 + 流向 −</text>
+    <text class="math" x="32" y="538">Vpk,out ≈ Vpk,in − 2VD</text>
+  </g>
+  <g transform="translate(545 22)"><rect class="panel" width="515" height="565" rx="8"/><text class="head" x="20" y="40">电容滤波：峰顶快充，峰间慢放</text>
+    <line class="axis" x1="42" y1="255" x2="480" y2="255"/><path class="raw" d="M42 255 C72 165 102 165 132 255 C162 165 192 165 222 255 C252 165 282 165 312 255 C342 165 372 165 402 255 C432 165 462 165 480 235"/>
+    <path class="out" d="M42 255 C67 177 92 169 112 171 L206 208 C226 174 252 169 272 171 L366 208 C386 174 412 169 432 171 L480 190"/>
+    <line class="ink" x1="70" y1="95" x2="360" y2="95"/><line class="ink" x1="70" y1="230" x2="360" y2="230"/>
+    <g data-role="filter-capacitor"><line class="ink" x1="180" y1="95" x2="180" y2="145"/><line class="ink" x1="155" y1="145" x2="205" y2="145"/><line class="ink" x1="155" y1="160" x2="205" y2="160"/><line class="ink" x1="180" y1="160" x2="180" y2="230"/></g>
+    <g data-role="load-resistor"><polyline class="ink" points="315,95 315,120 303,132 327,148 303,164 327,180 303,196 315,208 315,230"/></g>
+    <text class="small" x="164" y="132">C</text><text class="small" x="338" y="168">RL</text><text class="small" x="72" y="82">整流输出</text>
+    <line class="flow" x1="112" y1="171" x2="112" y2="207" marker-end="url(#a)"/><text class="small" x="122" y="195">向负载放电</text>
+    <line class="alt" x1="206" y1="208" x2="225" y2="174" marker-end="url(#a)"/><text class="small" x="236" y="220">短时补充电荷</text>
+    <line class="axis" x1="402" y1="171" x2="402" y2="208"/><line class="axis" x1="394" y1="171" x2="410" y2="171"/><line class="axis" x1="394" y1="208" x2="410" y2="208"/><text class="math" x="416" y="195">ΔV</text>
+    <text class="math" x="55" y="340">ΔV ≈ Iload /(fripple·C)</text>
+    <text class="small" x="55" y="376">全波整流：fripple = 2fline</text><text class="small" x="55" y="405">C 越大或负载电流越小，纹波越小</text>
+    <rect x="55" y="445" width="405" height="75" fill="#ad4f16" fill-opacity=".08" stroke="#ad4f16"/><text class="small" x="72" y="474">趋势前提：源阻抗、负载和其他条件相同；</text><text class="small" x="72" y="499">C 增大常使补充电荷窗更窄、充电峰流更高。</text>
+  </g>
+</svg>

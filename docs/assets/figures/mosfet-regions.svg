@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img">
+  <title>NMOS 反型沟道、输出特性与工作区边界</title>
+  <desc>左侧为增强型 NMOS 的栅、漏、源、体和反型沟道；右侧为多条漏电流输出特性，三极管区与饱和区由 VDS 等于过驱动电压 VOV 的边界分开。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker></defs>
+  <style>
+    .ink{stroke:#172127;fill:none;stroke-width:2.5}.oxide{fill:#5d4b8c;fill-opacity:.12;stroke:#5d4b8c}.n{fill:#006f78;fill-opacity:.16;stroke:#006f78}.channel{stroke:#ad4f16;stroke-width:7}.curve{stroke:#006f78;fill:none;stroke-width:2.5}.boundary{stroke:#ad4f16;fill:none;stroke-width:2.5;stroke-dasharray:6 5}.axis{stroke:#172127;stroke-width:2}.txt{fill:#172127;font:19px sans-serif}.small{fill:#59676d;font:15px sans-serif}.math{fill:#172127;font:18px monospace}@media(prefers-color-scheme:dark){.ink,.axis{stroke:#e8eee8}.txt,.math{fill:#e8eee8}.small{fill:#aebcb9}}
+    .bg{fill:#fffaf0}@media(prefers-color-scheme:dark){.bg{fill:#121a1d}}
+  </style>
+  <rect class="bg" width="960" height="540"/>
+  <text class="txt" x="36" y="42">增强型 NMOS：VGS 超过门槛后形成反型沟道</text>
+  <rect class="n" x="75" y="240" width="110" height="100"/><rect class="n" x="305" y="240" width="110" height="100"/><rect class="oxide" x="185" y="185" width="120" height="42"/>
+  <rect x="60" y="340" width="370" height="72" fill="#5d4b8c" fill-opacity=".07" stroke="#87979a"/>
+  <line class="channel" x1="185" y1="260" x2="305" y2="260"/><line class="ink" x1="245" y1="185" x2="245" y2="105"/><line class="ink" x1="130" y1="240" x2="130" y2="120"/><line class="ink" x1="360" y1="240" x2="360" y2="120"/><line class="ink" x1="245" y1="412" x2="245" y2="458"/>
+  <text class="txt" x="233" y="96">G</text><text class="txt" x="118" y="111">S</text><text class="txt" x="350" y="111">D</text><text class="txt" x="231" y="486">B</text>
+  <line class="ink" x1="360" y1="112" x2="360" y2="176" marker-end="url(#a)"/><text class="math" x="377" y="144">ID：D→S</text>
+  <text class="small" x="196" y="287">反型沟道</text><text class="small" x="92" y="373">p 型体区；电子沿 S → D 运动</text>
+  <text class="txt" x="505" y="42">输出特性族：区域名称由不等式决定</text>
+  <line class="axis" x1="530" y1="455" x2="910" y2="455" marker-end="url(#a)"/><line class="axis" x1="550" y1="475" x2="550" y2="92" marker-end="url(#a)"/>
+  <text class="math" x="875" y="490">VDS</text><text class="math" x="510" y="105">ID</text>
+  <path class="curve" d="M550 455 C610 432 642 416 676 405 C745 383 825 382 895 382"/>
+  <path class="curve" d="M550 455 C610 410 650 372 698 346 C757 314 830 312 895 312"/>
+  <path class="curve" d="M550 455 C612 382 663 315 727 271 C778 236 842 236 895 236"/>
+  <path class="curve" d="M550 455 C618 352 691 245 757 190 C803 152 855 154 895 154"/>
+  <path class="boundary" d="M585 442 C650 405 705 350 757 280 C799 223 827 170 845 112"/>
+  <text class="txt" x="585" y="160">三极管区</text><text class="small" x="574" y="188">VDS &lt; VOV</text>
+  <text class="txt" x="790" y="420">饱和区</text><text class="small" x="780" y="445">VDS ≥ VOV</text>
+  <text class="small" x="580" y="510">边界：VDS = VGS − VTH = VOV；</text>
+  <text class="small" x="580" y="531">区域名称与 BJT 的“饱和”含义不同</text>
+</svg>

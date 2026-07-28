@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img">
+  <title>NPN 端子电流、结偏置与工作区</title>
+  <desc>左侧标出基极、集电极、发射极和传统电流方向；右侧以 BE 与 BC 两个结的偏置组合区分截止、前向有源、饱和和反向有源区。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker></defs>
+  <style>
+    .ink{stroke:#172127;fill:none;stroke-width:2.7;stroke-linecap:round}.flow{stroke:#006f78;fill:none;stroke-width:2.5}.panel{fill:none;stroke:#87979a}.active{fill:#006f78;fill-opacity:.12;stroke:#006f78}.sat{fill:#ad4f16;fill-opacity:.13;stroke:#ad4f16}.off{fill:#59676d;fill-opacity:.08;stroke:#87979a}.reverse{fill:#5d4b8c;fill-opacity:.10;stroke:#5d4b8c}.txt{fill:#172127;font:19px sans-serif}.small{fill:#59676d;font:15px sans-serif}.math{fill:#172127;font:18px monospace}@media(prefers-color-scheme:dark){.ink{stroke:#e8eee8}.txt,.math{fill:#e8eee8}.small{fill:#aebcb9}}
+    .bg{fill:#fffaf0}@media(prefers-color-scheme:dark){.bg{fill:#121a1d}}
+  </style>
+  <rect class="bg" width="960" height="520"/>
+  <rect class="panel" x="28" y="28" width="365" height="458" rx="8"/><text class="txt" x="50" y="66">NPN：先标端子与方向</text>
+  <line class="ink" x1="178" y1="140" x2="178" y2="365"/><line class="ink" x1="74" y1="252" x2="178" y2="252"/>
+  <line class="ink" x1="178" y1="210" x2="286" y2="118"/><line class="ink" x1="178" y1="294" x2="286" y2="392"/>
+  <polyline class="ink" points="246,345 276,383 237,367"/>
+  <text class="txt" x="294" y="120">C</text><text class="txt" x="52" y="244">B</text><text class="txt" x="294" y="410">E</text>
+  <line class="flow" x1="286" y1="82" x2="286" y2="135" marker-end="url(#a)"/><text class="math" x="306" y="100">IC 流入</text>
+  <line class="flow" x1="45" y1="218" x2="110" y2="218" marker-end="url(#a)"/><text class="math" x="48" y="200">IB 流入</text>
+  <line class="flow" x1="286" y1="365" x2="286" y2="444" marker-end="url(#a)"/><text class="math" x="306" y="448">IE 流出</text>
+  <text class="small" x="52" y="472">传统电流；电子主要由 E → C</text>
+  <text class="txt" x="430" y="58">两个结共同审判工作区</text>
+  <text class="small" x="642" y="91">BC 反偏</text><text class="small" x="824" y="91">BC 正偏</text>
+  <text class="small" x="435" y="184">BE 反偏</text><text class="small" x="435" y="367">BE 正偏</text>
+  <rect class="off" x="540" y="112" width="174" height="140"/><rect class="reverse" x="728" y="112" width="174" height="140"/>
+  <rect class="active" x="540" y="270" width="174" height="176"/><rect class="sat" x="728" y="270" width="174" height="176"/>
+  <text class="txt" x="592" y="164">截止</text><text class="small" x="566" y="197">两结反偏</text><text class="math" x="570" y="227">IC≈0</text>
+  <text class="txt" x="769" y="164">反向有源</text><text class="small" x="753" y="197">角色近似互换</text>
+  <text class="txt" x="567" y="330">前向有源</text><text class="small" x="562" y="365">BE 正偏 · BC 反偏</text><text class="math" x="565" y="402">IC≈βIB</text>
+  <text class="txt" x="783" y="330">饱和</text><text class="small" x="756" y="365">BE、BC 均正偏</text><text class="math" x="754" y="402">VCE 很小</text>
+</svg>

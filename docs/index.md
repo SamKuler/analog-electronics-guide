@@ -23,8 +23,8 @@
 <div class="ae-path"><b>03 · 对话学习</b><p>Clone 后让学习助手批改、模拟面试，并把复习记录只保存在本机。</p></div>
 </div>
 
-<div class="ae-signal-chain" aria-label="电子系统信号链">
-<span>传感器</span><i>→</i><span>模拟前端</span><i>→</i><span>ADC</span><i>→</i><span>数字处理 / 控制</span><i>→</i><span>驱动器</span><i>→</i><span>执行器</span>
+<div class="ae-signal-chain" aria-label="模拟信号链">
+<span>信号源 / 传感器</span><i>→</i><span>偏置与保护</span><i>→</i><span>模拟放大 / 滤波</span><i>→</i><span>负载与驱动</span><i>→</i><span>电源与接地</span>
 </div>
 
 ## 现在开始
@@ -68,8 +68,12 @@ Day 1 页面已经给出目标、前置、计时和过关题，不需要先挑�
 ## 交互实验
 
 - [RC 阶跃响应实验](labs/rc-step-response.html)：建议第 4 天使用；比较 $R$、$C$、初值和终值分别改变曲线的哪一部分。
+- [二极管状态与波形实验](labs/diode-waveforms.html)：建议第 8 天使用；先画门槛与导通区，再比较整流、限幅和钳位。
 - [BJT 负载线实验](labs/bjt-load-line.html)：建议第 10 或 15 天使用；由两个截距判断 Q 点何时进入截止或饱和。
+- [晶体管放大器信号链实验](labs/transistor-amplifier.html)：建议第 15～20 天使用；拆开源分压、级内增益、输出加载和 Q 点削顶。
 - [运算放大器反馈实验](labs/opamp-feedback.html)：建议第 23～25 天使用；对照理想电阻比、有限开环增益和电源轨削顶。
+- [Bode 与环路稳定性实验](labs/bode-stability.html)：建议第 26 天使用；把极点、交越、相位裕度与振铃趋势放在同一屏。
+- [隔离低压整流滤波实验](labs/rectifier-filter.html)：建议第 28 天使用；观察峰值充电、纹波和 dropout 余量。
 
 实验用于把公式变成直觉。每次只改变一个参数：先在纸上写出方向预测，再用键盘或输入框修改数值，最后用曲线和读数解释预测是否成立。
 
@@ -79,10 +83,6 @@ Day 1 页面已经给出目标、前置、计时和过关题，不需要先挑�
 - **Clone + 学习助手：** 在支持仓库指令的编码助手中打开项目，通过“开始第 N 天”“批改 E-C-01”“开始模拟面试”等口令学习；个人记录只保存在本机 `.learning/`，不会进入 Git。
 
 完整命令、状态格式和隐私说明见[使用学习助手](assistant/使用学习助手.md)。
-
-## 拓展应用
-
-[智能系统中的模拟边界](extensions/agent-systems.md)以传感器、模拟前端、数据转换、数字处理、驱动器和执行器为例，说明模电知识如何进入更大的系统。该页是可选拓展，不影响主线学习。
 
 ## 依据与可选参考
 

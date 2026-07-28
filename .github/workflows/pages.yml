@@ -32,6 +32,9 @@ jobs:
       - name: Test content validator
         run: python -m unittest discover -s tests -v
 
+      - name: Test interactive lab models
+        run: node --test tests/labs/*.test.mjs
+
       - name: Validate public course
         run: python scripts/validate_guide.py .
 

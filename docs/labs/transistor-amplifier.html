@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>晶体管放大器信号链实验</title>
+  <link rel="stylesheet" href="../assets/stylesheets/lab.css">
+  <style>
+    @media (prefers-color-scheme: dark) { html { color-scheme: dark; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">AE · SIGNAL BENCH 05</p>
+      <h1>晶体管放大器信号链</h1>
+      <p class="lede">把源分压、级内增益、输出加载和 Q 点摆幅串成一条因果链；公式给出候选输出，抽象输出窗口检查它是否越界。</p>
+      <p class="method"><strong>先预测：</strong>判断增益符号和哪侧摆幅较小，再一次只改一个参数；最后指出变化发生在三个因子中的哪一个。</p>
+    </header>
+
+    <section class="controls" aria-label="晶体管放大器参数">
+      <label for="mode"><span>组态 <small>MODE</small></span><select id="mode"><option value="bjt">BJT 共射</option><option value="mos">NMOS 共源</option></select></label>
+      <label for="gm"><span>跨导 g<sub>m</sub> <small>mS</small></span><input id="gm" type="number" min="1" max="200" step="1" value="40"></label>
+      <label for="stageResistance"><span>集/漏电阻 <small>kΩ</small></span><input id="stageResistance" type="number" min="0.1" max="50" step="0.1" value="2"></label>
+      <label for="degeneration"><span>未旁路退化电阻 <small>kΩ</small></span><input id="degeneration" type="number" min="0" max="10" step="0.05" value="0.2"></label>
+      <label for="sourceResistance"><span>信号源内阻 <small>kΩ</small></span><input id="sourceResistance" type="number" min="0" max="100" step="0.1" value="1"></label>
+      <label for="inputResistance"><span>放大器输入电阻 <small>kΩ</small></span><input id="inputResistance" type="number" min="0.1" max="1000" step="0.1" value="9"></label>
+      <label for="loadResistance"><span>负载 R<sub>L</sub> <small>kΩ</small></span><input id="loadResistance" type="number" min="0.1" max="1000" step="0.1" value="10"></label>
+      <label for="inputPeak"><span>源输入峰值 <small>V</small></span><input id="inputPeak" type="number" min="0.001" max="5" step="0.01" value="0.1"></label>
+      <label for="supply"><span>电源电压 <small>V</small></span><input id="supply" type="number" min="1" max="30" step="0.1" value="12"></label>
+      <label for="qVoltage"><span>静态输出 Q 点 <small>V</small></span><input id="qVoltage" type="number" min="0" max="30" step="0.1" value="6"></label>
+    </section>
+
+    <section class="metrics" aria-live="polite" aria-label="放大器信号链读数">
+      <div class="metric"><span>源分压 × 级内 × 加载</span><strong id="chainReadout">0.900 × −8.889 × 0.833</strong></div>
+      <div class="metric"><span>总电压增益</span><strong id="gainReadout">−6.667 V/V</strong></div>
+      <div class="metric"><span>摆幅 / 状态</span><strong id="headroomReadout">5.800 / 6.000 V · 线性</strong></div>
+    </section>
+    <p class="detail" id="detailLine">候选输出仍位于抽象输出窗口；橙色实线与灰色候选线重合。</p>
+
+    <figure>
+      <svg id="plot" class="lab-plot" viewBox="0 0 960 560" role="img" aria-labelledby="plotTitle plotDesc">
+        <title id="plotTitle">晶体管放大器输入、候选输出和受抽象输出窗口限制的实际输出</title>
+        <desc id="plotDesc">上图为源输入电压，下图为晶体管输出节点电压；灰色虚线是小信号候选，橙色实线是受抽象硬边界限制后的输出。</desc>
+      </svg>
+      <figcaption>上面板是源输入；下面板是带 DC Q 点的输出节点。候选线超出抽象输出窗口时，硬限幅提示“小信号外推已失效”，但不把边界冒充为精确器件工作区。</figcaption>
+    </figure>
+
+    <p class="formula">总增益 = R<sub>in</sub>/(R<sub>s</sub>+R<sub>in</sub>) × [−g<sub>m</sub>R/(1+g<sub>m</sub>R<sub>deg</sub>)] × R<sub>L</sub>/(R+R<sub>L</sub>)。</p>
+    <footer>模型限制：使用中频线性跨导、单一输出电阻和抽象输出窗口；低侧边界未由发射极/源极偏置与过驱动电压求得，不能据此判定精确的饱和或三极管区。模型还忽略 β、r<sub>o</sub>、体效应、器件电容、自热及耦合/旁路电容的频率变化。</footer>
+  </main>
+
+  <script type="module">
+    import { amplifierModel, amplifierSample } from "../assets/javascripts/labs/transistor-amplifier.mjs";
+
+    const ids = ["mode", "gm", "stageResistance", "degeneration", "sourceResistance", "inputResistance", "loadResistance", "inputPeak", "supply", "qVoltage"];
+    const fields = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
+    const plot = document.getElementById("plot");
+    const chainReadout = document.getElementById("chainReadout");
+    const gainReadout = document.getElementById("gainReadout");
+    const headroomReadout = document.getElementById("headroomReadout");
+    const detailLine = document.getElementById("detailLine");
+
+    const svgElement = (name, attributes = {}, text = "") => {
+      const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+      Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, String(value)));
+      if (text) element.textContent = text;
+      return element;
+    };
+    const pathFrom = (points, x, y, key) => points
+      .map((point, index) => `${index ? "L" : "M"} ${x(point.phase)} ${y(point[key])}`)
+      .join(" ");
+    const signed = (value, digits = 3) => `${value < 0 ? "−" : "+"}${Math.abs(value).toFixed(digits)}`;
+
+    function currentModel() {
+      const supplyVoltage = Number(fields.supply.value);
+      const q = Math.min(supplyVoltage, Math.max(0, Number(fields.qVoltage.value)));
+      fields.qVoltage.value = String(q);
+      return amplifierModel({
+        mode: fields.mode.value,
+        transconductanceMilliSiemens: Number(fields.gm.value),
+        stageResistanceKOhm: Number(fields.stageResistance.value),
+        degenerationKOhm: Number(fields.degeneration.value),
+        sourceResistanceKOhm: Number(fields.sourceResistance.value),
+        inputResistanceKOhm: Number(fields.inputResistance.value),
+        loadResistanceKOhm: Number(fields.loadResistance.value),
+        inputPeakVoltage: Number(fields.inputPeak.value),
+        supplyVoltage,
+        quiescentOutputVoltage: q,
+      });
+    }
+
+    function render() {
+      const model = currentModel();
+      const points = Array.from({ length: 361 }, (_, index) =>
+        amplifierSample(model, index / 360 * 4 * Math.PI));
+      const clipped = points.filter((point) => point.clippedRegion !== "linear");
+      chainReadout.textContent = `${model.sourceFactor.toFixed(3)} × ${signed(model.stageGain)} × ${model.loadFactor.toFixed(3)}`;
+      gainReadout.textContent = `${signed(model.totalGain)} V/V`;
+      headroomReadout.textContent = `${model.lowerHeadroom.toFixed(3)} / ${model.upperHeadroom.toFixed(3)} V · ${clipped.length ? "削顶" : "线性"}`;
+      detailLine.classList.toggle("is-warning", clipped.length > 0);
+      if (clipped.length) {
+        const lower = clipped.some((point) => point.clippedRegion === "lower");
+        const upper = clipped.some((point) => point.clippedRegion === "upper");
+        detailLine.textContent = `候选输出越过${lower && upper ? "抽象窗口上下两侧" : lower ? "抽象窗口低侧" : "高侧电源"}边界；小信号增益不再能外推整条波形。`;
+      } else {
+        detailLine.textContent = "候选输出仍位于抽象输出窗口；橙色实线与灰色候选线重合。";
+      }
+
+      const title = plot.querySelector("title").cloneNode(true);
+      const desc = plot.querySelector("desc").cloneNode(true);
+      plot.replaceChildren(title, desc);
+      const width = 960;
+      const height = 560;
+      const left = 68;
+      const right = 24;
+      const topA = 34;
+      const bottomA = 228;
+      const topB = 290;
+      const bottomB = 506;
+      const innerWidth = width - left - right;
+      const x = (phase) => left + phase / (4 * Math.PI) * innerWidth;
+      const inputScale = Math.max(0.01, model.inputPeakVoltage * 1.25);
+      const yInput = (value) => topA + (inputScale - value) / (2 * inputScale) * (bottomA - topA);
+      const yOutput = (value) => topB + (model.supplyVoltage - value) / model.supplyVoltage * (bottomB - topB);
+
+      for (let index = 0; index <= 4; index += 1) {
+        const phase = index * Math.PI;
+        const px = x(phase);
+        plot.append(svgElement("line", { x1: px, y1: topA, x2: px, y2: bottomB, class: "gridline" }));
+        plot.append(svgElement("text", { x: px, y: 536, "text-anchor": "middle", class: "tick-label" }, `${index}π`));
+      }
+      [topA, yInput(0), bottomA, topB, yOutput(model.quiescentOutputVoltage), bottomB].forEach((py) => {
+        plot.append(svgElement("line", { x1: left, y1: py, x2: width - right, y2: py, class: "gridline" }));
+      });
+      plot.append(svgElement("line", { x1: left, y1: yOutput(model.lowerBoundaryVoltage), x2: width - right, y2: yOutput(model.lowerBoundaryVoltage), class: "danger-guide" }));
+      plot.append(svgElement("line", { x1: left, y1: yOutput(model.supplyVoltage), x2: width - right, y2: yOutput(model.supplyVoltage), class: "danger-guide" }));
+      plot.append(svgElement("line", { x1: left, y1: yOutput(model.quiescentOutputVoltage), x2: width - right, y2: yOutput(model.quiescentOutputVoltage), class: "guide" }));
+      plot.append(svgElement("path", { d: pathFrom(points, x, yInput, "input"), class: "trace-a" }));
+      plot.append(svgElement("path", { d: pathFrom(points, x, yOutput, "candidateOutputVoltage"), class: "candidate" }));
+      plot.append(svgElement("path", { d: pathFrom(points, x, yOutput, "outputVoltage"), class: "trace-b" }));
+      plot.append(svgElement("text", { x: 18, y: topA + 12, class: "tick-label" }, "源输入 / V"));
+      plot.append(svgElement("text", { x: 18, y: topB + 12, class: "tick-label" }, "输出节点 / V"));
+      plot.append(svgElement("text", { x: width - right, y: yOutput(model.quiescentOutputVoltage) - 7, "text-anchor": "end", class: "label" }, `Q = ${model.quiescentOutputVoltage.toFixed(2)} V`));
+      plot.append(svgElement("text", { x: width - right, y: topB + 18, "text-anchor": "end", class: "label" }, "候选 · 灰虚线 / 实际 · 橙实线"));
+    }
+
+    Object.values(fields).forEach((field) => field.addEventListener("input", render));
+    render();
+  </script>
+</body>
+</html>

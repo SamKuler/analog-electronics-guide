@@ -176,6 +176,13 @@ I_C\approx I_S\exp\!\left(\frac{V_{BE}}{V_T}\right).
 | 正向有源区 | 正偏 | 反偏 | \(V_{BE}\approx0.70\ \mathrm V,\ I_C\approx\beta I_B\) | \(I_B\ge0,\ V_{BC}<0\)，等价于 \(V_{CE}>V_{BE}\) 的严格结偏置检查 |
 | BJT 饱和区 | 正偏 | 正偏 | 可选 \(V_{BE,\mathrm{sat}}\approx0.80\ \mathrm V,\ V_{CE,\mathrm{sat}}\approx0.20\ \mathrm V\) | \(I_B\ge0,I_C\ge0,\ V_{BC}\approx0.60\ \mathrm V>0\) |
 
+<figure class="ae-figure-frame" markdown="1">
+
+![NPN 的端子电流参考方向，以及由 BE 和 BC 两个结偏置共同决定的四种工作区](../assets/figures/bjt-regions.svg){ .ae-figure }
+
+<figcaption>判断 NPN 工作区时同时检查 BE、BC 两个结。只有 BE 正偏且 BC 反偏时，才可把 $I_C\approx\beta I_B$ 当作候选模型。</figcaption>
+</figure>
+
 门槛和压降是所选模型参数，不是突然跳变的自然常数。工程题也常用 \(V_{CE}\lesssim0.2\ \mathrm V\) 作为“BJT 深饱和”标志，但定义本质仍是两个结都正偏。
 
 ~~~text
@@ -485,6 +492,13 @@ i_C\approx I_{CQ}\left(1+\frac{\tilde v_{be}}{V_T}\right),
 
 \(g_m\) 的单位为 A/V，即西门子（S）。它是 Q 点处曲线斜率，不是一个独立的直流电流源。
 
+<figure class="ae-figure-frame" markdown="1">
+
+![非线性曲线在 Q 点的切线近似，以及 BJT 混合派和 MOSFET 跨导小信号模型](../assets/figures/small-signal-models.svg){ .ae-figure }
+
+<figcaption>共同分析链是“先求 DC 的 Q 点，再把器件换成增量模型”。模型中的受控源只描述 Q 点附近斜率，不能脱离偏置单独存在。</figcaption>
+</figure>
+
 ~~~text
  iC ↑
     │                         非线性指数曲线
@@ -707,6 +721,13 @@ h+ h+ h+           [ 固定受主离子 ]              S n+ ===== n 沟道 =====
 | 截止区 | \(V_{GS}<V_{TH}\) | \(I_D\approx0\) |
 | 三极管区（线性/欧姆区） | \(V_{GS}\ge V_{TH},\ 0\le V_{DS}<V_{OV}\) | \(I_D=k_n[V_{OV}V_{DS}-V_{DS}^2/2]\) |
 | NMOS 饱和区 | \(V_{GS}\ge V_{TH},\ V_{DS}\ge V_{OV}\) | \(I_D=\frac12k_nV_{OV}^2\) |
+
+<figure class="ae-figure-frame" markdown="1">
+
+![增强型 NMOS 的反型沟道、端口方向、输出特性族和三极管区与饱和区边界](../assets/figures/mosfet-regions.svg){ .ae-figure }
+
+<figcaption>先由 $V_{GS}$ 判断是否形成强反型沟道，再用 $V_{DS}$ 与 $V_{OV}$ 比较区分三极管区和饱和区；MOS 饱和不表示器件“关断”。</figcaption>
+</figure>
 
 为使区域标签唯一，本书把 $V_{GS}=V_{TH}$ 视为导通侧的零电流边界；在 $V_{DS}\ge0$ 时它落入上表 NMOS 饱和边界并给 $I_D=0$。把 $V_{DS}=V_{OV}$ 归入 NMOS 饱和区；三极管式在该点也给同一个 $I_D=k_nV_{OV}^2/2$。这些只是长沟道分段模型的边界约定，不表示实体器件在阈值处突然从严格零电流跳变。
 

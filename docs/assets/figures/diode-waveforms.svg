@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img">
+  <title>整流、限幅与钳位的电路作用和对齐波形</title>
+  <desc>三列分别展示半波整流选择极性、上限幅削去越界部分、正钳位平移直流电平；每列输入虚线与输出实线共用时间轴。</desc>
+  <style>
+    .panel{fill:none;stroke:#87979a}.axis{stroke:#87979a}.in{stroke:#006f78;fill:none;stroke-width:2;stroke-dasharray:7 5}.out{stroke:#ad4f16;fill:none;stroke-width:3}.level{stroke:#5d4b8c;stroke-dasharray:5 4}.ink{stroke:#172127;fill:none;stroke-width:2.2}.txt{fill:#172127;font:18px sans-serif}.small{fill:#59676d;font:14px sans-serif}@media(prefers-color-scheme:dark){.ink{stroke:#e8eee8}.txt{fill:#e8eee8}.small{fill:#aebcb9}}
+    .bg{fill:#fffaf0}@media(prefers-color-scheme:dark){.bg{fill:#121a1d}}
+  </style>
+  <rect class="bg" width="960" height="560"/>
+  <g transform="translate(20 25)"><rect class="panel" width="290" height="510" rx="7"/><text class="txt" x="18" y="34">整流 · 选择极性</text>
+    <line class="ink" x1="35" y1="95" x2="95" y2="95"/><path class="ink" d="M95 75L95 115L135 95Z M135 74V116"/><line class="ink" x1="135" y1="95" x2="230" y2="95"/><polyline class="ink" points="210,95 210,125 198,137 222,149 198,161 222,173 210,185 210,205"/><line class="ink" x1="180" y1="205" x2="240" y2="205"/>
+    <line class="axis" x1="28" y1="330" x2="264" y2="330"/><path class="in" d="M28 330 C58 250 88 250 118 330 S178 410 208 330 S238 250 264 330"/><path class="out" d="M28 330 C58 270 88 270 118 330 L208 330 C228 270 248 270 264 320"/><text class="small" x="31" y="445">vi 虚线；vo 实线</text><text class="small" x="31" y="470">负半周截止，正半周扣 VD</text>
+  </g>
+  <g transform="translate(335 25)"><rect class="panel" width="290" height="510" rx="7"/><text class="txt" x="18" y="34">限幅 · 改变幅度</text>
+    <line class="ink" x1="35" y1="95" x2="115" y2="95"/><polyline class="ink" points="115,95 145,95 145,125 133,137 157,149 133,161 157,173 145,185 145,205"/><path class="ink" d="M145 125L185 125L165 90Z M144 90H186"/><line class="ink" x1="165" y1="90" x2="165" y2="70"/><text class="small" x="178" y="75">Vref</text>
+    <line class="axis" x1="28" y1="330" x2="264" y2="330"/><line class="level" x1="28" y1="282" x2="264" y2="282"/><path class="in" d="M28 330 C58 250 88 250 118 330 S178 410 208 330 S238 250 264 330"/><path class="out" d="M28 330 C43 288 55 282 75 282 L101 282 C110 293 115 310 118 330 S178 410 208 330 C223 288 235 282 252 282 L264 292"/><text class="small" x="31" y="445">越过 Vref+VD 后导通</text><text class="small" x="31" y="470">只削去上方越界部分</text>
+  </g>
+  <g transform="translate(650 25)"><rect class="panel" width="290" height="510" rx="7"/><text class="txt" x="18" y="34">钳位 · 平移直流</text>
+    <line class="ink" x1="35" y1="95" x2="92" y2="95"/><line class="ink" x1="92" y1="72" x2="92" y2="118"/><line class="ink" x1="105" y1="72" x2="105" y2="118"/><line class="ink" x1="105" y1="95" x2="215" y2="95"/><path class="ink" d="M165 95V135L145 115H185Z M145 136H185"/><line class="ink" x1="165" y1="136" x2="165" y2="205"/><polyline class="ink" points="215,95 215,112 203,124 227,138 203,152 227,166 215,178 215,205"/><line class="ink" x1="140" y1="205" x2="240" y2="205"/><text class="small" x="112" y="80">C</text><text class="small" x="226" y="153">RL</text>
+    <line class="axis" x1="28" y1="350" x2="264" y2="350"/><line class="level" x1="28" y1="380" x2="264" y2="380"/><path class="in" d="M28 350 C58 290 88 290 118 350 S178 410 208 350 S238 290 264 350"/><path class="out" d="M28 320 C58 260 88 260 118 320 S178 380 208 320 S238 260 264 320"/><text class="small" x="31" y="445">峰峰值近似保留，DC 上移</text><text class="small" x="31" y="470">RC/T 小会出现峰间下垂</text>
+  </g>
+</svg>

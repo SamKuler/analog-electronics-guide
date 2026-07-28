@@ -68,6 +68,21 @@ class ValidateGuideTests(unittest.TestCase):
         self.assertNotIn("tests/test_validate_guide.py", files)
         self.assertFalse(any(path.startswith(".internal/") for path in files))
 
+    def test_expected_files_include_all_interactive_lab_artifacts(self):
+        files = set(validator.expected_files())
+        lab_names = (
+            "diode-waveforms",
+            "transistor-amplifier",
+            "bode-stability",
+            "rectifier-filter",
+        )
+
+        for name in lab_names:
+            with self.subTest(name=name):
+                self.assertIn(f"docs/labs/{name}.html", files)
+                self.assertIn(f"docs/assets/javascripts/labs/{name}.mjs", files)
+        self.assertIn("docs/assets/stylesheets/lab.css", files)
+
     def test_empty_root_reports_readme_missing(self):
         with tempfile.TemporaryDirectory() as directory:
             missing = validator.find_missing_files(Path(directory))
@@ -116,6 +131,48 @@ class ValidateGuideTests(unittest.TestCase):
             ["docs/index.md:1: 公开内容含个性化表述“清华电子系”"],
             errors,
         )
+
+    def test_cross_course_teaching_marker_is_reported(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sprint = root / "docs" / "sprint"
+            sprint.mkdir(parents=True)
+            (sprint / "week-1.md").write_text(
+                "## 本周跨课程负载\n\n结束即切换信号与系统等课程。\n",
+                encoding="utf-8",
+            )
+
+            errors = validator.find_course_scope_markers(root)
+
+        self.assertEqual(
+            [
+                "docs/sprint/week-1.md:1: 课程范围外表述“本周跨课程负载”",
+                "docs/sprint/week-1.md:3: 课程范围外表述“结束即切换信号与系统”",
+            ],
+            errors,
+        )
+
+    def test_learning_assistant_agent_word_is_allowed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "prompts").mkdir()
+            (root / "docs" / "assistant").mkdir(parents=True)
+            (root / "AGENTS.md").write_text(
+                "Agent 只担任模拟电子技术学习助手。\n",
+                encoding="utf-8",
+            )
+            (root / "prompts" / "学习助手.md").write_text(
+                "让 Agent 按教材批改。\n",
+                encoding="utf-8",
+            )
+            (root / "docs" / "assistant" / "使用学习助手.md").write_text(
+                "Clone 后可与 Agent 对话学习。\n",
+                encoding="utf-8",
+            )
+
+            errors = validator.find_course_scope_markers(root)
+
+        self.assertEqual([], errors)
 
     def test_tutor_contract_lists_supported_commands(self):
         commands = (
@@ -243,6 +300,68 @@ class ValidateGuideTests(unittest.TestCase):
             errors = validator.find_broken_local_links(root)
 
         self.assertEqual([], errors)
+
+    def test_missing_local_html_resource_is_reported(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            labs = root / "docs" / "labs"
+            labs.mkdir(parents=True)
+            (labs / "demo.html").write_text(
+                '<link rel="stylesheet" href="../assets/missing.css">\n'
+                '<script type="module" src="../assets/missing.mjs"></script>\n',
+                encoding="utf-8",
+            )
+
+            errors = validator.find_broken_html_resources(root)
+
+        self.assertEqual(
+            [
+                "docs/labs/demo.html:1: 本地 HTML 资源不存在：../assets/missing.css",
+                "docs/labs/demo.html:2: 本地 HTML 资源不存在：../assets/missing.mjs",
+            ],
+            errors,
+        )
+
+    def test_existing_and_remote_html_resources_are_valid(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            assets = root / "docs" / "assets"
+            labs = root / "docs" / "labs"
+            assets.mkdir(parents=True)
+            labs.mkdir(parents=True)
+            (assets / "lab.css").write_text("body {}", encoding="utf-8")
+            (labs / "demo.html").write_text(
+                '<link rel="stylesheet" href="../assets/lab.css">\n'
+                '<script src="https://example.com/demo.js"></script>\n'
+                '<a href="#controls">参数</a>\n',
+                encoding="utf-8",
+            )
+
+            errors = validator.find_broken_html_resources(root)
+
+        self.assertEqual([], errors)
+
+    def test_missing_inline_module_import_is_reported(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            labs = root / "docs" / "labs"
+            labs.mkdir(parents=True)
+            (labs / "demo.html").write_text(
+                '<script type="module">\n'
+                '  import { model } from "../assets/missing.mjs";\n'
+                "</script>\n",
+                encoding="utf-8",
+            )
+
+            errors = validator.find_broken_html_resources(root)
+
+        self.assertEqual(
+            [
+                "docs/labs/demo.html:2: "
+                "本地 HTML 资源不存在：../assets/missing.mjs"
+            ],
+            errors,
+        )
 
     def test_pure_fragment_link_is_ignored_even_when_heading_is_absent(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>隔离低压整流滤波稳压实验</title>
+  <link rel="stylesheet" href="../assets/stylesheets/lab.css">
+  <style>
+    @media (prefers-color-scheme: dark) { html { color-scheme: dark; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">AE · POWER BENCH 07</p>
+      <h1>隔离低压整流—滤波—稳压</h1>
+      <p class="lede">观察滤波电容如何在峰值附近充电、峰间向负载放电，以及电容谷值何时跌破稳压器所需余量。</p>
+      <p class="method"><strong>先预测：</strong>写出纹波频率和 ΔV≈I/(f<sub>r</sub>C)，再一次只改一个参数；最后用谷值与 dropout 余量解释输出。</p>
+    </header>
+
+    <section class="controls" aria-label="隔离低压电源参数">
+      <label for="topology"><span>整流方式 <small>MODE</small></span><select id="topology"><option value="half">半波</option><option value="full">全波中心抽头</option><option value="bridge" selected>桥式</option></select></label>
+      <label for="secondaryRms"><span><span id="secondaryLabel">隔离次级 RMS</span> <small>V</small></span><input id="secondaryRms" type="number" min="1" max="24" step="0.1" value="9"></label>
+      <label for="frequency"><span>次级频率 <small>Hz</small></span><input id="frequency" type="number" min="10" max="400" step="1" value="50"></label>
+      <label for="diodeDrop"><span>单管压降 <small>V</small></span><input id="diodeDrop" type="number" min="0" max="2" step="0.05" value="0.7"></label>
+      <label for="capacitance"><span>滤波电容 <small>μF</small></span><input id="capacitance" type="number" min="10" max="20000" step="10" value="1000"></label>
+      <label for="loadCurrent"><span>负载电流 <small>mA</small></span><input id="loadCurrent" type="number" min="0" max="1000" step="5" value="100"></label>
+      <label for="regulatorVoltage"><span>目标稳压输出 <small>V</small></span><input id="regulatorVoltage" type="number" min="0" max="20" step="0.1" value="5"></label>
+      <label for="dropout"><span>dropout <small>V</small></span><input id="dropout" type="number" min="0" max="5" step="0.1" value="2"></label>
+    </section>
+
+    <section class="metrics" aria-live="polite" aria-label="电源链读数">
+      <div class="metric"><span>纹波频率 / 估算</span><strong id="rippleReadout">100 Hz / 1.000 Vpp</strong></div>
+      <div class="metric"><span>电容峰值 / 谷值</span><strong id="valleyReadout">11.33 / 10.33 V</strong></div>
+      <div class="metric"><span>稳压余量</span><strong id="marginReadout">+3.33 V · 保持稳压</strong></div>
+    </section>
+    <p class="detail" id="detailLine">谷值仍高于 Vout+dropout；紫色点表示二极管为电容补充电荷的窄时间窗。</p>
+
+    <figure>
+      <svg id="plot" class="lab-plot" viewBox="0 0 960 600" role="img" aria-labelledby="plotTitle plotDesc">
+        <title id="plotTitle">隔离低压次级、整流、滤波电容与稳压输出波形</title>
+        <desc id="plotDesc">上面板显示青色次级正弦与橙色整流波；下面板显示紫色滤波电容电压和橙色稳压输出，充电时刻用紫色圆点标记。</desc>
+      </svg>
+      <figcaption>上面板：次级 · 青色虚线，整流后 · 橙色实线。下面板：电容 · 紫色虚线，稳压输出 · 橙色实线；充电点再用圆点编码。</figcaption>
+    </figure>
+
+    <p class="formula">V<sub>pk,raw</sub>≈√2V<sub>rms</sub>−nV<sub>D</sub>；ΔV<sub>pp</sub>≈I<sub>L</sub>/(f<sub>r</sub>C)；保持稳压需 V<sub>valley</sub>≥V<sub>o</sub>+V<sub>dropout</sub>。</p>
+    <footer>模型限制：页面只表示已隔离的安全低压次级，绝不提供市电接线。采用峰值充电与近似恒流放电；忽略变压器内阻、二极管动态、自热、电容 ESR/漏电和真实稳压环路。</footer>
+  </main>
+
+  <script type="module">
+    import { rectifierModel, rectifierSamples } from "../assets/javascripts/labs/rectifier-filter.mjs";
+
+    const ids = ["topology", "secondaryRms", "frequency", "diodeDrop", "capacitance", "loadCurrent", "regulatorVoltage", "dropout"];
+    const fields = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
+    const plot = document.getElementById("plot");
+    const secondaryLabel = document.getElementById("secondaryLabel");
+    const rippleReadout = document.getElementById("rippleReadout");
+    const valleyReadout = document.getElementById("valleyReadout");
+    const marginReadout = document.getElementById("marginReadout");
+    const detailLine = document.getElementById("detailLine");
+
+    const svgElement = (name, attributes = {}, text = "") => {
+      const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+      Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, String(value)));
+      if (text) element.textContent = text;
+      return element;
+    };
+    const pathFrom = (points, x, y, key) => points
+      .map((point, index) => `${index ? "L" : "M"} ${x(point.timeSeconds)} ${y(point[key])}`)
+      .join(" ");
+
+    function parameters() {
+      return {
+        topology: fields.topology.value,
+        secondaryRmsVoltage: Number(fields.secondaryRms.value),
+        frequencyHz: Number(fields.frequency.value),
+        diodeDropVoltage: Number(fields.diodeDrop.value),
+        capacitanceMicroF: Number(fields.capacitance.value),
+        loadMilliAmp: Number(fields.loadCurrent.value),
+        regulatorVoltage: Number(fields.regulatorVoltage.value),
+        dropoutVoltage: Number(fields.dropout.value),
+      };
+    }
+
+    function render() {
+      const params = parameters();
+      const model = rectifierModel(params);
+      const points = rectifierSamples(params, 601);
+      secondaryLabel.textContent = model.topology === "full"
+        ? "每半绕组 RMS"
+        : "隔离次级 RMS";
+      const marginSign = model.regulatorMarginVoltage >= 0 ? "+" : "−";
+      rippleReadout.textContent = `${model.rippleFrequencyHz.toFixed(0)} Hz / ${model.rippleEstimateVoltage.toFixed(3)} Vpp`;
+      valleyReadout.textContent = `${model.peakRectifiedVoltage.toFixed(2)} / ${model.valleyVoltage.toFixed(2)} V`;
+      marginReadout.textContent = `${marginSign}${Math.abs(model.regulatorMarginVoltage).toFixed(2)} V · ${model.regulated ? "保持稳压" : "进入 dropout"}`;
+      detailLine.classList.toggle("is-warning", !model.regulated);
+      detailLine.textContent = model.regulated
+        ? "谷值仍高于 Vout+dropout；紫色点表示二极管为电容补充电荷的窄时间窗。"
+        : "电容谷值低于 Vout+dropout，输出会跟随谷值下陷；先检查低线电压、负载和电容。";
+
+      const title = plot.querySelector("title").cloneNode(true);
+      const desc = plot.querySelector("desc").cloneNode(true);
+      plot.replaceChildren(title, desc);
+      const width = 960;
+      const left = 68;
+      const right = 24;
+      const topA = 34;
+      const bottomA = 260;
+      const topB = 326;
+      const bottomB = 548;
+      const duration = points.at(-1).timeSeconds;
+      const x = (time) => left + time / duration * (width - left - right);
+      const secondaryPeak = Math.max(1, params.secondaryRmsVoltage * Math.SQRT2);
+      const yA = (value) => topA + (secondaryPeak - value) / (2 * secondaryPeak) * (bottomA - topA);
+      const voltageMax = Math.max(1, secondaryPeak, model.regulatorVoltage + model.dropoutVoltage) * 1.08;
+      const yB = (value) => topB + (voltageMax - value) / voltageMax * (bottomB - topB);
+
+      for (let index = 0; index <= 4; index += 1) {
+        const time = duration * index / 4;
+        const px = x(time);
+        plot.append(svgElement("line", { x1: px, y1: topA, x2: px, y2: bottomB, class: "gridline" }));
+        plot.append(svgElement("text", { x: px, y: 578, "text-anchor": "middle", class: "tick-label" }, `${(time * 1000).toFixed(0)} ms`));
+      }
+      [yA(0), yA(secondaryPeak), yA(-secondaryPeak), yB(0), yB(model.regulatorVoltage), yB(model.regulatorVoltage + model.dropoutVoltage), yB(voltageMax)].forEach((py) => {
+        plot.append(svgElement("line", { x1: left, y1: py, x2: width - right, y2: py, class: "gridline" }));
+      });
+      plot.append(svgElement("line", { x1: left, y1: yB(model.regulatorVoltage + model.dropoutVoltage), x2: width - right, y2: yB(model.regulatorVoltage + model.dropoutVoltage), class: "guide" }));
+      plot.append(svgElement("path", { d: pathFrom(points, x, yA, "secondaryVoltage"), class: "trace-a", "stroke-dasharray": "9 5" }));
+      plot.append(svgElement("path", { d: pathFrom(points, x, yA, "rectifiedVoltage"), class: "trace-b" }));
+      plot.append(svgElement("path", { d: pathFrom(points, x, yB, "capacitorVoltage"), class: "trace-c", "stroke-dasharray": "9 5" }));
+      plot.append(svgElement("path", { d: pathFrom(points, x, yB, "outputVoltage"), class: "trace-b" }));
+      points.filter((point, index) => point.charging && index % 4 === 0).forEach((point) => {
+        plot.append(svgElement("circle", { cx: x(point.timeSeconds), cy: yB(point.capacitorVoltage), r: 2.3, class: "charge-dot" }));
+      });
+      plot.append(svgElement("text", { x: 16, y: topA + 12, class: "tick-label" }, "次级 / 整流"));
+      plot.append(svgElement("text", { x: 16, y: topB + 12, class: "tick-label" }, "滤波 / 稳压"));
+      plot.append(svgElement("text", { x: width - right, y: topA + 18, "text-anchor": "end", class: "label" }, "次级 · 青虚线 / 整流 · 橙实线"));
+      plot.append(svgElement("text", { x: width - right, y: topB + 18, "text-anchor": "end", class: "label" }, "电容 · 紫虚线 / 输出 · 橙实线"));
+      plot.append(svgElement("text", { x: width - right, y: yB(model.regulatorVoltage + model.dropoutVoltage) - 7, "text-anchor": "end", class: "label" }, "Vout + dropout"));
+    }
+
+    Object.values(fields).forEach((field) => field.addEventListener("input", render));
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 590" role="img">
+  <title>差分输入级与互补推挽输出级的作用分工</title>
+  <desc>左侧展示长尾差分对如何把差模输入变成两支路反向变化的电流并抑制共模；右侧展示互补推挽级在正负半周轮流供电，以及 AB 偏置如何减小过零失真。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker><marker id="b" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker></defs>
+  <style>
+    .panel{fill:none;stroke:#87979a}.ink{stroke:#172127;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}.flow{stroke:#006f78;fill:none;stroke-width:2.7}.accent{stroke:#ad4f16;fill:none;stroke-width:2.8}.ghost{stroke:#87979a;fill:none;stroke-width:2;stroke-dasharray:6 5}.node{fill:#172127}.txt{fill:#172127;font:18px sans-serif}.head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:14px sans-serif}.math{fill:#172127;font:16px monospace}@media(prefers-color-scheme:dark){.ink{stroke:#e8eee8}.node{fill:#e8eee8}.txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}}
+    .bg{fill:#fffaf0}@media(prefers-color-scheme:dark){.bg{fill:#121a1d}}
+  </style>
+  <rect class="bg" width="1080" height="590"/>
+  <g transform="translate(20 22)"><rect class="panel" width="510" height="545" rx="8"/><text class="head" x="20" y="40">差分对：放大差，拒绝同</text>
+    <line class="ink" x1="140" y1="105" x2="140" y2="182"/><line class="ink" x1="370" y1="105" x2="370" y2="182"/>
+    <line class="ink" x1="140" y1="182" x2="210" y2="255"/><line class="ink" x1="370" y1="182" x2="300" y2="255"/><line class="ink" x1="210" y1="255" x2="300" y2="255"/>
+    <line class="ink" x1="210" y1="185" x2="210" y2="285"/><line class="ink" x1="300" y1="185" x2="300" y2="285"/>
+    <line class="flow" x1="45" y1="223" x2="205" y2="223" marker-end="url(#a)"/><line class="flow" x1="465" y1="223" x2="305" y2="223" marker-end="url(#a)"/>
+    <text class="math" x="43" y="205">v1</text><text class="math" x="444" y="205">v2</text>
+    <line class="ink" x1="255" y1="255" x2="255" y2="330"/><circle cx="255" cy="350" r="20" class="ink"/><line class="ink" x1="255" y1="370" x2="255" y2="405"/><text class="small" x="285" y="355">尾电流 IT</text>
+    <line class="flow" x1="140" y1="78" x2="140" y2="122" marker-end="url(#a)"/><line class="accent" x1="370" y1="122" x2="370" y2="78" marker-end="url(#a)"/>
+    <text class="small" x="82" y="70">v1↑：i1↑</text><text class="small" x="345" y="70">i2↓</text>
+    <text class="math" x="52" y="448">vid = v1 − v2</text><text class="math" x="270" y="448">vcm = (v1+v2)/2</text>
+    <text class="small" x="52" y="482">理想尾电流源使 i1+i2≈IT</text><text class="small" x="52" y="508">两输入同向变化时，输出尽量不变</text>
+  </g>
+  <g transform="translate(550 22)"><rect class="panel" width="510" height="545" rx="8"/><text class="head" x="20" y="40">互补推挽：交替向负载供能</text>
+    <text class="math" x="258" y="78">+VCC</text><line class="ink" x1="285" y1="88" x2="285" y2="110"/>
+    <g data-role="output-npn"><line class="ink" x1="205" y1="180" x2="220" y2="180"/><line class="ink" x1="220" y1="145" x2="220" y2="215"/><line class="ink" x1="220" y1="155" x2="285" y2="110"/><line class="ink" x1="220" y1="205" x2="285" y2="235"/><path d="M255 216L275 224L260 237Z" fill="#006f78"/></g><text class="small" x="232" y="151">NPN</text>
+    <g data-role="output-pnp"><line class="ink" x1="205" y1="290" x2="220" y2="290"/><line class="ink" x1="220" y1="255" x2="220" y2="325"/><line class="ink" x1="220" y1="265" x2="285" y2="235"/><line class="ink" x1="220" y1="315" x2="285" y2="365"/><path d="M252 273L230 281L245 260Z" fill="#ad4f16"/></g><text class="small" x="232" y="321">PNP</text>
+    <line class="ink" x1="285" y1="365" x2="285" y2="385"/><text class="math" x="258" y="409">−VEE</text>
+    <circle class="node" cx="285" cy="235" r="5"/><line class="ink" x1="285" y1="235" x2="400" y2="235"/><text class="small" x="318" y="222">vo</text>
+    <g data-role="load"><polyline class="ink" points="400,235 400,250 388,262 412,278 388,294 412,310 400,322 400,350"/><line class="ink" x1="400" y1="350" x2="400" y2="370"/><line class="ink" x1="378" y1="370" x2="422" y2="370"/><line class="ink" x1="385" y1="380" x2="415" y2="380"/></g><text class="small" x="426" y="292">RL</text>
+    <line class="flow" x1="70" y1="180" x2="202" y2="180" marker-end="url(#a)"/><line class="accent" x1="70" y1="290" x2="202" y2="290" marker-end="url(#b)"/><text class="small" x="64" y="160">AB 偏置驱动：vb+ − vb− ≈ 2VBE</text>
+    <path class="flow" d="M305 92L305 155L310 225L382 235" marker-end="url(#a)"/><text class="small" x="325" y="120">正半周供流</text>
+    <path class="accent" d="M400 345L400 250L300 245L300 350" marker-end="url(#b)"/><text class="small" x="315" y="334">负半周吸流</text>
+    <path class="ghost" d="M45 468 C85 420 125 420 165 468 L205 468 C245 516 285 516 325 468 S405 420 465 468"/>
+    <path class="accent" d="M45 468 C85 425 125 425 165 468 C205 511 245 511 285 468 S365 425 465 468"/>
+    <text class="small" x="45" y="526">B 类有过零死区；AB 静态偏置让两管轻微导通</text>
+  </g>
+</svg>

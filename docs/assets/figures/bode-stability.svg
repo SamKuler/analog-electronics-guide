@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 600" role="img">
+  <title>环路增益伯德图中的交越频率与相位裕度</title>
+  <desc>上图画出环路增益幅值随对数频率下降并穿过零分贝；下图在同一交越频率读取相位，与负一百八十度之间的距离就是相位裕度，同时提示第二极点过早出现会压缩裕度。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker></defs>
+  <style>
+    .panel{fill:none;stroke:#87979a}.axis{stroke:#87979a;fill:none;stroke-width:1.5}.grid{stroke:#87979a;stroke-opacity:.35;stroke-dasharray:5 6}.trace{stroke:#006f78;fill:none;stroke-width:3.5}.risk{stroke:#ad4f16;fill:none;stroke-width:3;stroke-dasharray:8 5}.accent{stroke:#ad4f16;fill:none;stroke-width:2.5}.mark{stroke:#5d4b8c;fill:none;stroke-width:2.5}.txt{fill:#172127;font:18px sans-serif}.head{fill:#172127;font:bold 22px sans-serif}.small{fill:#59676d;font:14px sans-serif}.math{fill:#172127;font:17px monospace}@media(prefers-color-scheme:dark){.txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}}
+    .bg{fill:#fffaf0}@media(prefers-color-scheme:dark){.bg{fill:#121a1d}}
+  </style>
+  <rect class="bg" width="1080" height="600"/>
+  <text class="head" x="28" y="38">稳定性要看环路增益 T(s)=A(s)β(s)，不是只看闭环增益</text>
+  <rect class="panel" x="25" y="60" width="1030" height="240" rx="8"/><line class="axis" x1="105" y1="260" x2="1015" y2="260"/><line class="axis" x1="105" y1="85" x2="105" y2="270"/>
+  <line class="grid" x1="105" y1="220" x2="1015" y2="220"/><text class="math" x="50" y="226">0 dB</text><text class="small" x="42" y="102">|T| dB</text>
+  <path class="trace" d="M110 106 L350 106 C410 106 445 118 490 155 L640 220 L910 280"/>
+  <path class="risk" d="M490 155 C560 182 590 225 640 252 L870 290"/><text class="small" x="720" y="268">第二极点更早：斜率更陡</text>
+  <line class="mark" x1="640" y1="70" x2="640" y2="555" stroke-dasharray="6 5"/><circle cx="640" cy="220" r="6" fill="#5d4b8c"/><text class="math" x="650" y="211">ωc：|T|=1</text>
+  <text class="small" x="210" y="282">低频高环路增益</text><text class="small" x="865" y="282">高频衰减</text>
+  <rect class="panel" x="25" y="325" width="1030" height="240" rx="8"/><line class="axis" x1="105" y1="525" x2="1015" y2="525"/><line class="axis" x1="105" y1="345" x2="105" y2="535"/>
+  <line class="grid" x1="105" y1="500" x2="1015" y2="500"/><text class="math" x="38" y="506">−180°</text><text class="small" x="45" y="362">∠T</text>
+  <path class="trace" d="M110 370 C320 372 400 390 480 430 S580 455 640 458 S760 474 930 500"/>
+  <path class="risk" d="M110 370 C330 372 410 400 490 455 S580 492 640 510 S760 520 930 525"/>
+  <circle cx="640" cy="458" r="6" fill="#5d4b8c"/><line class="accent" x1="675" y1="458" x2="675" y2="500" marker-end="url(#a)"/>
+  <text class="math" x="692" y="484">PM = 180° + ∠T(jωc)</text><text class="small" x="735" y="548">裕度越小，振铃和失稳风险越高</text>
+</svg>

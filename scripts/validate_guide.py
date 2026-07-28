@@ -24,7 +24,6 @@ EXPECTED_FILES = (
     "docs/index.md",
     "docs/学习路线与使用方法.md",
     "docs/assistant/使用学习助手.md",
-    "docs/extensions/agent-systems.md",
     "docs/guide/01-最小电路基础.md",
     "docs/guide/02-二极管与半导体基础.md",
     "docs/guide/03-BJT与MOSFET.md",
@@ -46,6 +45,27 @@ EXPECTED_FILES = (
     "docs/labs/rc-step-response.html",
     "docs/labs/bjt-load-line.html",
     "docs/labs/opamp-feedback.html",
+    "docs/labs/diode-waveforms.html",
+    "docs/labs/transistor-amplifier.html",
+    "docs/labs/bode-stability.html",
+    "docs/labs/rectifier-filter.html",
+    "docs/assets/stylesheets/lab.css",
+    "docs/assets/javascripts/labs/diode-waveforms.mjs",
+    "docs/assets/javascripts/labs/transistor-amplifier.mjs",
+    "docs/assets/javascripts/labs/bode-stability.mjs",
+    "docs/assets/javascripts/labs/rectifier-filter.mjs",
+    "docs/assets/figures/reference-directions.svg",
+    "docs/assets/figures/pn-junction.svg",
+    "docs/assets/figures/diode-models-loadline.svg",
+    "docs/assets/figures/diode-waveforms.svg",
+    "docs/assets/figures/bjt-regions.svg",
+    "docs/assets/figures/mosfet-regions.svg",
+    "docs/assets/figures/small-signal-models.svg",
+    "docs/assets/figures/amplifier-topologies.svg",
+    "docs/assets/figures/opamp-feedback.svg",
+    "docs/assets/figures/bode-stability.svg",
+    "docs/assets/figures/differential-power.svg",
+    "docs/assets/figures/rectifier-filter.svg",
 )
 
 CONTENT_DIRECTORIES = (
@@ -61,6 +81,16 @@ PERSONAL_MARKERS = (
     "软件工程本科",
     "另外四门课程",
     "五门课程",
+)
+COURSE_SCOPE_MARKERS = (
+    "本周跨课程负载",
+    "结束即切换信号与系统",
+    "若信号与系统也在学",
+    "当天还要学信号与系统",
+    "电磁场、固体物理、信号与系统、数电",
+    "Agent 推理",
+    "智能系统中的模拟边界",
+    "可选跨域应用",
 )
 CORE_TERMS = (
     "KCL",
@@ -95,6 +125,13 @@ HEADING_RE = re.compile(r"^ {0,3}#{1,6}\s+(.+?)\s*$", re.MULTILINE)
 EXPLICIT_ANCHOR_RE = re.compile(
     r"(?:\bid|\bname)\s*=\s*(?:\"([^\"]+)\"|'([^']+)'|([^\s>]+))",
     re.IGNORECASE,
+)
+HTML_RESOURCE_RE = re.compile(
+    r"\b(?:href|src)\s*=\s*(?:\"([^\"]+)\"|'([^']+)')",
+    re.IGNORECASE,
+)
+MODULE_IMPORT_RE = re.compile(
+    r"\bimport\s+(?:[^\"']+?\s+from\s+)?(?:\"([^\"]+)\"|'([^']+)')"
 )
 
 
@@ -157,6 +194,26 @@ def find_personal_markers(root: Path) -> list[str]:
                 if marker in line:
                     errors.append(
                         f"{relative}:{line_number}: 公开内容含个性化表述“{marker}”"
+                    )
+    return errors
+
+
+def find_course_scope_markers(root: Path) -> list[str]:
+    """查找把其他课程或 Agent 系统写入模电教学主线的遗留表述。"""
+
+    root = Path(root)
+    errors: list[str] = []
+    for path in public_files(root):
+        relative = path.relative_to(root).as_posix()
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except (OSError, UnicodeDecodeError):
+            continue
+        for line_number, line in enumerate(lines, 1):
+            for marker in COURSE_SCOPE_MARKERS:
+                if marker in line:
+                    errors.append(
+                        f"{relative}:{line_number}: 课程范围外表述“{marker}”"
                     )
     return errors
 
@@ -288,6 +345,49 @@ def find_broken_local_links(root: Path) -> list[str]:
     return errors
 
 
+def find_broken_html_resources(root: Path) -> list[str]:
+    """查找公开 HTML 中指向不存在文件的本地 ``href``/``src``。"""
+
+    root = Path(root)
+    errors: list[str] = []
+    docs = root / "docs"
+    if not docs.is_dir():
+        return errors
+
+    for path in sorted(docs.rglob("*.html")):
+        relative = path.relative_to(root).as_posix()
+        for line_number, line in enumerate(
+            path.read_text(encoding="utf-8").splitlines(),
+            1,
+        ):
+            matches = [
+                *HTML_RESOURCE_RE.finditer(line),
+                *MODULE_IMPORT_RE.finditer(line),
+            ]
+            for match in matches:
+                destination = next(
+                    group for group in match.groups() if group is not None
+                ).strip()
+                if not destination or destination.startswith("#"):
+                    continue
+                try:
+                    parsed = urlsplit(destination)
+                except ValueError:
+                    parsed = urlsplit("")
+                if parsed.scheme or parsed.netloc:
+                    continue
+                file_part = unquote(parsed.path)
+                if not file_part:
+                    continue
+                target = (path.parent / file_part).resolve()
+                if not target.exists():
+                    errors.append(
+                        f"{relative}:{line_number}: "
+                        f"本地 HTML 资源不存在：{destination}"
+                    )
+    return errors
+
+
 def collect_schedule_minutes(root: Path) -> list[ScheduleEntry]:
     """收集每个 Day 标题的用时、相对文件路径和标题行号。"""
 
@@ -349,7 +449,9 @@ def validate(root: Path) -> list[str]:
     errors = [f"缺少文件：{path}" for path in find_missing_files(root)]
     errors.extend(find_forbidden_markers(root))
     errors.extend(find_personal_markers(root))
+    errors.extend(find_course_scope_markers(root))
     errors.extend(find_broken_local_links(root))
+    errors.extend(find_broken_html_resources(root))
 
     schedule = collect_schedule_minutes(root)
     entries_by_day: dict[int, list[ScheduleEntry]] = {}
@@ -415,7 +517,7 @@ def main() -> int:
     )
     print(
         f"PASS: {len(schedule)} days, {total_minutes} minutes, "
-        f"{len(find_broken_local_links(Path(args.root).resolve()))} broken links, "
+        f"{len(find_broken_local_links(Path(args.root).resolve())) + len(find_broken_html_resources(Path(args.root).resolve()))} broken links, "
         f"{len(find_forbidden_markers(Path(args.root).resolve()))} forbidden markers, "
         f"{len(find_personal_markers(Path(args.root).resolve()))} personal markers."
     )

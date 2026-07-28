@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bode 与环路稳定性实验</title>
+  <link rel="stylesheet" href="../assets/stylesheets/lab.css">
+  <style>
+    @media (prefers-color-scheme: dark) { html { color-scheme: dark; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">AE · LOOP BENCH 06</p>
+      <h1>Bode 与环路稳定性</h1>
+      <p class="lede">在同一条环路上读取 0 dB 交越和相位裕度，再把裕度变化连接到峰化与阶跃振铃趋势。</p>
+      <p class="method"><strong>先预测：</strong>把第二极点下移一 decade 前先判断交越处相位如何变化；再一次只改一个参数，用 PM 与阶跃趋势核对。</p>
+    </header>
+
+    <section class="controls" aria-label="环路响应参数">
+      <label for="loopGainDb"><span>低频环路增益 <small>dB</small></span><input id="loopGainDb" type="number" min="-20" max="140" step="1" value="80"></label>
+      <label for="pole1"><span>第一极点 f<sub>p1</sub> <small>Hz</small></span><input id="pole1" type="number" min="0.01" max="100000000" step="1" value="10"></label>
+      <label for="pole2"><span>第二极点 f<sub>p2</sub> <small>Hz</small></span><input id="pole2" type="number" min="0.01" max="100000000" step="10" value="1000000"></label>
+    </section>
+
+    <section class="metrics" aria-live="polite" aria-label="稳定裕度读数">
+      <div class="metric"><span>0 dB 交越</span><strong id="crossoverReadout">—</strong></div>
+      <div class="metric"><span>相位裕度 PM</span><strong id="marginReadout">—</strong></div>
+      <div class="metric"><span>阶跃趋势</span><strong id="statusReadout">—</strong></div>
+    </section>
+    <p class="detail" id="detailLine">两极点环路的幅值和相位在每个频率逐项叠加。</p>
+
+    <div class="plot-grid">
+      <figure>
+        <svg id="bodePlot" class="lab-plot" viewBox="0 0 760 610" role="img" aria-labelledby="bodeTitle bodeDesc">
+          <title id="bodeTitle">两极点环路的幅频与相频 Bode 图</title>
+          <desc id="bodeDesc">上面板为环路增益分贝值，下面板为相位；图中标出零分贝交越、负一百八十度线和相位裕度。</desc>
+        </svg>
+        <figcaption>青色为幅值，橙色为相位；交越线和 −180° 基准均有文字标签。</figcaption>
+      </figure>
+      <figure>
+        <svg id="stepPlot" class="lab-plot" viewBox="0 0 520 610" role="img" aria-labelledby="stepTitle stepDesc">
+          <title id="stepTitle">由相位裕度分档映射的阶跃趋势</title>
+          <desc id="stepDesc">展示相位裕度下降时，从单调建立到振铃增强的教学近似趋势，不代表任意高阶环路的精确时域响应。</desc>
+        </svg>
+        <figcaption>这是一条“裕度—阻尼—振铃”教学映射，不由任意高阶 Bode 图唯一决定。</figcaption>
+      </figure>
+    </div>
+
+    <p class="formula">L(s)=L<sub>0</sub>/[(1+s/ω<sub>p1</sub>)(1+s/ω<sub>p2</sub>)]；PM=180°+∠L(jω<sub>gc</sub>)。</p>
+    <footer>模型限制：只使用无零点、无纯延时的两极点环路。阶跃图把 PM 分档映射到等效二阶阻尼，仅用于观察趋势；真实峰化、振铃和稳定性必须由完整闭环传递函数或测量确定。</footer>
+  </main>
+
+  <script type="module">
+    import { loopResponse, stabilityMetrics } from "../assets/javascripts/labs/bode-stability.mjs";
+
+    const fields = {
+      loopGainDb: document.getElementById("loopGainDb"),
+      pole1: document.getElementById("pole1"),
+      pole2: document.getElementById("pole2"),
+    };
+    const bodePlot = document.getElementById("bodePlot");
+    const stepPlot = document.getElementById("stepPlot");
+    const crossoverReadout = document.getElementById("crossoverReadout");
+    const marginReadout = document.getElementById("marginReadout");
+    const statusReadout = document.getElementById("statusReadout");
+    const detailLine = document.getElementById("detailLine");
+
+    const svgElement = (name, attributes = {}, text = "") => {
+      const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+      Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, String(value)));
+      if (text) element.textContent = text;
+      return element;
+    };
+    const pathFrom = (points, x, y, key) => points
+      .map((point, index) => `${index ? "L" : "M"} ${x(point.frequencyHz)} ${y(point[key])}`)
+      .join(" ");
+    const formatFrequency = (value) => value >= 1e6 ? `${(value / 1e6).toFixed(2)} MHz`
+      : value >= 1e3 ? `${(value / 1e3).toFixed(2)} kHz`
+      : `${value.toFixed(value < 10 ? 2 : 1)} Hz`;
+
+    function parameters() {
+      return {
+        dcLoopGain: 10 ** (Number(fields.loopGainDb.value) / 20),
+        pole1Hz: Number(fields.pole1.value),
+        pole2Hz: Number(fields.pole2.value),
+      };
+    }
+
+    function drawBode(model, metrics) {
+      const title = bodePlot.querySelector("title").cloneNode(true);
+      const desc = bodePlot.querySelector("desc").cloneNode(true);
+      bodePlot.replaceChildren(title, desc);
+      const width = 760;
+      const left = 68;
+      const right = 24;
+      const magTop = 36;
+      const magBottom = 278;
+      const phaseTop = 340;
+      const phaseBottom = 554;
+      const fMin = Math.min(model.pole1Hz, model.pole2Hz) / 10;
+      const candidateMax = metrics.hasCrossover ? metrics.crossoverHz * 10 : 0;
+      const fMax = Math.max(model.pole1Hz, model.pole2Hz, candidateMax) * 10;
+      const logMin = Math.log10(fMin);
+      const logMax = Math.log10(fMax);
+      const x = (frequency) => left + (Math.log10(frequency) - logMin) / (logMax - logMin) * (width - left - right);
+      const points = Array.from({ length: 321 }, (_, index) => {
+        const frequency = 10 ** (logMin + index / 320 * (logMax - logMin));
+        return loopResponse(model, frequency);
+      });
+      const magnitudes = points.map((point) => point.magnitudeDb);
+      let magMax = Math.ceil(Math.max(20, ...magnitudes) / 20) * 20;
+      let magMin = Math.floor(Math.min(-40, ...magnitudes) / 20) * 20;
+      const yMag = (value) => magTop + (magMax - value) / (magMax - magMin) * (magBottom - magTop);
+      const yPhase = (value) => phaseTop + (0 - value) / 180 * (phaseBottom - phaseTop);
+
+      for (let db = magMin; db <= magMax; db += 20) {
+        const py = yMag(db);
+        bodePlot.append(svgElement("line", { x1: left, y1: py, x2: width - right, y2: py, class: db === 0 ? "guide" : "gridline" }));
+        bodePlot.append(svgElement("text", { x: left - 8, y: py + 4, "text-anchor": "end", class: "tick-label" }, `${db}`));
+      }
+      for (const degree of [0, -45, -90, -135, -180]) {
+        const py = yPhase(degree);
+        bodePlot.append(svgElement("line", { x1: left, y1: py, x2: width - right, y2: py, class: degree === -180 ? "danger-guide" : "gridline" }));
+        bodePlot.append(svgElement("text", { x: left - 8, y: py + 4, "text-anchor": "end", class: "tick-label" }, `${degree}°`));
+      }
+      const firstDecade = Math.ceil(logMin);
+      const lastDecade = Math.floor(logMax);
+      for (let exponent = firstDecade; exponent <= lastDecade; exponent += 1) {
+        const frequency = 10 ** exponent;
+        const px = x(frequency);
+        bodePlot.append(svgElement("line", { x1: px, y1: magTop, x2: px, y2: phaseBottom, class: "gridline" }));
+        bodePlot.append(svgElement("text", { x: px, y: 582, "text-anchor": "middle", class: "tick-label" }, `10^${exponent}`));
+      }
+      bodePlot.append(svgElement("path", { d: pathFrom(points, x, yMag, "magnitudeDb"), class: "trace-a" }));
+      bodePlot.append(svgElement("path", { d: pathFrom(points, x, yPhase, "phaseDeg"), class: "trace-b" }));
+      if (metrics.hasCrossover) {
+        const crossX = x(metrics.crossoverHz);
+        const phaseY = yPhase(-180 + metrics.phaseMarginDeg);
+        bodePlot.append(svgElement("line", { x1: crossX, y1: magTop, x2: crossX, y2: phaseBottom, class: "guide" }));
+        bodePlot.append(svgElement("line", { x1: crossX, y1: phaseY, x2: crossX, y2: yPhase(-180), class: "guide" }));
+        bodePlot.append(svgElement("text", { x: crossX + 7, y: magTop + 18, class: "label" }, "ωgc"));
+        bodePlot.append(svgElement("text", { x: crossX + 7, y: (phaseY + yPhase(-180)) / 2, class: "label" }, `PM ${metrics.phaseMarginDeg.toFixed(1)}°`));
+      }
+      bodePlot.append(svgElement("text", { x: 16, y: magTop + 12, class: "tick-label" }, "|L| / dB"));
+      bodePlot.append(svgElement("text", { x: 16, y: phaseTop + 12, class: "tick-label" }, "∠L"));
+      bodePlot.append(svgElement("text", { x: width - right, y: 602, "text-anchor": "end", class: "tick-label" }, "频率 / Hz（对数轴）"));
+    }
+
+    function drawStep(metrics) {
+      const title = stepPlot.querySelector("title").cloneNode(true);
+      const desc = stepPlot.querySelector("desc").cloneNode(true);
+      stepPlot.replaceChildren(title, desc);
+      const width = 520;
+      const left = 58;
+      const right = 22;
+      const top = 58;
+      const bottom = 530;
+      const damping = metrics.dampingRatio;
+      const points = Array.from({ length: 301 }, (_, index) => {
+        const time = index / 300 * 10;
+        let output;
+        if (!metrics.hasCrossover || damping >= 1) {
+          output = 1 - Math.exp(-time);
+        } else {
+          const wd = Math.sqrt(Math.max(1e-6, 1 - damping ** 2));
+          output = 1 - Math.exp(-damping * time)
+            * (Math.cos(wd * time) + damping / wd * Math.sin(wd * time));
+        }
+        return { time, output };
+      });
+      const yMax = Math.max(1.25, ...points.map((point) => point.output)) * 1.08;
+      const x = (time) => left + time / 10 * (width - left - right);
+      const y = (value) => top + (yMax - value) / yMax * (bottom - top);
+      for (const level of [0, 0.5, 1, yMax]) {
+        const py = y(level);
+        stepPlot.append(svgElement("line", { x1: left, y1: py, x2: width - right, y2: py, class: level === 1 ? "guide" : "gridline" }));
+      }
+      const d = points.map((point, index) => `${index ? "L" : "M"} ${x(point.time)} ${y(point.output)}`).join(" ");
+      stepPlot.append(svgElement("line", { x1: left, y1: top, x2: left, y2: bottom, class: "axis" }));
+      stepPlot.append(svgElement("line", { x1: left, y1: bottom, x2: width - right, y2: bottom, class: "axis" }));
+      stepPlot.append(svgElement("path", { d, class: "trace-b" }));
+      stepPlot.append(svgElement("text", { x: width - right, y: y(1) - 7, "text-anchor": "end", class: "label" }, "目标 1.0"));
+      stepPlot.append(svgElement("text", { x: left, y: 30, class: "label" }, `等效阻尼 ζ≈${damping.toFixed(2)} · ${metrics.status}`));
+      stepPlot.append(svgElement("text", { x: width - right, y: 574, "text-anchor": "end", class: "tick-label" }, "归一化时间"));
+    }
+
+    function render() {
+      const model = parameters();
+      const metrics = stabilityMetrics(model);
+      crossoverReadout.textContent = metrics.hasCrossover ? formatFrequency(metrics.crossoverHz) : "无交越";
+      marginReadout.textContent = metrics.hasCrossover ? `${metrics.phaseMarginDeg.toFixed(1)}°` : "—";
+      statusReadout.textContent = metrics.status;
+      detailLine.classList.toggle("is-warning", metrics.hasCrossover && metrics.phaseMarginDeg < 30);
+      detailLine.textContent = metrics.hasCrossover
+        ? `交越处相位为 ${(-180 + metrics.phaseMarginDeg).toFixed(1)}°；第二极点越靠近交越，PM 越小。`
+        : "低频环路增益低于 0 dB；本参数范围内没有单位环路增益交越。";
+      drawBode(model, metrics);
+      drawStep(metrics);
+    }
+
+    Object.values(fields).forEach((field) => field.addEventListener("input", render));
+    render();
+  </script>
+</body>
+</html>

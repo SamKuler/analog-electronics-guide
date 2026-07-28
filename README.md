@@ -6,7 +6,7 @@
 
 ## 两种学习方式
 
-**网页模式**适合按导航阅读、查公式、做练习和运行三个交互实验。网页是纯静态站点，不保存个人进度。
+**网页模式**适合按导航阅读、查公式、做练习和运行七个交互实验。网页是纯静态站点，不保存个人进度。
 
 **Clone + 学习助手**适合对话式学习：
 
@@ -33,8 +33,8 @@ cd analog-electronics-guide
 - 30 天冲刺轨：每天 45–60 分钟，合计约 23.4 小时；
 - 七章完整教材：概念、模型、推导、例题、边界与口述；
 - 分层练习、详细解答、70 个高频问答与两套模拟面试；
-- RC 阶跃、BJT 负载线、运放反馈三个交互实验；
-- 一页公式表、典型电路速查和可选跨域应用。
+- 七个交互实验：RC 阶跃、二极管波形、BJT 负载线、晶体管放大器信号链、运放反馈、Bode 稳定性和隔离低压整流滤波；
+- 一页公式表、典型电路速查和可交互的参数实验。
 
 主线材料自包含，不要求购买教材或访问外部课程。
 
@@ -44,6 +44,7 @@ cd analog-electronics-guide
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 python3 -m unittest discover -s tests -v
+node --test tests/labs/*.test.mjs
 python3 scripts/validate_guide.py .
 .venv/bin/mkdocs serve
 ```
