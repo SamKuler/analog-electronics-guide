@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img">
+  <title>功率级的能量与热路径</title>
+  <desc>电源输入功率分为负载平均功率和输出管损耗，器件热量再沿结、壳、界面、散热器到环境；平均热估算不能替代SOA检查。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="380"/>
+<rect class="panel" x="45" y="115" width="185" height="150" rx="12"/><text class="head" x="61" y="157">电源输入</text><text class="small" x="61" y="202">示例 9.55 W</text><line class="teal" x1="230" y1="190" x2="260" y2="190" marker-end="url(#arrow)"/><rect class="panel" x="270" y="115" width="185" height="150" rx="12"/><text class="head" x="286" y="157">负载功率</text><text class="small" x="286" y="202">示例 6.25 W</text><line class="teal" x1="455" y1="190" x2="485" y2="190" marker-end="url(#arrow)"/><rect class="panel" x="495" y="115" width="185" height="150" rx="12"/><text class="head" x="511" y="157">输出管热</text><text class="small" x="511" y="202">示例 3.30 W</text><line class="teal" x1="680" y1="190" x2="710" y2="190" marker-end="url(#arrow)"/><rect class="panel" x="720" y="115" width="185" height="150" rx="12"/><text class="head" x="736" y="157">散热与安全</text><text class="small" x="736" y="202">TJ、SOA、峰值I/V</text>
+</svg>

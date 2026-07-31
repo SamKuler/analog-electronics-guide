@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img">
+  <title>多低频、多高频转折的放大器 Bode 包络</title>
+  <desc>总幅频曲线在多个低频转折后进入中频平台，再在多个高频极点后以更陡斜率下降；总负三分贝点不一定等于任一单独拐点。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="470"/>
+
+  <line class="axis" x1="90" y1="410" x2="900" y2="410" marker-end="url(#arrow)"/><line class="axis" x1="90" y1="410" x2="90" y2="55" marker-end="url(#arrow)"/>
+  <path class="teal" d="M105 365L220 235L330 120L650 120L760 210L860 385"/>
+  <line class="orange" x1="220" y1="70" x2="220" y2="410" stroke-dasharray="6 6"/><line class="orange" x1="330" y1="70" x2="330" y2="410" stroke-dasharray="6 6"/><line class="orange" x1="650" y1="70" x2="650" y2="410" stroke-dasharray="6 6"/><line class="orange" x1="760" y1="70" x2="760" y2="410" stroke-dasharray="6 6"/>
+  <text class="small" x="195" y="440">fL1</text><text class="small" x="305" y="440">fL2</text><text class="small" x="625" y="440">fH1</text><text class="small" x="735" y="440">fH2</text>
+  <text class="head" x="430" y="105">中频增益 AM</text><text class="small" x="110" y="330">+40 → +20 dB/dec</text><text class="small" x="690" y="330">−20 → −40 dB/dec</text>
+
+</svg>

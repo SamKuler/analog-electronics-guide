@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img">
+  <title>齐纳反向稳压与二极管反向恢复</title>
+  <desc>左图展示齐纳二极管反向击穿时由串联电阻限流的回路；右图展示换向后出现反向恢复电流并在trr后回到漏电。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="440"/>
+
+  <rect class="panel" x="24" y="28" width="450" height="374" rx="8"/>
+  <rect class="panel" x="498" y="28" width="438" height="374" rx="8"/>
+  <text class="head" x="48" y="66">反向稳压回路</text>
+  <circle class="ink" cx="88" cy="224" r="30"/><text class="txt" x="98" y="214">+</text><text class="txt" x="98" y="248">−</text>
+  <line class="ink" x1="88" y1="194" x2="88" y2="122"/><line class="ink" x1="88" y1="122" x2="156" y2="122"/>
+  <polyline class="ink" points="156,122 170,108 188,136 206,108 224,136 238,122"/>
+  <line class="ink" x1="238" y1="122" x2="314" y2="122"/>
+  <polygon class="ink" points="350,104 322,122 350,140"/><polyline class="ink" points="320,102 326,108 314,136 320,142"/>
+  <line class="ink" x1="350" y1="122" x2="414" y2="122"/><line class="ink" x1="414" y1="122" x2="414" y2="318"/>
+  <line class="ink" x1="414" y1="318" x2="88" y2="318"/><line class="ink" x1="88" y1="318" x2="88" y2="254"/>
+  <line class="teal" x1="286" y1="82" x2="184" y2="82" marker-end="url(#arrow)"/>
+  <text class="txt" x="220" y="70">IZ</text><text class="small" x="48" y="230">VS</text><text class="small" x="184" y="166">限流 R</text>
+  <text class="small" x="294" y="166">K　Zener　A</text>
+  <text class="small" x="48" y="360">先算串联电流，再用 KCL 分给负载与齐纳支路。</text>
+
+  <text class="head" x="522" y="66">换向与反向恢复</text>
+  <line class="axis" x1="542" y1="218" x2="906" y2="218" marker-end="url(#arrow)"/>
+  <line class="axis" x1="566" y1="346" x2="566" y2="92" marker-end="url(#arrow)"/>
+  <path class="teal" d="M566 132L700 132L700 218L720 292L754 300C790 300 808 270 824 232L892 232"/>
+  <line class="orange" x1="700" y1="318" x2="824" y2="318"/>
+  <line class="orange" x1="700" y1="310" x2="700" y2="326"/><line class="orange" x1="824" y1="310" x2="824" y2="326"/>
+  <text class="math" x="742" y="344">trr</text><text class="small" x="588" y="118">正向 IF</text>
+  <text class="small" x="708" y="286">反向抽取</text><text class="small" x="824" y="252">回到漏电</text>
+  <text class="small" x="550" y="388">反向电流面积的量级对应恢复电荷 Qrr。</text>
+
+</svg>

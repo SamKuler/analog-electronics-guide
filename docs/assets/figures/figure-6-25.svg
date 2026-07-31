@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img">
+  <title>稳定、超调、振铃和振荡的时域联系</title>
+  <desc>四幅阶跃响应依次表示阻尼良好、欠阻尼但收敛、稳定边界附近的等幅振铃和振幅增长的不稳定响应。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="470"/>
+
+  <rect class="panel" x="25" y="35" width="440" height="190" rx="10"/><rect class="panel" x="495" y="35" width="440" height="190" rx="10"/><rect class="panel" x="25" y="245" width="440" height="190" rx="10"/><rect class="panel" x="495" y="245" width="440" height="190" rx="10"/>
+  <text class="head" x="50" y="75">(a) 阻尼良好</text><path class="teal" d="M50 190C90 190 100 100 175 100L430 100"/>
+  <text class="head" x="520" y="75">(b) 欠阻尼但稳定</text><path class="teal" d="M520 190C570 190 575 65 630 90C680 115 700 90 740 100C790 108 820 100 910 100"/>
+  <text class="head" x="50" y="285">(c) 稳定边界附近</text><path class="orange" d="M50 365C90 300 130 430 170 365C210 300 250 430 290 365C330 300 370 430 430 365"/>
+  <text class="head" x="520" y="285">(d) 不稳定</text><path class="orange" d="M520 365C550 340 580 390 615 350C650 305 690 430 735 320C780 245 830 455 910 275"/>
+
+</svg>

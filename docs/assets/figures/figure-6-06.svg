@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img">
+  <title>三种扰动注入位置</title>
+  <desc>环内输出扰动可被反馈看见并压低，输入端噪声会被当作输入一起传递，取样点之后的环外扰动不能由该环路纠正。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="440"/>
+
+  <rect class="panel" x="20" y="45" width="290" height="335" rx="10"/><rect class="panel" x="335" y="45" width="290" height="335" rx="10"/><rect class="panel" x="650" y="45" width="290" height="335" rx="10"/>
+  <text class="head" x="45" y="85">(a) 环内输出扰动</text><text class="head" x="360" y="85">(b) 输入端噪声</text><text class="head" x="675" y="85">(c) 环外扰动</text>
+  <path class="teal" d="M45 180L105 180L145 180L205 180L275 180" marker-end="url(#arrow)"/><rect class="panel" x="105" y="145" width="100" height="70" rx="8"/><text class="txt" x="137" y="188">A</text><line class="orange" x1="205" y1="105" x2="205" y2="145" marker-end="url(#arrow-orange)"/><text class="small" x="215" y="120">no</text>
+  <path class="teal" d="M360 180L420 180L460 180L550 180L600 180" marker-end="url(#arrow)"/><rect class="panel" x="460" y="145" width="90" height="70" rx="8"/><text class="txt" x="492" y="188">A</text><line class="orange" x1="420" y1="105" x2="420" y2="170" marker-end="url(#arrow-orange)"/><text class="small" x="430" y="120">ns</text>
+  <path class="teal" d="M675 180L735 180L795 180L900 180" marker-end="url(#arrow)"/><rect class="panel" x="735" y="145" width="80" height="70" rx="8"/><text class="txt" x="763" y="188">A</text><circle class="node" cx="815" cy="180" r="6"/><line class="orange" x1="865" y1="105" x2="865" y2="170" marker-end="url(#arrow-orange)"/><text class="small" x="875" y="120">n外</text>
+  <text class="small" x="45" y="320">反馈能看见并抑制</text><text class="small" x="360" y="320">与有用输入同点相加</text><text class="small" x="675" y="320">取样点在扰动之前</text>
+
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" role="img">
+  <title>电流源的顺从区和有限斜率</title>
+  <desc>实际电流源在最低顺从电压之前不能维持设定电流，进入工作区后仍因有限输出电阻略有斜率，过高电压又受耐压和功耗限制。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="460"/>
+
+  <line class="axis" x1="100" y1="390" x2="890" y2="390" marker-end="url(#arrow)"/><line class="axis" x1="100" y1="390" x2="100" y2="55" marker-end="url(#arrow)"/>
+  <line class="orange" x1="100" y1="130" x2="850" y2="130" stroke-dasharray="8 7"/><text class="small" x="720" y="115">理想 Iset</text>
+  <path class="teal" d="M100 390C160 385 210 250 280 165L760 125"/><line class="panel" x1="280" y1="80" x2="280" y2="390" stroke-dasharray="6 6"/><line class="panel" x1="760" y1="80" x2="760" y2="390" stroke-dasharray="6 6"/>
+  <text class="small" x="225" y="425">Vcompliance,min</text><text class="small" x="700" y="425">耐压/功耗上限</text><text class="small" x="430" y="160">斜率约 1/ro</text>
+
+</svg>

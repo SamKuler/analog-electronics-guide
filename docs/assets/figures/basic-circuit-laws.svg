@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img">
+  <title>电容参考方向、节点电流与串联回路</title>
+  <desc>三幅图依次展示电容的电压电流参考方向、节点的流入流出电流，以及含电压源和两个串联电阻的KVL回路。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="440"/>
+
+  <rect class="panel" x="20" y="24" width="292" height="382" rx="8"/>
+  <rect class="panel" x="334" y="24" width="292" height="382" rx="8"/>
+  <rect class="panel" x="648" y="24" width="292" height="382" rx="8"/>
+  <text class="head" x="42" y="60">电容参考方向</text>
+  <line class="ink" x1="66" y1="198" x2="142" y2="198"/><line class="ink" x1="142" y1="158" x2="142" y2="238"/>
+  <line class="ink" x1="170" y1="158" x2="170" y2="238"/><line class="ink" x1="170" y1="198" x2="258" y2="198"/>
+  <circle class="node" cx="66" cy="198" r="5"/><circle class="node" cx="258" cy="198" r="5"/>
+  <line class="teal" x1="76" y1="126" x2="210" y2="126" marker-end="url(#arrow)"/>
+  <text class="txt" x="128" y="110">i<tspan baseline-shift="sub" font-size="13">C</tspan></text>
+  <text class="txt" x="72" y="184">+</text><text class="txt" x="242" y="184">−</text>
+  <text class="math" x="64" y="284">vC = V+ − V−</text>
+  <text class="small" x="42" y="356">正负号与箭头先定义，</text><text class="small" x="42" y="380">计算符号再说明真实方向。</text>
+
+  <text class="head" x="356" y="60">节点电流</text>
+  <circle class="node" cx="480" cy="208" r="7"/>
+  <line class="teal" x1="480" y1="100" x2="480" y2="184" marker-end="url(#arrow)"/>
+  <line class="teal" x1="456" y1="208" x2="374" y2="208" marker-end="url(#arrow)"/>
+  <line class="teal" x1="504" y1="208" x2="588" y2="208" marker-end="url(#arrow)"/>
+  <text class="txt" x="492" y="128">i₁</text><text class="txt" x="394" y="190">i₂</text><text class="txt" x="548" y="190">i₃</text>
+  <text class="math" x="382" y="292">i₁ = i₂ + i₃</text>
+  <text class="small" x="356" y="356">理想节点不储存净电荷：</text><text class="small" x="356" y="380">流入之和等于流出之和。</text>
+
+  <text class="head" x="670" y="60">串联回路与 KVL</text>
+  <line class="ink" x1="700" y1="126" x2="700" y2="172"/><circle class="ink" cx="700" cy="220" r="26"/>
+  <line class="ink" x1="700" y1="246" x2="700" y2="320"/><line class="ink" x1="700" y1="320" x2="894" y2="320"/>
+  <line class="ink" x1="894" y1="320" x2="894" y2="126"/>
+  <line class="ink" x1="700" y1="126" x2="730" y2="126"/>
+  <polyline class="ink" points="730,126 742,112 758,140 774,112 790,140 802,126"/>
+  <line class="ink" x1="802" y1="126" x2="820" y2="126"/>
+  <polyline class="ink" points="820,126 832,112 848,140 864,112 880,140 894,126"/>
+  <text class="small" x="754" y="100">R₁</text><text class="small" x="846" y="100">R₂</text>
+  <text class="txt" x="660" y="226">V<tspan baseline-shift="sub" font-size="13">S</tspan></text>
+  <text class="txt" x="706" y="202">+</text><text class="txt" x="706" y="248">−</text>
+  <path class="orange" d="M748 282C800 306 858 280 860 220" marker-end="url(#arrow-orange)"/>
+  <text class="math" x="690" y="366">VS − iR₁ − iR₂ = 0</text>
+
+</svg>

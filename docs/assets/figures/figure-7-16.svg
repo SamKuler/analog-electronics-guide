@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" role="img">
+  <title>B 类交越失真的时域机制</title>
+  <desc>理想输出是平滑正弦；实际B类互补跟随器在每次过零附近两管均截止，输出出现平段和尖锐误差。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="460"/>
+
+  <text class="head" x="45" y="65">理想 vo</text><line class="axis" x1="80" y1="155" x2="890" y2="155" marker-end="url(#arrow)"/><path class="teal" d="M80.0,155.0 L86.3,149.1 L92.7,143.3 L99.0,137.5 L105.3,131.8 L111.7,126.3 L118.0,121.0 L124.3,115.8 L130.7,110.9 L137.0,106.3 L143.3,102.0 L149.7,98.0 L156.0,94.3 L162.3,91.1 L168.7,88.2 L175.0,85.7 L181.3,83.7 L187.7,82.1 L194.0,80.9 L200.3,80.2 L206.7,80.0 L213.0,80.2 L219.3,80.9 L225.7,82.1 L232.0,83.7 L238.3,85.7 L244.7,88.2 L251.0,91.1 L257.3,94.3 L263.7,98.0 L270.0,102.0 L276.3,106.3 L282.7,110.9 L289.0,115.8 L295.3,121.0 L301.7,126.3 L308.0,131.8 L314.3,137.5 L320.7,143.3 L327.0,149.1 L333.3,155.0 L339.7,160.9 L346.0,166.7 L352.3,172.5 L358.7,178.2 L365.0,183.7 L371.3,189.0 L377.7,194.2 L384.0,199.1 L390.3,203.7 L396.7,208.0 L403.0,212.0 L409.3,215.7 L415.7,218.9 L422.0,221.8 L428.3,224.3 L434.7,226.3 L441.0,227.9 L447.3,229.1 L453.7,229.8 L460.0,230.0 L466.3,229.8 L472.7,229.1 L479.0,227.9 L485.3,226.3 L491.7,224.3 L498.0,221.8 L504.3,218.9 L510.7,215.7 L517.0,212.0 L523.3,208.0 L529.7,203.7 L536.0,199.1 L542.3,194.2 L548.7,189.0 L555.0,183.7 L561.3,178.2 L567.7,172.5 L574.0,166.7 L580.3,160.9 L586.7,155.0 L593.0,149.1 L599.3,143.3 L605.7,137.5 L612.0,131.8 L618.3,126.3 L624.7,121.0 L631.0,115.8 L637.3,110.9 L643.7,106.3 L650.0,102.0 L656.3,98.0 L662.7,94.3 L669.0,91.1 L675.3,88.2 L681.7,85.7 L688.0,83.7 L694.3,82.1 L700.7,80.9 L707.0,80.2 L713.3,80.0 L719.7,80.2 L726.0,80.9 L732.3,82.1 L738.7,83.7 L745.0,85.7 L751.3,88.2 L757.7,91.1 L764.0,94.3 L770.3,98.0 L776.7,102.0 L783.0,106.3 L789.3,110.9 L795.7,115.8 L802.0,121.0 L808.3,126.3 L814.7,131.8 L821.0,137.5 L827.3,143.3 L833.7,149.1 L840.0,155.0"/>
+  <text class="head" x="45" y="285">B 类实际 vo</text><line class="axis" x1="80" y1="365" x2="890" y2="365" marker-end="url(#arrow)"/>
+  <path class="orange" d="M80 365C135 365 155 295 215 295C270 295 285 345 330 355L380 365L430 375C475 385 490 435 545 435C605 435 625 365 680 365C735 365 755 295 815 295L860 315"/>
+  <rect x="350" y="335" width="110" height="60" fill="none" stroke="#ad4f16" stroke-width="2" stroke-dasharray="6 6"/><text class="small" x="335" y="425">两管近似截止的零点缺口</text>
+
+</svg>

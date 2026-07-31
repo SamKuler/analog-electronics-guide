@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img">
+  <title>数值负载线与近对称 Q 点</title>
+  <desc>十伏共射极电路的负载线连接零伏五毫安与十伏零毫安，Q点位于五点二三一伏和二点三八五毫安，靠近两侧摆幅余量对称位置。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="470"/>
+
+  <line class="axis" x1="110" y1="390" x2="890" y2="390" marker-end="url(#arrow)"/><line class="axis" x1="110" y1="390" x2="110" y2="55" marker-end="url(#arrow)"/>
+  <line class="orange" x1="110" y1="78" x2="840" y2="390"/><circle cx="492" cy="229" r="9" fill="#006f78"/>
+  <line class="teal" x1="492" y1="229" x2="492" y2="390" stroke-dasharray="6 6"/><line class="teal" x1="110" y1="229" x2="492" y2="229" stroke-dasharray="6 6"/>
+  <circle cx="125" cy="85" r="6" fill="#ad4f16"/><text class="small" x="145" y="95">饱和边界约 (0.20 V, 4.90 mA)</text>
+  <text class="head" x="510" y="220">Q (5.231 V, 2.385 mA)</text><text class="math" x="325" y="440">斜率 = −1/RC = −0.500 mA/V</text>
+
+</svg>

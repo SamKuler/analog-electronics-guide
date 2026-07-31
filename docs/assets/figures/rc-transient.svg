@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img">
+  <title>RC切换回路与一阶响应</title>
+  <desc>左图展示电压源、开关、电阻和电容构成的完整充电回路；右图展示电容电压从V0指数趋近Vf并在一个时间常数达到总变化的63.2%。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="440"/>
+
+  <rect class="panel" x="24" y="28" width="450" height="374" rx="8"/>
+  <rect class="panel" x="498" y="28" width="438" height="374" rx="8"/>
+  <text class="head" x="48" y="66">完整 RC 切换回路</text>
+  <circle class="ink" cx="86" cy="228" r="28"/><text class="txt" x="96" y="218">+</text><text class="txt" x="96" y="252">−</text>
+  <line class="ink" x1="86" y1="200" x2="86" y2="116"/><line class="ink" x1="86" y1="116" x2="146" y2="116"/>
+  <circle class="node" cx="146" cy="116" r="4"/><circle class="node" cx="198" cy="116" r="4"/><line class="ink" x1="150" y1="112" x2="190" y2="94"/>
+  <line class="ink" x1="198" y1="116" x2="228" y2="116"/><polyline class="ink" points="228,116 242,102 260,130 278,102 296,130 310,116"/>
+  <line class="ink" x1="310" y1="116" x2="392" y2="116"/><line class="ink" x1="374" y1="168" x2="410" y2="168"/><line class="ink" x1="374" y1="190" x2="410" y2="190"/>
+  <line class="ink" x1="392" y1="116" x2="392" y2="168"/><line class="ink" x1="392" y1="190" x2="392" y2="320"/>
+  <line class="ink" x1="392" y1="320" x2="86" y2="320"/><line class="ink" x1="86" y1="320" x2="86" y2="256"/>
+  <line class="teal" x1="228" y1="78" x2="346" y2="78" marker-end="url(#arrow)"/>
+  <text class="small" x="256" y="68">iC(t)</text><text class="small" x="48" y="234">Vf</text><text class="small" x="258" y="158">R</text><text class="small" x="416" y="184">C</text>
+  <text class="math" x="60" y="364">vC(t)=Vf+(V0−Vf)e^(−t/RC)</text>
+
+  <text class="head" x="522" y="66">从 V0 趋近 Vf</text>
+  <line class="axis" x1="548" y1="326" x2="906" y2="326" marker-end="url(#arrow)"/>
+  <line class="axis" x1="574" y1="348" x2="574" y2="88" marker-end="url(#arrow)"/>
+  <line class="orange" x1="574" y1="112" x2="896" y2="112" stroke-dasharray="6 6"/>
+  <path class="teal" d="M574 290C626 290 636 210 676 168C724 118 798 114 894 112"/>
+  <circle cx="676" cy="168" r="7" fill="#ad4f16"/><line class="orange" x1="676" y1="168" x2="676" y2="326" stroke-dasharray="5 5"/>
+  <text class="small" x="584" y="282">V0</text><text class="small" x="834" y="102">Vf</text>
+  <text class="small" x="690" y="160">t=τ：完成 63.2%</text><text class="math" x="664" y="350">τ=RC</text>
+  <text class="small" x="522" y="386">有限电流下，电容电压在切换瞬间连续。</text>
+
+</svg>

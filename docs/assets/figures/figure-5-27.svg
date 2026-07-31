@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" role="img">
+  <title>反相施密特触发器的双阈值波形</title>
+  <desc>输入上穿上阈值时输出从高翻为低，输入下穿下阈值时输出从低翻为高；两阈值之间保持历史状态并抑制小噪声翻转。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="480"/>
+
+  <line class="axis" x1="80" y1="230" x2="890" y2="230" marker-end="url(#arrow)"/><path class="teal" d="M80 245C170 245 190 95 290 95C390 95 420 350 540 350C650 350 690 90 820 90"/>
+  <path class="orange" d="M230 115l12 18l12-30l12 22l12-20" />
+  <line class="orange" x1="80" y1="155" x2="860" y2="155" stroke-dasharray="7 7"/><line class="orange" x1="80" y1="305" x2="860" y2="305" stroke-dasharray="7 7"/>
+  <text class="small" x="750" y="145">VTH</text><text class="small" x="750" y="295">VTL</text>
+  <line class="axis" x1="80" y1="420" x2="890" y2="420" marker-end="url(#arrow)"/><path class="orange" d="M80 365L260 365L260 445L560 445L560 365L860 365"/>
+
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img">
+  <title>节点分析电路与戴维南诺顿等效</title>
+  <desc>左图是十二伏电源、两个电阻和一毫安电流源构成的节点电路；右图比较同一端口的戴维南电压源串联电阻与诺顿电流源并联电阻。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="440"/>
+
+  <rect class="panel" x="20" y="24" width="520" height="392" rx="8"/>
+  <rect class="panel" x="560" y="24" width="380" height="392" rx="8"/>
+  <text class="head" x="42" y="60">节点与端口</text>
+  <circle class="ink" cx="82" cy="220" r="28"/><text class="small" x="40" y="226">12 V</text>
+  <line class="ink" x1="82" y1="192" x2="82" y2="112"/><line class="ink" x1="82" y1="112" x2="154" y2="112"/>
+  <polyline class="ink" points="154,112 168,98 186,126 204,98 222,126 236,112"/><line class="ink" x1="236" y1="112" x2="334" y2="112"/>
+  <circle class="node" cx="334" cy="112" r="6"/><text class="small" x="344" y="104">a，Va</text>
+  <polyline class="ink" points="334,112 320,132 348,154 320,176 348,198 334,218"/><line class="ink" x1="334" y1="218" x2="334" y2="328"/>
+  <circle class="ink" cx="438" cy="220" r="26"/><line class="teal" x1="438" y1="242" x2="438" y2="196" marker-end="url(#arrow)"/>
+  <line class="ink" x1="438" y1="194" x2="438" y2="112"/><line class="ink" x1="438" y1="112" x2="334" y2="112"/>
+  <line class="ink" x1="438" y1="246" x2="438" y2="328"/><line class="ink" x1="438" y1="328" x2="82" y2="328"/><line class="ink" x1="82" y1="328" x2="82" y2="248"/>
+  <text class="small" x="166" y="88">R1=2 kΩ</text><text class="small" x="350" y="170">R2=4 kΩ</text><text class="small" x="450" y="226">1 mA</text>
+  <text class="math" x="42" y="378">端口电压 v = Va − Vb；参考电流按箭头定义</text>
+
+  <text class="head" x="582" y="60">同一端口的两种等效</text>
+  <text class="small" x="584" y="98">戴维南</text><circle class="ink" cx="614" cy="180" r="24"/>
+  <line class="ink" x1="614" y1="156" x2="614" y2="126"/><polyline class="ink" points="614,126 630,112 650,140 670,112 690,140 706,126"/>
+  <line class="ink" x1="706" y1="126" x2="748" y2="126"/><circle class="node" cx="748" cy="126" r="5"/>
+  <line class="ink" x1="748" y1="126" x2="748" y2="236"/><line class="ink" x1="748" y1="236" x2="614" y2="236"/><line class="ink" x1="614" y1="236" x2="614" y2="204"/>
+  <text class="small" x="644" y="102">Rth</text><text class="small" x="574" y="186">Vth</text>
+  <text class="small" x="780" y="98">诺顿</text><circle class="ink" cx="812" cy="180" r="24"/><line class="teal" x1="812" y1="194" x2="812" y2="164" marker-end="url(#arrow)"/>
+  <line class="ink" x1="812" y1="156" x2="812" y2="126"/><line class="ink" x1="812" y1="126" x2="910" y2="126"/>
+  <polyline class="ink" points="882,126 868,142 896,162 868,182 896,202 882,220"/><line class="ink" x1="882" y1="220" x2="882" y2="236"/>
+  <line class="ink" x1="910" y1="126" x2="910" y2="236"/><line class="ink" x1="910" y1="236" x2="812" y2="236"/><line class="ink" x1="812" y1="236" x2="812" y2="204"/>
+  <text class="small" x="824" y="186">IN</text><text class="small" x="892" y="178">Rth</text>
+  <text class="math" x="590" y="326">Vth = IN Rth</text><text class="small" x="582" y="366">开路电压相同，短路电流相同。</text>
+
+</svg>

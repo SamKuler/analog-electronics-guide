@@ -23,7 +23,7 @@ V_T=\frac{kT}{q}\approx25.9\ \mathrm{mV}.
 \]
 
 ~~~mermaid
-flowchart LR
+flowchart TD
     A["PN 结与状态假设"] --> B["NPN 载流子输运"]
     B --> C["BJT 工作区与直流偏置"]
     C --> D["Q 点局部线性化"]
@@ -62,19 +62,9 @@ flowchart LR
 
 典型 NPN 由重掺杂 \(n^+\) 发射区、很薄且较轻掺杂的 p 型基区，以及面积较大、可承受反偏的 n 型集电区构成。它不是两个独立二极管简单背靠背：薄基区让从发射极注入的电子有较大比例穿过基区，随后被集电结电场收集；若真把两个分立二极管连接起来，不会自动获得同样的载流子耦合。
 
-~~~text
-器件截面（定性、非等比例）                    NPN 端口参考
-
- E：n+ 重掺杂      B：p 薄且轻掺杂       C：n
- ┌──────────┬──────────────────┬────────────┐              C ●
- │ 发射电子 │ 少量复合 → IB     │ 反偏场收集 │                ↓ IC（流入）
- │ e− e− e− │ e− ─────────────→│→ 集电极    │          B ●──|\
- └──────────┴──────────────────┴────────────┘          → IB | >──● E
-       BE 结             薄基区             BC 结            |/   → IE（流出）
-
- 传统电流：IB、IC 流入器件，IE 流出器件
- VBE = VB − VE，VCE = VC − VE，VBC = VB − VC = VBE − VCE
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-2　NPN 结构、端子角色与统一参考方向](../assets/figures/figure-3-02.svg){ .ae-figure }
+</figure>
 
 **图 3-2　NPN 结构、端子角色与统一参考方向。** 发射极负责高效注入，薄基区负责让大部分载流子通过，集电极负责收集并承受反偏；所有图均沿用右侧端口定义。
 
@@ -84,14 +74,9 @@ flowchart LR
 
 因此更准确的物理链是：\(V_{BE}\) 降低 BE 势垒 → 发射极向基区注入少数载流子 → 载流子在薄基区扩散 → 少量复合贡献 \(I_B\)，大部分到达反偏 BC 结并被收集形成 \(I_C\)。\(I_B\) 与 \(I_C\) 相关，但不应说成“几个基极电子命令许多集电极电子流动”。
 
-~~~text
-电子运动（器件内部）：
- E(n+)  e− e− e− ──注入──→ B(p，薄) ──扩散──→ BC 耗尽区 ──漂移──→ C(n)
-                         └──少量复合，需要基极端补充电荷
-
-传统电流（端口外部）与电子运动相反：
- C ──IC──→ 器件，B ──IB──→ 器件，器件 ──IE──→ E
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-3　正向有源区的载流子输运链](../assets/figures/figure-3-03.svg){ .ae-figure }
+</figure>
 
 **图 3-3　正向有源区的载流子输运链。** 电子由 E 向 C 运动；传统电流方向相反。基区必须薄，才有较大的输运因子 \(\alpha\)。
 
@@ -185,16 +170,9 @@ I_C\approx I_S\exp\!\left(\frac{V_{BE}}{V_T}\right).
 
 门槛和压降是所选模型参数，不是突然跳变的自然常数。工程题也常用 \(V_{CE}\lesssim0.2\ \mathrm V\) 作为“BJT 深饱和”标志，但定义本质仍是两个结都正偏。
 
-~~~text
-                 BC 结反偏                         BC 结正偏
-              VBC < 0                            VBC > 0
-         ┌──────────────────┬──────────────────────────────┐
- BE 未正偏│ 截止（通常）      │ 反向相关状态，冲刺轨不使用       │
- VBE<门槛 ├──────────────────┼──────────────────────────────┤
- BE 正偏  │ 正向有源          │ 饱和：两个结都正偏              │
- VBE≈0.7  │ IC≈βIB            │ 不再强制 IC=βIB                │
-         └──────────────────┴──────────────────────────────┘
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-4　由 BE、BC 两个结偏置构成的 BJT 工作区地图](../assets/figures/figure-3-04.svg){ .ae-figure }
+</figure>
 
 **图 3-4　由 BE、BC 两个结偏置构成的 BJT 工作区地图。** “BJT 饱和”指两个 PN 结都正偏，和后文“MOS 饱和区”的物理含义完全不同。
 
@@ -258,21 +236,9 @@ BJT 饱和时 BE、BC 两结都正偏，集电极电流被外部电路限制，�
 
 已知 \(V_{CC}=10.0\ \mathrm V,\ R_B=470\ \mathrm{k\Omega},\ R_C=2.00\ \mathrm{k\Omega}\)，发射极接地。采用 \(V_{BE}=0.70\ \mathrm V,\ \beta=100\) 的正向有源模型；忽略 Early 效应和自热。
 
-~~~text
-                         +10.0 V = VCC
-                          ●───────────────●
-                          │               │
-                     RB=470 kΩ       RC=2.00 kΩ
-                          │  IB ↓         │  IC ↓
-                          ● B         C ●─┘
-                          └───────────|\
-                                     | >──● E
-                                     |/    │  IE ↓（流出器件）
-                                           ⏚ 0 V
-
-端口定义：IB、IC 流入 NPN，IE 流出；VBE=VB−VE，VCE=VC−VE。
-完整回路：VCC→RB→BE→地→电源返回；VCC→RC→CE→地→电源返回。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-6　固定基极偏置完整电路](../assets/figures/figure-3-06.svg){ .ae-figure }
+</figure>
 
 **图 3-6　固定基极偏置完整电路。** 两条直流回路共享 \(V_{CC}\) 与地；电源返回路径没有省略。
 
@@ -281,36 +247,12 @@ BJT 饱和时 BE、BC 两结都正偏，集电极电流被外部电路限制，�
 1. **假设：** NPN 正向有源。
 2. **模型：** \(V_{BE}=0.70\ \mathrm V,\ I_C=\beta I_B,\ I_E=I_B+I_C\)。
 3. **变量与参考方向：** 采用图 3-6；\(V_E=0\)。
-4. **基本方程：**
+4. **基本方程：** <span class="arithmatex ae-display-math">\(\displaystyle I_B=\frac{V_{CC}-V_{BE}}{R_B},\qquad V_C=V_{CC}-I_CR_C.\)</span>
 
-   \[
-   I_B=\frac{V_{CC}-V_{BE}}{R_B},\qquad
-   V_C=V_{CC}-I_CR_C.
-   \]
-
-5. **求解：**
-
-   \[
-   I_B=\frac{10.0-0.70}{470\ \mathrm{k\Omega}}
-   =19.8\ \mu\mathrm A,
-   \]
-
-   \[
-   I_C=100I_B=1.98\ \mathrm{mA},\quad
-   I_E=2.00\ \mathrm{mA},
-   \]
-
-   \[
-   V_{CE}=V_C=10.0-(1.98\ \mathrm{mA})(2.00\ \mathrm{k\Omega})
-   =6.04\ \mathrm V.
-   \]
+5. **求解：** <span class="arithmatex ae-display-math">\(\displaystyle I_B=\frac{10.0-0.70}{470\ \mathrm{k\Omega}} =19.8\ \mu\mathrm A,\)</span> <span class="arithmatex ae-display-math">\(\displaystyle I_C=100I_B=1.98\ \mathrm{mA},\quad I_E=2.00\ \mathrm{mA},\)</span> <span class="arithmatex ae-display-math">\(\displaystyle V_{CE}=V_C=10.0-(1.98\ \mathrm{mA})(2.00\ \mathrm{k\Omega}) =6.04\ \mathrm V.\)</span>
 
 6. **量纲：** \(\mathrm{V/k\Omega=mA}\)，\(\beta\) 无量纲，故各电流与压降单位正确。
-7. **工作区检查：** \(V_B=0.70\ \mathrm V\)，所以 \(V_{BC}=0.70-6.04=-5.34\ \mathrm V<0\)；BE 正偏、BC 反偏，正向有源假设成立。Q 点为
-
-   \[
-   \boxed{I_{CQ}=1.98\ \mathrm{mA},\quad V_{CEQ}=6.04\ \mathrm V}.
-   \]
+7. **工作区检查：** \(V_B=0.70\ \mathrm V\)，所以 \(V_{BC}=0.70-6.04=-5.34\ \mathrm V<0\)；BE 正偏、BC 反偏，正向有源假设成立。Q 点为 <span class="arithmatex ae-display-math">\(\displaystyle \boxed{I_{CQ}=1.98\ \mathrm{mA},\quad V_{CEQ}=6.04\ \mathrm V}.\)</span>
 
 8. **极限与失效：** \(R_B\to\infty\) 时 \(I_B,I_C\to0\)；若把 \(R_B\) 降得很小，\(\beta I_B\) 可能超过集电回路能提供的电流，必须换饱和模型。
 
@@ -322,17 +264,9 @@ V_{CE}=V_{CC}-I_CR_C=10.0-(2.00\ \mathrm{k\Omega})I_C.
 
 它连接 \((V_{CE}=10.0\ \mathrm V,I_C=0)\) 和 \((V_{CE}=0,I_C=5.00\ \mathrm{mA})\)。器件特性与这条外电路线的交点才是 Q 点。
 
-~~~text
- IC (mA) ↑
-     5.0 ●  VCE=0 截距
-         │\
-         │ \
-    1.98 │  ● Q(6.04 V, 1.98 mA)
-         │    \
-       0 └─────\────────────●────────→ VCE (V)
-               6.04        10.0
-      斜率 = −1/RC；图为直流示意，坐标按数值标注
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-7　图 3-6 的直流负载线](../assets/figures/figure-3-07.svg){ .ae-figure }
+</figure>
 
 **图 3-7　图 3-6 的直流负载线。** 改变 \(R_C\) 改变斜率，改变 \(V_{CC}\) 改变截距；Q 点必须同时满足器件模型与外电路方程。
 
@@ -342,23 +276,9 @@ V_{CE}=V_{CC}-I_CR_C=10.0-(2.00\ \mathrm{k\Omega})I_C.
 
 已知 \(V_{CC}=12.0\ \mathrm V,\ R_1=82.0\ \mathrm{k\Omega},R_2=18.0\ \mathrm{k\Omega},R_C=2.20\ \mathrm{k\Omega},R_E=1.00\ \mathrm{k\Omega}\)，采用 \(V_{BE}=0.70\ \mathrm V,\beta=100\) 的正向有源模型。
 
-~~~text
-                             +12.0 V = VCC
-                              ●──────────────●
-                              │              │
-                         R1=82 kΩ       RC=2.20 kΩ
-                              │              │  IC ↓
-                              ● B        C ●─┘
-                              │           |\
-                         R2=18 kΩ   IB →  | >──● E
-                              │           |/    │  IE ↓
-                              ⏚            RE=1.00 kΩ
-                                                │
-                                                ⏚
-
-端口定义仍为 IB、IC 流入，IE 流出；VBE=VB−VE，VCE=VC−VE。
-电源、分压器、集电支路和发射支路都以公共地返回。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-8　分压—发射极电阻偏置完整电路](../assets/figures/figure-3-08.svg){ .ae-figure }
+</figure>
 
 **图 3-8　分压—发射极电阻偏置完整电路。** 不能先假定分压器完全不受基极电流加载；先作戴维南等效可得到精确于所选模型的结果。
 
@@ -375,51 +295,17 @@ R_{\mathrm{TH}}=R_1\parallel R_2
 \]
 
 1. **假设与模型：** 假设正向有源，用 \(V_{BE}=0.70\ \mathrm V,\ I_C=\beta I_B,\ I_E=(\beta+1)I_B\)。
-2. **基本方程：**
+2. **基本方程：** <span class="arithmatex ae-display-math">\(\displaystyle V_{\mathrm{TH}}=I_BR_{\mathrm{TH}}+V_{BE}+I_ER_E.\)</span>
 
-   \[
-   V_{\mathrm{TH}}=I_BR_{\mathrm{TH}}+V_{BE}+I_ER_E.
-   \]
+3. **求解：** <span class="arithmatex ae-display-math">\(\displaystyle I_B=\frac{V_{\mathrm{TH}}-V_{BE}} {R_{\mathrm{TH}}+(\beta+1)R_E} =\frac{1.46\ \mathrm V}{115.76\ \mathrm{k\Omega}} =12.61\ \mu\mathrm A.\)</span>
 
-3. **求解：**
+    因而 <span class="arithmatex ae-display-math">\(\displaystyle I_C=1.261\ \mathrm{mA},\quad I_E=1.274\ \mathrm{mA},\)</span> <span class="arithmatex ae-display-math">\(\displaystyle V_E=I_ER_E=1.274\ \mathrm V,\quad V_B=V_E+0.70=1.974\ \mathrm V,\)</span> <span class="arithmatex ae-display-math">\(\displaystyle V_C=12.0-I_CR_C=9.225\ \mathrm V,\quad V_{CE}=V_C-V_E=7.951\ \mathrm V.\)</span>
 
-   \[
-   I_B=\frac{V_{\mathrm{TH}}-V_{BE}}
-   {R_{\mathrm{TH}}+(\beta+1)R_E}
-   =\frac{1.46\ \mathrm V}{115.76\ \mathrm{k\Omega}}
-   =12.61\ \mu\mathrm A.
-   \]
+4. **量纲与检查：** 电压除以电阻得到电流；用未舍入值计算得 \(V_{BC}=-7.251\ \mathrm V<0\)，所以正向有源成立。Q 点是 <span class="arithmatex ae-display-math">\(\displaystyle \boxed{I_{CQ}=1.261\ \mathrm{mA},\quad V_{CEQ}=7.951\ \mathrm V}.\)</span>
 
-   因而
+5. **负载线与极限：** 精确 KVL 为 <span class="arithmatex ae-display-math">\(\displaystyle V_{CE}=V_{CC}-I_CR_C-I_ER_E.\)</span>
 
-   \[
-   I_C=1.261\ \mathrm{mA},\quad
-   I_E=1.274\ \mathrm{mA},
-   \]
-
-   \[
-   V_E=I_ER_E=1.274\ \mathrm V,\quad
-   V_B=V_E+0.70=1.974\ \mathrm V,
-   \]
-
-   \[
-   V_C=12.0-I_CR_C=9.225\ \mathrm V,\quad
-   V_{CE}=V_C-V_E=7.951\ \mathrm V.
-   \]
-
-4. **量纲与检查：** 电压除以电阻得到电流；用未舍入值计算得 \(V_{BC}=-7.251\ \mathrm V<0\)，所以正向有源成立。Q 点是
-
-   \[
-   \boxed{I_{CQ}=1.261\ \mathrm{mA},\quad V_{CEQ}=7.951\ \mathrm V}.
-   \]
-
-5. **负载线与极限：** 精确 KVL 为
-
-   \[
-   V_{CE}=V_{CC}-I_CR_C-I_ER_E.
-   \]
-
-   当 \(\beta\) 足够大时 \(I_E\approx I_C\)，近似负载线为 \(V_{CE}\approx V_{CC}-I_C(R_C+R_E)\)。\(R_E\to0\) 时失去发射极直流反馈；\(R_{\mathrm{TH}}\to0\) 时基极电压更接近理想固定值。
+    当 \(\beta\) 足够大时 \(I_E\approx I_C\)，近似负载线为 \(V_{CE}\approx V_{CC}-I_C(R_C+R_E)\)。\(R_E\to0\) 时失去发射极直流反馈；\(R_{\mathrm{TH}}\to0\) 时基极电压更接近理想固定值。
 
 **为什么更稳。** 当 \(I_C\) 因 \(\beta\) 或温度趋向增大时，\(I_E\) 增大使 \(V_E=I_ER_E\) 上升；在 \(V_B\) 近似固定时 \(V_{BE}=V_B-V_E\) 被压低，反过来抑制电流。这是直流负反馈。直接重算可见：\(\beta=50\) 时 \(I_C=1.110\ \mathrm{mA},V_{CE}=8.425\ \mathrm V\)；\(\beta=150\) 时 \(I_C=1.321\ \mathrm{mA},V_{CE}=7.763\ \mathrm V\)。相比图 3-6 的固定偏置，集电流变化明显变小。若模型参数 \(V_{BE}\) 降低 \(0.10\ \mathrm V\)，分子只由 \(1.46\) 增至 \(1.56\ \mathrm V\)，所选模型下电流约增 \(6.85\%\)；真实温漂还须结合 \(\beta,I_S\)、自热和元件公差。
 
@@ -499,19 +385,9 @@ i_C\approx I_{CQ}\left(1+\frac{\tilde v_{be}}{V_T}\right),
 <figcaption>共同分析链是“先求 DC 的 Q 点，再把器件换成增量模型”。模型中的受控源只描述 Q 点附近斜率，不能脱离偏置单独存在。</figcaption>
 </figure>
 
-~~~text
- iC ↑
-    │                         非线性指数曲线
-    │                      .´
-    │                  ● Q ───── 局部切线，斜率 gm
- ICQ├─────────────────┤╱
-    │               .´│  ΔiC = gm·ΔvBE
-    │            .´   │
-  0 └───────────┬─────┴────────────────→ vBE
-              VBEQ   VBEQ+ΔvBE
-
- 总量：vBE=VBEQ+ṽbe，iC=ICQ+ĩc；切线只在 Q 点附近代替曲线。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-9　BJT 指数特性在 Q 点的局部线性化](../assets/figures/figure-3-09.svg){ .ae-figure }
+</figure>
 
 **图 3-9　BJT 指数特性在 Q 点的局部线性化。** 偏置决定切点和 \(g_m\)；信号幅度决定切线近似是否足够准确。
 
@@ -625,29 +501,9 @@ i_G=C\,\frac{\mathrm dv}{\mathrm dt}
 
 型的充放电电流。真实器件还有极小漏电和有限绝缘耐压，因此“栅极永远无电流”是错误的。
 
-~~~text
-                    G（金属/多晶硅栅）
-                 ┌────────────────┐
-                 │      VG        │
-                 └────────────────┘
-                     SiO₂ 绝缘层
-             ─────────────────────────
-       S：n+ ●  ← 反型沟道（形成后）→  ● n+：D
-             │                          │
-             └────── p 型体区 B ────────┘
-                         │
-                         └──与 S 相连
-
-端口与参考：
-                       ID ↓（流入 D）
-                  D ●────┤
-                         │
-                  G ●────┤  NMOS
-                         │
-                  S ●────┤→ ID 从 S 流出
-                    └── B 与 S 短接
- VGS=VG−VS，VDS=VD−VS；本章先取 VDS≥0。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-10　增强型 NMOS 的截面直觉与端口参考](../assets/figures/figure-3-10.svg){ .ae-figure }
+</figure>
 
 **图 3-10　增强型 NMOS 的截面直觉与端口参考。** 栅氧把直流输入端绝缘；截面中的沟道箭头只表示形成位置，端口传统电流 \(I_D\) 仍从 D 进入、从 S 流出。
 
@@ -656,22 +512,13 @@ i_G=C\,\frac{\mathrm dv}{\mathrm dt}
 1. 正栅电场排斥表面的空穴，先形成缺少多数载流子的**耗尽层**；
 2. 电压继续升高，电子被吸引到氧化层下方，表面由 p 型有效转为 n 型，称为**反型**；
 3. 当反型层足以连接源漏并按约定模型开始显著导电时，对应阈值电压 \(V_{TH}\)；
-4. 超过阈值的栅源电压称为过驱动电压
-
-   \[
-   \boxed{V_{OV}=V_{GS}-V_{TH}}.
-   \]
+4. 超过阈值的栅源电压称为过驱动电压 <span class="arithmatex ae-display-math">\(\displaystyle \boxed{V_{OV}=V_{GS}-V_{TH}}.\)</span>
 
 \(V_{TH}\) 是器件、体偏压、温度和所用定义共同决定的参数，不是所有 NMOS 都相同的硬门槛。所谓“场效应”是栅电场改变表面载流子密度与沟道电导；栅极不需要持续注入与漏电流等量的电荷。
 
-~~~text
-栅压从低到高（截面近栅表面）
-
-VGS=0              0<VGS<VTH                    VGS>VTH
-p 型表面           空穴被排斥：耗尽               电子反型层连接 S、D
-h+ h+ h+           [ 固定受主离子 ]              S n+ ===== n 沟道 ===== n+ D
-无连续 n 沟道      仍无强反型沟道                 栅场调节沟道电荷
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-11　增强型 NMOS 的零栅偏、耗尽与反型序列](../assets/figures/figure-3-11.svg){ .ae-figure }
+</figure>
 
 **图 3-11　增强型 NMOS 的零栅偏、耗尽与反型序列。** 长沟道平方律把 \(V_{GS}=V_{TH}\) 作为强反型导电模型的分界，真实过渡连续。
 
@@ -733,20 +580,9 @@ h+ h+ h+           [ 固定受主离子 ]              S n+ ===== n 沟道 =====
 
 注意本书把 \(k_n\) 定义为 \(\mu_nC_{\mathrm{ox}}W/L\)，所以饱和式前有 \(1/2\)。有些教材把 \(1/2\) 吸收到参数定义中，套公式前必须核对。
 
-~~~text
- ID ↑                    VGS3 > VGS2 > VGS1 > VTH
-    │                 ───────────────  NMOS 饱和区（理想近似近水平）
-    │              __/
-    │           __/  ───────────────
-    │        __/
-    │     __/  ─────────────────────
-    │  __/
-  0 └─┬────────┬────────────────────────→ VDS
-      0      VDS=VOV（每条曲线的边界）
-      NMOS 三极管区    NMOS 饱和区
-
-每条曲线均取 VDS≥0；边界值随该条曲线的 VOV 改变。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-12　长沟道 NMOS 输出特性的区域图](../assets/figures/figure-3-12.svg){ .ae-figure }
+</figure>
 
 **图 3-12　长沟道 NMOS 输出特性的区域图。** NMOS 三极管区电流同时依赖 \(V_{OV},V_{DS}\)；理想 NMOS 饱和区忽略 \(V_{DS}\) 依赖，实际曲线会因沟道长度调制略上扬。
 
@@ -791,15 +627,9 @@ I_D=k_n\left(V_{OV}^2-\frac{V_{OV}^2}{2}\right)
 
 夹断不表示源漏之间“断路”或电流变零。源端仍向沟道注入载流子；载流子到达夹断点后由漏端强电场扫过短的耗尽区。因此理想长沟道模型把 \(I_D\) 近似钳在由 \(V_{OV}\) 决定的值。
 
-~~~text
-VDS < VOV：连续反型沟道                 VDS = VOV：漏端刚夹断
-
-S ●==========================● D       S ●=================> ··· ● D
-  沟道由源到漏逐渐变薄                         漏端反型电荷趋零
-  电子 S→D；传统 ID D→S                     载流子仍被电场扫向 D
-
-VDS > VOV：夹断区稍向源端延伸；电流不为零，理想模型近似不再随 VDS 变。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-13　沟道渐变与夹断](../assets/figures/figure-3-13.svg){ .ae-figure }
+</figure>
 
 **图 3-13　沟道渐变与夹断。** 图中的电子输运方向 S→D 与传统漏电流 \(I_D\) 的 D→S 相反。
 
@@ -855,67 +685,26 @@ flowchart TD
 
 已知 \(V_{DD}=10.0\ \mathrm V,\ R_D=2.00\ \mathrm{k\Omega}\)，理想栅压源 \(V_G=3.00\ \mathrm V\)，源和体接地。采用长沟道模型 \(V_{TH}=1.00\ \mathrm V,\ k_n=1.00\ \mathrm{mA/V^2}\)，忽略沟道长度调制。
 
-~~~text
-                           +10.0 V = VDD
-                              ●
-                         RD=2.00 kΩ
-                              │  ID ↓
-                         D ●──┘
-                            │
- +3.00 V 理想源 ─────── G ●─┤ NMOS
-   （负端接地）             │
-                         S ●──┴──● B
-                              │
-                              ⏚
-
-ID 从 D 流入、从 S 流出；VGS=VG−VS，VDS=VD−VS，体 B 与源 S 相连。
-栅压源、VDD 和源极均以公共地构成返回参考；理想直流 IG=0。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-15　固定栅压的电阻负载 NMOS 完整电路](../assets/figures/figure-3-15.svg){ .ae-figure }
+</figure>
 
 **图 3-15　固定栅压的电阻负载 NMOS 完整电路。** 栅压源虽不提供理想直流栅电流，仍必须定义相对源极的返回参考。
 
 沿状态算法：
 
 1. **假设：** NMOS 在饱和区。
-2. **模型与变量：**
+2. **模型与变量：** <span class="arithmatex ae-display-math">\(\displaystyle V_{GS}=3.00\ \mathrm V,\quad V_{OV}=V_{GS}-V_{TH}=2.00\ \mathrm V,\)</span> <span class="arithmatex ae-display-math">\(\displaystyle I_D=\frac12k_nV_{OV}^2.\)</span>
 
-   \[
-   V_{GS}=3.00\ \mathrm V,\quad
-   V_{OV}=V_{GS}-V_{TH}=2.00\ \mathrm V,
-   \]
+3. **求解：** <span class="arithmatex ae-display-math">\(\displaystyle I_D=\frac12(1.00\ \mathrm{mA/V^2})(2.00\ \mathrm V)^2 =2.00\ \mathrm{mA},\)</span> <span class="arithmatex ae-display-math">\(\displaystyle V_D=V_{DD}-I_DR_D =10.0-(2.00\ \mathrm{mA})(2.00\ \mathrm{k\Omega}) =6.00\ \mathrm V,\)</span>
 
-   \[
-   I_D=\frac12k_nV_{OV}^2.
-   \]
+    所以 \(V_{DS}=6.00\ \mathrm V\)。
 
-3. **求解：**
+4. **量纲与区域检查：** \((\mathrm{mA/V^2})(\mathrm{V^2})=\mathrm{mA}\)；\(V_{DS}=6.00\ \mathrm V\ge V_{OV}=2.00\ \mathrm V\)，饱和假设成立。Q 点为 <span class="arithmatex ae-display-math">\(\displaystyle \boxed{I_{DQ}=2.00\ \mathrm{mA},\quad V_{DSQ}=6.00\ \mathrm V}.\)</span>
 
-   \[
-   I_D=\frac12(1.00\ \mathrm{mA/V^2})(2.00\ \mathrm V)^2
-   =2.00\ \mathrm{mA},
-   \]
+5. **负载线与极限：** <span class="arithmatex ae-display-math">\(\displaystyle I_D=\frac{V_{DD}-V_{DS}}{R_D}.\)</span>
 
-   \[
-   V_D=V_{DD}-I_DR_D
-   =10.0-(2.00\ \mathrm{mA})(2.00\ \mathrm{k\Omega})
-   =6.00\ \mathrm V,
-   \]
-
-   所以 \(V_{DS}=6.00\ \mathrm V\)。
-
-4. **量纲与区域检查：** \((\mathrm{mA/V^2})(\mathrm{V^2})=\mathrm{mA}\)；\(V_{DS}=6.00\ \mathrm V\ge V_{OV}=2.00\ \mathrm V\)，饱和假设成立。Q 点为
-
-   \[
-   \boxed{I_{DQ}=2.00\ \mathrm{mA},\quad V_{DSQ}=6.00\ \mathrm V}.
-   \]
-
-5. **负载线与极限：**
-
-   \[
-   I_D=\frac{V_{DD}-V_{DS}}{R_D}.
-   \]
-
-   它连接 \((V_{DS}=10.0\ \mathrm V,I_D=0)\) 与 \((V_{DS}=0,I_D=5.00\ \mathrm{mA})\)。\(V_G\) 降到阈值以下时 Q 点趋向截止端；增大 \(V_G\) 时平方律预测电流增加，但若算出的 \(V_{DS}<V_{OV}\)，就必须切到三极管区。
+    它连接 \((V_{DS}=10.0\ \mathrm V,I_D=0)\) 与 \((V_{DS}=0,I_D=5.00\ \mathrm{mA})\)。\(V_G\) 降到阈值以下时 Q 点趋向截止端；增大 \(V_G\) 时平方律预测电流增加，但若算出的 \(V_{DS}<V_{OV}\)，就必须切到三极管区。
 
 **阈值敏感性。** 只把 \(V_{TH}\) 改为 \(1.50\ \mathrm V\)，则 \(V_{OV}=1.50\ \mathrm V,I_D=1.125\ \mathrm{mA},V_{DS}=7.75\ \mathrm V\)，仍饱和；若 \(V_{TH}=0.50\ \mathrm V\)，则 \(V_{OV}=2.50\ \mathrm V,I_D=3.125\ \mathrm{mA},V_{DS}=3.75\ \mathrm V\)，也仍满足饱和。可见固定栅压偏置直接暴露于阈值与工艺变化。
 
@@ -923,23 +712,9 @@ ID 从 D 流入、从 S 流出；VGS=VG−VS，VDS=VD−VS，体 B 与源 S 相�
 
 已知 \(V_{DD}=12.0\ \mathrm V,\ R_1=1.00\ \mathrm{M\Omega},R_2=500\ \mathrm{k\Omega},R_D=2.00\ \mathrm{k\Omega},R_S=1.00\ \mathrm{k\Omega}\)。体接源，采用 \(V_{TH}=1.00\ \mathrm V,\ k_n=1.00\ \mathrm{mA/V^2}\) 的长沟道模型，忽略沟道长度调制和栅漏电。
 
-~~~text
-                              +12.0 V = VDD
-                    ●────────────────────●
-                    │                    │
-                R1=1.00 MΩ          RD=2.00 kΩ
-                    │                    │  ID ↓
-                    ●────────● G ───║    ● D
-                    │              ║    │
-               R2=500 kΩ           ║    │  NMOS 沟道
-                    │                   ● S──● B
-                    ⏚                   │  ID ↓（由源流出）
-                                   RS=1.00 kΩ
-                                        │
-                                        ⏚
-
-VGS=VG−VS，VDS=VD−VS；体 B 与源 S 相连，所有支路返回公共地。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-16　栅分压—源极电阻偏置完整电路](../assets/figures/figure-3-16.svg){ .ae-figure }
+</figure>
 
 **图 3-16　栅分压—源极电阻偏置完整电路。** 分压节点通过水平导线连接到 G，双竖线表示栅与沟道绝缘；理想 \(I_G=0\) 使分压器不被栅端直流加载，\(R_S\) 提供局部直流负反馈。
 
@@ -953,55 +728,13 @@ V_G=V_{DD}\frac{R_2}{R_1+R_2}
 分压支路本身仍有 \(12.0\ \mathrm V/1.50\ \mathrm{M\Omega}=8.00\ \mu\mathrm A\)，不能把“栅不吸电流”误说成“分压器不耗电”。
 
 1. **假设：** NMOS 饱和。
-2. **模型：**
+2. **模型：** <span class="arithmatex ae-display-math">\(\displaystyle V_S=I_DR_S,\quad V_{OV}=V_G-V_S-V_{TH}=3.00\ \mathrm V-I_D(1.00\ \mathrm{k\Omega}),\)</span> <span class="arithmatex ae-display-math">\(\displaystyle I_D=\frac12k_nV_{OV}^2.\)</span>
 
-   \[
-   V_S=I_DR_S,\quad
-   V_{OV}=V_G-V_S-V_{TH}=3.00\ \mathrm V-I_D(1.00\ \mathrm{k\Omega}),
-   \]
+3. **求解。** 用 mA、k\(\Omega\)、V 为一致单位，令 \(x=I_D/\mathrm{mA}\)，则 \(V_S=x\ \mathrm V\)： <span class="arithmatex ae-display-math">\(\displaystyle x=\frac12(3-x)^2 \quad\Longrightarrow\quad x^2-8x+9=0,\)</span> <span class="arithmatex ae-display-math">\(\displaystyle x=4\pm\sqrt7.\)</span>
 
-   \[
-   I_D=\frac12k_nV_{OV}^2.
-   \]
+    两个代数根约为 \(1.354\) 与 \(6.646\)。第二根会给 \(V_{OV}=3-6.646<0\)，违反饱和模型先决条件，必须排除。因此 <span class="arithmatex ae-display-math">\(\displaystyle I_D=1.354\ \mathrm{mA},\quad V_S=1.354\ \mathrm V,\)</span> <span class="arithmatex ae-display-math">\(\displaystyle V_{GS}=4.00-1.354=2.646\ \mathrm V,\quad V_{OV}=1.646\ \mathrm V,\)</span> <span class="arithmatex ae-display-math">\(\displaystyle V_D=12.0-(1.354\ \mathrm{mA})(2.00\ \mathrm{k\Omega}) =9.292\ \mathrm V,\)</span> <span class="arithmatex ae-display-math">\(\displaystyle V_{DS}=V_D-V_S=7.937\ \mathrm V.\)</span>
 
-3. **求解。** 用 mA、k\(\Omega\)、V 为一致单位，令 \(x=I_D/\mathrm{mA}\)，则 \(V_S=x\ \mathrm V\)：
-
-   \[
-   x=\frac12(3-x)^2
-   \quad\Longrightarrow\quad
-   x^2-8x+9=0,
-   \]
-
-   \[
-   x=4\pm\sqrt7.
-   \]
-
-   两个代数根约为 \(1.354\) 与 \(6.646\)。第二根会给 \(V_{OV}=3-6.646<0\)，违反饱和模型先决条件，必须排除。因此
-
-   \[
-   I_D=1.354\ \mathrm{mA},\quad
-   V_S=1.354\ \mathrm V,
-   \]
-
-   \[
-   V_{GS}=4.00-1.354=2.646\ \mathrm V,\quad
-   V_{OV}=1.646\ \mathrm V,
-   \]
-
-   \[
-   V_D=12.0-(1.354\ \mathrm{mA})(2.00\ \mathrm{k\Omega})
-   =9.292\ \mathrm V,
-   \]
-
-   \[
-   V_{DS}=V_D-V_S=7.937\ \mathrm V.
-   \]
-
-4. **区域与量纲检查：** \(V_{GS}>V_{TH}\)，且 \(7.937\ \mathrm V\ge1.646\ \mathrm V\)，饱和假设成立；Q 点为
-
-   \[
-   \boxed{I_{DQ}=1.354\ \mathrm{mA},\quad V_{DSQ}=7.937\ \mathrm V}.
-   \]
+4. **区域与量纲检查：** \(V_{GS}>V_{TH}\)，且 \(7.937\ \mathrm V\ge1.646\ \mathrm V\)，饱和假设成立；Q 点为 <span class="arithmatex ae-display-math">\(\displaystyle \boxed{I_{DQ}=1.354\ \mathrm{mA},\quad V_{DSQ}=7.937\ \mathrm V}.\)</span>
 
 5. **极限与稳定性：** 若 \(I_D\) 趋向增大，\(V_S=I_DR_S\) 上升，使 \(V_{GS}\) 和 \(V_{OV}\) 下降，抑制原来的变化；这是源极退化的直流负反馈。\(R_S\to0\) 时回到固定 \(V_{GS}\) 的强参数敏感偏置。若体不是接源而是接地，\(V_S>0\) 会产生体偏置并改变 \(V_{TH}\)，本题结果不再自洽。
 
@@ -1069,18 +802,9 @@ g_m=\left.\frac{\partial i_D}{\partial v_{GS}}\right|_Q
 
 这两种形式只在同一个饱和平方律 Q 点上等价。\(g_m\) 单位是 A/V=S。
 
-~~~text
- ID ↑
-    │                         饱和平方律 ID=(kn/2)VOV²
-    │                     .´
- IDQ├────────────────● Q ╱  局部切线斜率 gm
-    │              .´ │╱
-    │           .´    │ ΔID=gm·ΔVGS
-  0 └──────────┬──────┴────────────────→ VGS
-              VTH   VGSQ
-
- vGS=VGSQ+ṽgs，iD=IDQ+ĩd；VDS 的增量影响暂由 ro 忽略。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-17　NMOS 饱和平方律在 Q 点的局部线性化](../assets/figures/figure-3-17.svg){ .ae-figure }
+</figure>
 
 **图 3-17　NMOS 饱和平方律在 Q 点的局部线性化。** 切线参数由 \(I_{DQ},V_{OVQ}\) 决定；它不是跨截止或三极管区仍有效的全局直线。
 
@@ -1182,16 +906,9 @@ V_{TH}=V_{TH0}+\gamma
 
 ### 10.1 先说控制端口，再说口语简称
 
-~~~text
-BJT 正向有源小信号                     NMOS 饱和小信号
-
- B ●── ṽbe ──● E                        G ●── ṽgs ──● S
-       │                                      │
-       └──产生 ĩc=gm·ṽbe                    └──产生 ĩd=gm·ṽgs
-          同时有 ĩb=ṽbe/rπ                    理想低频栅端无电导电流
-
-两者的输出端都不是理想电流源：深入模型分别有 ro，并受工作区边界限制。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-18　两类晶体管的端口控制表述](../assets/figures/figure-3-18.svg){ .ae-figure }
+</figure>
 
 **图 3-18　两类晶体管的端口控制表述。** 小信号模型都以端口电压控制增量输出电流；差别之一是 BJT 输入端有 \(r_\pi\)，理想 MOS 栅端直流开路但含电容。
 
@@ -1259,79 +976,49 @@ g_{m,\mathrm{MOS}}=\frac{2(1.00\ \mathrm{mA})}{0.20\ \mathrm V}
 
 #### 状态案例 B-1：零基极驱动
 
-~~~text
- +5 V ●──RC=1 kΩ──● C          0 V ●──RB=100 kΩ──● B
-                  |\                              │
-                  | >─────────────────────────────┘
-                  |/
-                   ● E──⏚
- 电源负端均接地；IB、IC 入器件，IE 出 E；VBE=VB−VE，VCE=VC−VE。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-19　BJT 状态案例 B-1](../assets/figures/figure-3-19.svg){ .ae-figure }
+</figure>
 
 **图 3-19　BJT 状态案例 B-1。** 截止假设给 \(I_B=I_C=0,V_B=0,V_C=5\ \mathrm V\)；\(V_{BE}=0<0.70\ \mathrm V,V_{BC}=-5\ \mathrm V\)，故答案为**截止**。
 
 #### 状态案例 B-2：小基极驱动
 
-~~~text
- +5 V ●──RC=1 kΩ──● C          +1.0 V ●──RB=100 kΩ──● B
-                  |\                                   │
-                  | >──────────────────────────────────┘
-                  |/
-                   ● E──⏚
- 两个电源负端接地；端口方向同图 3-2。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-20　BJT 状态案例 B-2](../assets/figures/figure-3-20.svg){ .ae-figure }
+</figure>
 
 **图 3-20　BJT 状态案例 B-2。** 假设正向有源，\(I_B=(1.0-0.70)/100\ \mathrm{k\Omega}=3.0\ \mu\mathrm A\)，\(I_C=0.300\ \mathrm{mA}\)，\(V_C=4.70\ \mathrm V\)。\(V_{BC}=0.70-4.70=-4.00\ \mathrm V<0\)，故答案为**正向有源**。
 
 #### 状态案例 B-3：强驱动导致饱和
 
-~~~text
- +5 V ●──RC=1 kΩ──● C          +3.0 V ●──RB=10 kΩ──● B
-                  |\                                  │
-                  | >─────────────────────────────────┘
-                  |/
-                   ● E──⏚
- 两个电源负端接地；饱和模型取 VBE,sat=0.80 V、VCE,sat=0.20 V。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-21　BJT 状态案例 B-3](../assets/figures/figure-3-21.svg){ .ae-figure }
+</figure>
 
 **图 3-21　BJT 状态案例 B-3。** 有源假设给 \(I_B=0.230\ \mathrm{mA},I_C=23.0\ \mathrm{mA}\)，却要求 \(V_C=5-23=-18\ \mathrm V\)，与集电负载不自洽。换饱和模型得 \(I_B=(3.0-0.80)/10\ \mathrm{k\Omega}=0.220\ \mathrm{mA}\)，\(I_C=(5.0-0.20)/1\ \mathrm{k\Omega}=4.80\ \mathrm{mA}\)，\(V_{BC}=0.60\ \mathrm V>0\)，故答案为**饱和**；此处不再令 \(I_C=\beta I_B\)。
 
 #### 状态案例 B-4：抬高发射极后截止
 
-~~~text
- +5 V ●──RC=1 kΩ──● C          +1.2 V ●──RB=100 kΩ──● B
-                  |\                                   │
-                  | >──────────────────────────────────┘
-                  |/
-                   ● E──理想 +1.0 V 源──⏚
- 所有源负端接地；VE=+1.0 V，端口方向同图 3-2。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-22　BJT 状态案例 B-4](../assets/figures/figure-3-22.svg){ .ae-figure }
+</figure>
 
 **图 3-22　BJT 状态案例 B-4。** 截止假设给 \(V_B=1.2\ \mathrm V,V_E=1.0\ \mathrm V\)，故 \(V_{BE}=0.20\ \mathrm V<0.70\ \mathrm V\)；\(V_C=5.0\ \mathrm V,V_{BC}=-3.8\ \mathrm V\)。答案为**截止**。
 
 #### 状态案例 B-5：抬高发射极但仍有源
 
-~~~text
- +6 V ●──RC=2 kΩ──● C          +2.0 V ●──RB=100 kΩ──● B
-                  |\                                   │
-                  | >──────────────────────────────────┘
-                  |/
-                   ● E──理想 +1.0 V 源──⏚
- 所有源负端接地；VE=+1.0 V，端口方向同图 3-2。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-23　BJT 状态案例 B-5](../assets/figures/figure-3-23.svg){ .ae-figure }
+</figure>
 
 **图 3-23　BJT 状态案例 B-5。** 有源假设给 \(V_B=1.70\ \mathrm V\)，\(I_B=(2.0-1.70)/100\ \mathrm{k\Omega}=3.0\ \mu\mathrm A\)，\(I_C=0.300\ \mathrm{mA}\)，\(V_C=5.40\ \mathrm V\)。\(V_{CE}=4.40\ \mathrm V,V_{BC}=-3.70\ \mathrm V\)，故答案为**正向有源**。
 
 #### 状态案例 B-6：低集电电源限制电流
 
-~~~text
- +0.5 V ●──RC=1 kΩ──● C        +1.7 V ●──RB=100 kΩ──● B
-                    |\                                  │
-                    | >─────────────────────────────────┘
-                    |/
-                     ● E──⏚
- 两个电源负端接地；饱和模型取 VBE,sat=0.80 V、VCE,sat=0.20 V。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-24　BJT 状态案例 B-6](../assets/figures/figure-3-24.svg){ .ae-figure }
+</figure>
 
 **图 3-24　BJT 状态案例 B-6。** 有源假设给 \(I_B=10.0\ \mu\mathrm A,I_C=1.00\ \mathrm{mA},V_C=-0.50\ \mathrm V\)，从而 \(V_{BC}>0\)，失败。饱和模型给 \(I_B=9.0\ \mu\mathrm A,I_C=0.300\ \mathrm{mA},V_{BC}=0.60\ \mathrm V\)；答案为**饱和**，强迫电流增益 \(I_C/I_B=33.3<100\)。
 
@@ -1339,79 +1026,49 @@ g_{m,\mathrm{MOS}}=\frac{2(1.00\ \mathrm{mA})}{0.20\ \mathrm V}
 
 #### 状态案例 M-1：栅压低于阈值
 
-~~~text
- +5 V ●──RD=1 kΩ──● D
-                  │
- +0.5 V 理想源──G ●─┤ NMOS
-  （负端接地）     │
-                  ● S──● B──⏚
- ID 入 D 出 S；VGS=VG−VS，VDS=VD−VS；体接源。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-25　NMOS 状态案例 M-1](../assets/figures/figure-3-25.svg){ .ae-figure }
+</figure>
 
 **图 3-25　NMOS 状态案例 M-1。** \(V_{GS}=0.50\ \mathrm V<V_{TH}\)，截止模型给 \(I_D=0,V_D=5.0\ \mathrm V,V_{DS}=5.0\ \mathrm V\)。答案为**截止**。
 
 #### 状态案例 M-2：有足够漏源余量
 
-~~~text
- +5 V ●──RD=1 kΩ──● D
-                  │
- +2.0 V 理想源──G ●─┤ NMOS
-  （负端接地）     │
-                  ● S──● B──⏚
- ID 入 D 出 S；所有源返回地。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-26　NMOS 状态案例 M-2](../assets/figures/figure-3-26.svg){ .ae-figure }
+</figure>
 
 **图 3-26　NMOS 状态案例 M-2。** \(V_{OV}=2.0-1.0=1.0\ \mathrm V\)。NMOS 饱和区假设给 \(I_D=0.500\ \mathrm{mA},V_{DS}=V_D=4.50\ \mathrm V\ge1.0\ \mathrm V\)，故答案为 **NMOS 饱和区**。
 
 #### 状态案例 M-3：大栅压把器件推入三极管区
 
-~~~text
- +5 V ●──RD=1 kΩ──● D
-                  │
- +4.0 V 理想源──G ●─┤ NMOS
-  （负端接地）     │
-                  ● S──● B──⏚
- ID 入 D 出 S；VOV=3.0 V。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-27　NMOS 状态案例 M-3](../assets/figures/figure-3-27.svg){ .ae-figure }
+</figure>
 
 **图 3-27　NMOS 状态案例 M-3。** 饱和假设给 \(I_D=4.50\ \mathrm{mA},V_{DS}=0.50\ \mathrm V<3.0\ \mathrm V\)，失败。三极管区联立负载线 \(I_D=(5-V_{DS})/1\ \mathrm{k\Omega}\) 得 \(V_{DS}^2-8V_{DS}+10=0\)。根为 \(4\pm\sqrt6\ \mathrm V\)，只保留 \(V_{DS}=1.551\ \mathrm V<3.0\ \mathrm V\)，于是 \(I_D=3.449\ \mathrm{mA}\)。答案为**三极管区**。
 
 #### 状态案例 M-4：源极抬高造成截止
 
-~~~text
- +5 V ●──RD=1 kΩ──● D
-                  │
- +1.8 V 理想源──G ●─┤ NMOS
-                  │
-                  ● S──● B──理想 +1.0 V 源──⏚
- 栅源、源极电源负端均接地；体接源，VS=+1.0 V。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-28　NMOS 状态案例 M-4](../assets/figures/figure-3-28.svg){ .ae-figure }
+</figure>
 
 **图 3-28　NMOS 状态案例 M-4。** \(V_{GS}=1.8-1.0=0.80\ \mathrm V<V_{TH}\)，所以 \(I_D=0,V_D=5.0\ \mathrm V,V_{DS}=4.0\ \mathrm V\)。答案为**截止**。
 
 #### 状态案例 M-5：源极抬高后仍饱和
 
-~~~text
- +6 V ●──RD=2 kΩ──● D
-                  │
- +3.0 V 理想源──G ●─┤ NMOS
-                  │
-                  ● S──● B──理想 +1.0 V 源──⏚
- 所有源负端接地；体接源，VS=+1.0 V。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-29　NMOS 状态案例 M-5](../assets/figures/figure-3-29.svg){ .ae-figure }
+</figure>
 
 **图 3-29　NMOS 状态案例 M-5。** \(V_{GS}=2.0\ \mathrm V,V_{OV}=1.0\ \mathrm V\)。NMOS 饱和区公式给 \(I_D=0.500\ \mathrm{mA},V_D=5.0\ \mathrm V,V_{DS}=4.0\ \mathrm V\ge1.0\ \mathrm V\)，故答案为 **NMOS 饱和区**。
 
 #### 状态案例 M-6：低漏电源迫使三极管区
 
-~~~text
- +2 V ●──RD=1 kΩ──● D
-                  │
- +3.0 V 理想源──G ●─┤ NMOS
-  （负端接地）     │
-                  ● S──● B──⏚
- ID 入 D 出 S；VOV=2.0 V，所有源返回地。
-~~~
+<figure class="ae-figure-frame" markdown="1">
+![图 3-30　NMOS 状态案例 M-6](../assets/figures/figure-3-30.svg){ .ae-figure }
+</figure>
 
 **图 3-30　NMOS 状态案例 M-6。** 饱和式给 \(I_D=2.00\ \mathrm{mA},V_{DS}=0<2.0\ \mathrm V\)，失败。三极管式与 \(I_D=(2-V_{DS})/1\ \mathrm{k\Omega}\) 联立，得 \(V_{DS}^2-6V_{DS}+4=0\)。只保留 \(V_{DS}=3-\sqrt5=0.764\ \mathrm V<2.0\ \mathrm V\)，于是 \(I_D=1.236\ \mathrm{mA}\)。答案为**三极管区**。
 

@@ -159,6 +159,12 @@ body {
   vertical-align: middle;
 }
 
+.md-typeset span.arithmatex.ae-display-math {
+  display: block;
+  margin-block: 0.6em;
+  text-align: center;
+}
+
 .md-typeset table:not([class]) {
   background: var(--ae-paper-raised);
   border: 1px solid var(--ae-line);
@@ -384,7 +390,7 @@ body {
   height: auto;
   margin: 0 auto;
   max-width: none;
-  min-width: 38rem;
+  min-width: 0;
   width: 100%;
 }
 
@@ -430,6 +436,10 @@ body {
 @media (max-width: 52rem) {
   .ae-path-grid {
     grid-template-columns: 1fr;
+  }
+
+  .md-typeset .ae-figure {
+    min-width: 38rem;
   }
 }
 

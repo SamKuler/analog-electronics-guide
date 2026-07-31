@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" role="img">
+  <title>同相比较器的阈值波形</title>
+  <desc>输入三角波高于固定参考电压时输出为高电平，低于参考时输出为低电平；交越附近的传播延迟和噪声会移动实际边沿。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="460"/>
+
+  <text class="head" x="45" y="60">vi 与 Vref</text><line class="axis" x1="80" y1="190" x2="890" y2="190" marker-end="url(#arrow)"/>
+  <path class="teal" d="M80 250L200 95L320 250L440 95L560 250L680 95L800 250L860 170"/><line class="orange" x1="80" y1="170" x2="860" y2="170" stroke-dasharray="8 7"/>
+  <text class="small" x="760" y="160">Vref</text><text class="head" x="45" y="305">vo</text><line class="axis" x1="80" y1="385" x2="890" y2="385" marker-end="url(#arrow)"/>
+  <path class="orange" d="M80 420L140 420L140 330L260 330L260 420L380 420L380 330L500 330L500 420L620 420L620 330L740 330L740 420L860 420"/>
+
+</svg>

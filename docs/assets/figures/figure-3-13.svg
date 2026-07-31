@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img">
+  <title>沟道渐变与夹断</title>
+  <desc>VDS 增大使漏端沟道电荷逐渐减少；在VDS等于过驱动电压时漏端刚夹断，载流子仍被强电场扫向漏极。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="360"/>
+<rect class="panel" x="40" y="120" width="180" height="150" rx="12"/><text class="head" x="60" y="165">小 VDS</text><text class="small" x="60" y="205">连续反型沟道</text><line class="teal" x1="220" y1="195" x2="255" y2="195" marker-end="url(#arrow)"/><rect class="panel" x="260" y="120" width="180" height="150" rx="12"/><text class="head" x="280" y="165">VDS 增大</text><text class="small" x="280" y="205">漏端沟道变薄</text><line class="teal" x1="440" y1="195" x2="475" y2="195" marker-end="url(#arrow)"/><rect class="panel" x="480" y="120" width="180" height="150" rx="12"/><text class="head" x="500" y="165">VDS = VOV</text><text class="small" x="500" y="205">漏端刚夹断</text><line class="teal" x1="660" y1="195" x2="695" y2="195" marker-end="url(#arrow)"/><rect class="panel" x="700" y="120" width="180" height="150" rx="12"/><text class="head" x="720" y="165">VDS &gt; VOV</text><text class="small" x="720" y="205">夹断区延伸，电流不为零</text>
+</svg>

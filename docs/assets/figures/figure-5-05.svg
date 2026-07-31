@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img">
+  <title>反相端取样的负反馈方向检查</title>
+  <desc>若输出上升使反相输入上升，则差分输入下降，运放驱动输出回落并抵消原扰动。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="380"/>
+<rect class="panel" x="45" y="115" width="185" height="150" rx="12"/><text class="head" x="63" y="157">vo 上升</text><text class="small" x="63" y="202">假设一个小扰动</text><line class="teal" x1="230" y1="190" x2="260" y2="190" marker-end="url(#arrow)"/><rect class="panel" x="270" y="115" width="185" height="150" rx="12"/><text class="head" x="288" y="157">v− 上升</text><text class="small" x="288" y="202">反馈网络取样</text><line class="teal" x1="455" y1="190" x2="485" y2="190" marker-end="url(#arrow)"/><rect class="panel" x="495" y="115" width="185" height="150" rx="12"/><text class="head" x="513" y="157">vd 下降</text><text class="small" x="513" y="202">v+ 暂不变</text><line class="teal" x1="680" y1="190" x2="710" y2="190" marker-end="url(#arrow)"/><rect class="panel" x="720" y="115" width="185" height="150" rx="12"/><text class="head" x="738" y="157">vo 回落</text><text class="small" x="738" y="202">抵消原变化</text><path class="orange" d="M865 285C840 345 135 345 65 285" marker-end="url(#arrow-orange)"/><text class="small" x="350" y="338">返回变化沿闭环抵消或强化原扰动</text>
+</svg>

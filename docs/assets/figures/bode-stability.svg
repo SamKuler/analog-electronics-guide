@@ -13,7 +13,7 @@
   <path class="trace" d="M110 106 L350 106 C410 106 445 118 490 155 L640 220 L910 280"/>
   <path class="risk" d="M490 155 C560 182 590 225 640 252 L870 290"/><text class="small" x="720" y="268">第二极点更早：斜率更陡</text>
   <line class="mark" x1="640" y1="70" x2="640" y2="555" stroke-dasharray="6 5"/><circle cx="640" cy="220" r="6" fill="#5d4b8c"/><text class="math" x="650" y="211">ωc：|T|=1</text>
-  <text class="small" x="210" y="282">低频高环路增益</text><text class="small" x="865" y="282">高频衰减</text>
+  <text class="small" x="210" y="282">低频高环路增益</text><text class="small" x="890" y="292">高频衰减</text>
   <rect class="panel" x="25" y="325" width="1030" height="240" rx="8"/><line class="axis" x1="105" y1="525" x2="1015" y2="525"/><line class="axis" x1="105" y1="345" x2="105" y2="535"/>
   <line class="grid" x1="105" y1="500" x2="1015" y2="500"/><text class="math" x="38" y="506">−180°</text><text class="small" x="45" y="362">∠T</text>
   <path class="trace" d="M110 370 C320 372 400 390 480 430 S580 455 640 458 S760 474 930 500"/>

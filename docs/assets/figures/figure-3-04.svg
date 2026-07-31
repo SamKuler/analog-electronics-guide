@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img">
+  <title>由 BE、BC 两个结偏置构成的 BJT 工作区地图</title>
+  <desc>二维工作区表按BE结与BC结是否正向偏置区分截止、正向有源、饱和和反向相关状态。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="440"/>
+
+  <text class="head" x="360" y="52">BC 结偏置</text><text class="head" x="225" y="105">反偏</text><text class="head" x="585" y="105">正偏</text>
+  <text class="head" x="34" y="195">BE 未正偏</text><text class="head" x="34" y="330">BE 正偏</text>
+  <rect class="panel" x="190" y="120" width="330" height="130" rx="8"/><rect class="panel" x="530" y="120" width="330" height="130" rx="8"/>
+  <rect class="panel" x="190" y="260" width="330" height="130" rx="8"/><rect class="panel" x="530" y="260" width="330" height="130" rx="8"/>
+  <text class="head" x="290" y="185">截止</text><text class="small" x="250" y="220">通常 IC ≈ 0</text>
+  <text class="head" x="620" y="185">反向相关状态</text><text class="small" x="635" y="220">冲刺轨不使用</text>
+  <text class="head" x="285" y="325">正向有源</text><text class="small" x="260" y="360">IC ≈ βIB</text>
+  <text class="head" x="650" y="325">饱和</text><text class="small" x="600" y="360">两结均正偏</text>
+
+</svg>

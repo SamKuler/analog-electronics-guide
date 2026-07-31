@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img">
+  <title>电压并联反馈</title>
+  <desc>电压并联反馈方框图明确区分输出取样方式与输入混合方式，并给出对应闭环量。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="420"/>
+
+  <circle class="ink" cx="190" cy="180" r="34"/><text class="head" x="177" y="172">+</text><text class="head" x="177" y="204">−</text>
+  <line class="teal" x1="40" y1="180" x2="150" y2="180" marker-end="url(#arrow)"/><text class="small" x="55" y="160">输入源</text>
+  <line class="teal" x1="225" y1="180" x2="350" y2="180" marker-end="url(#arrow)"/>
+  <rect class="panel" x="350" y="120" width="210" height="120" rx="10"/><text class="head" x="405" y="175">前向级</text><text class="small" x="390" y="210">跨阻 vo/is</text>
+  <line class="teal" x1="560" y1="180" x2="875" y2="180" marker-end="url(#arrow)"/><text class="small" x="720" y="158">输出与负载</text>
+  <path class="orange" d="M760 180L760 325L540 325" marker-end="url(#arrow-orange)"/>
+  <rect class="panel" x="305" y="280" width="235" height="90" rx="10"/><text class="head" x="335" y="318">输出电压经 Rf 取样</text><text class="small" x="335" y="347">求和节点作电流 KCL</text>
+  <path class="orange" d="M305 325L190 325L190 220" marker-end="url(#arrow-orange)"/>
+
+</svg>

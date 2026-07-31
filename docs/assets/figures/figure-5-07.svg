@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img">
+  <title>虚断与虚短不能望文生义</title>
+  <desc>虚断表示输入引脚电流近似为零而外部电阻电流仍经反馈返回；虚短表示特定负反馈线性状态下两输入电位近似相等，但两端没有导线相连。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="440"/>
+
+  <rect class="panel" x="35" y="55" width="430" height="330" rx="12"/><rect class="panel" x="495" y="55" width="430" height="330" rx="12"/>
+  <text class="head" x="60" y="98">虚断：i+ ≈ i− ≈ 0</text><circle class="node" cx="100" cy="210" r="6"/><polyline class="ink" points="100,210 150,210 165,195 185,225 205,195 225,225 240,210 330,210"/>
+  <circle class="node" cx="330" cy="210" r="6"/><line class="orange" x1="345" y1="165" x2="345" y2="250" stroke-dasharray="6 6"/>
+  <text class="small" x="75" y="285">电流经外部 R 与 Rf 返回，</text><text class="small" x="75" y="315">不是流入运放输入引脚。</text>
+  <text class="head" x="520" y="98">虚短：v+ ≈ v−</text><circle class="node" cx="610" cy="210" r="7"/><circle class="node" cx="810" cy="210" r="7"/>
+  <line class="teal" x1="630" y1="180" x2="790" y2="180" marker-end="url(#arrow)"/><text class="txt" x="675" y="165">近似同电位</text>
+  <line class="orange" x1="650" y1="220" x2="770" y2="220" stroke-dasharray="8 8"/><text class="small" x="665" y="252">没有物理短接</text>
+  <text class="small" x="535" y="315">只在负反馈、线性且未饱和时成立。</text>
+
+</svg>

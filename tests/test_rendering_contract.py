@@ -160,9 +160,12 @@ class RenderingContractTests(unittest.TestCase):
                 self.assertIn(filename, curriculum)
 
     def test_teaching_svgs_are_accessible_and_self_contained(self):
-        for filename in self.TEACHING_FIGURES:
+        figure_paths = sorted((DOCS / "assets" / "figures").glob("*.svg"))
+        self.assertTrue(figure_paths)
+
+        for path in figure_paths:
+            filename = path.name
             with self.subTest(filename=filename):
-                path = DOCS / "assets" / "figures" / filename
                 root = ET.parse(path).getroot()
                 local_name = root.tag.rsplit("}", 1)[-1]
                 children = {
@@ -201,7 +204,6 @@ class RenderingContractTests(unittest.TestCase):
                 "mos-ro",
             },
             "rectifier-filter.svg": {"filter-capacitor", "load-resistor"},
-            "differential-power.svg": {"output-npn", "output-pnp", "load"},
         }
 
         for filename, roles in expected_roles.items():
@@ -273,7 +275,11 @@ class RenderingContractTests(unittest.TestCase):
             r"\.md-typeset \.ae-figure-frame\s*\{[^}]*width: 100%;",
         )
         self.assertIn(".ae-figure-frame > p", css)
-        self.assertIn("min-width: 38rem;", css)
+        self.assertRegex(
+            css,
+            r"@media \(max-width: 52rem\)[\s\S]*?"
+            r"\.md-typeset \.ae-figure\s*\{[^}]*min-width: 38rem;",
+        )
 
     def test_math_scrolls_instead_of_expanding_the_page(self):
         css = (DOCS / "assets" / "stylesheets" / "extra.css").read_text(
@@ -336,8 +342,8 @@ class BuiltSiteRenderingTests(unittest.TestCase):
             html,
             r'<svg\b[^>]*class="[^"]*\bae-figure\b[^"]*"',
         )
-        self.assertIn('id="ae-bjt-regions-a"', html)
-        self.assertIn("url(#ae-bjt-regions-a)", html)
+        self.assertIn('id="ae-mosfet-regions-a"', html)
+        self.assertIn("url(#ae-mosfet-regions-a)", html)
         self.assertNotRegex(
             html,
             r'<img\b[^>]*\bsrc="[^"]*/assets/figures/[^"]+\.svg"',

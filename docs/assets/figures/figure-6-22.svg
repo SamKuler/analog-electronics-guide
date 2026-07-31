@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img">
+  <title>桥接阻抗的 Miller 两端等效</title>
+  <desc>原桥接阻抗连接输入和输出；在给定电压增益Av下可等效为输入对地阻抗和输出对地阻抗，但建立Av的受控放大通道仍必须保留。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="440"/>
+
+  <rect class="panel" x="25" y="45" width="440" height="330" rx="10"/><rect class="panel" x="495" y="45" width="440" height="330" rx="10"/>
+  <text class="head" x="50" y="85">原桥接网络</text><circle class="node" cx="100" cy="210" r="6"/><circle class="node" cx="390" cy="210" r="6"/><rect class="panel" x="200" y="165" width="100" height="90" rx="8"/><text class="head" x="235" y="217">Z</text><line class="ink" x1="100" y1="210" x2="200" y2="210"/><line class="ink" x1="300" y1="210" x2="390" y2="210"/><text class="small" x="70" y="195">vi</text><text class="small" x="395" y="195">vo=Av·vi</text>
+  <text class="head" x="520" y="85">Miller 两端等效</text>
+  <circle class="node" cx="550" cy="140" r="6"/><text class="small" x="520" y="125">vi</text>
+  <line class="teal" x1="550" y1="140" x2="650" y2="140" marker-end="url(#arrow)"/>
+  <rect class="panel" x="650" y="105" width="120" height="70" rx="8"/>
+  <text class="head" x="690" y="148">Av</text>
+  <line class="teal" x1="770" y1="140" x2="880" y2="140" marker-end="url(#arrow)"/>
+  <circle class="node" cx="880" cy="140" r="6"/><text class="small" x="850" y="125">vo</text>
+  <text class="small" x="660" y="198">vo = Av·vi</text>
+
+  <line class="ink" x1="550" y1="140" x2="550" y2="215"/>
+  <rect class="panel" x="505" y="215" width="90" height="58" rx="8"/>
+  <text class="small" x="515" y="250">Zin,M</text>
+  <line class="ink" x1="550" y1="273" x2="550" y2="315"/>
+
+  <line class="ink" x1="880" y1="140" x2="880" y2="215"/>
+  <rect class="panel" x="835" y="215" width="90" height="58" rx="8"/>
+  <text class="small" x="841" y="250">Zout,M</text>
+  <line class="ink" x1="880" y1="273" x2="880" y2="315"/>
+
+  <line class="ink" x1="550" y1="315" x2="880" y2="315"/>
+  <line class="ink" x1="715" y1="315" x2="715" y2="332"/>
+  <line class="ink" x1="685" y1="332" x2="745" y2="332"/>
+  <line class="ink" x1="694" y1="341" x2="736" y2="341"/>
+  <line class="ink" x1="704" y1="350" x2="726" y2="350"/>
+
+</svg>

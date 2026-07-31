@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img">
+  <title>二极管偏置回路与电流电压特性</title>
+  <desc>左图给出电源、电阻和二极管构成的完整测试回路与参考方向；右图显示正向指数区、反向漏电区和反向击穿区。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="440"/>
+
+  <rect class="panel" x="24" y="28" width="450" height="374" rx="8"/>
+  <rect class="panel" x="498" y="28" width="438" height="374" rx="8"/>
+  <text class="head" x="48" y="66">完整偏置回路</text>
+  <circle class="ink" cx="92" cy="224" r="30"/><text class="txt" x="102" y="214">+</text><text class="txt" x="102" y="248">−</text>
+  <line class="ink" x1="92" y1="194" x2="92" y2="126"/><line class="ink" x1="92" y1="126" x2="164" y2="126"/>
+  <polyline class="ink" points="164,126 178,112 196,140 214,112 232,140 246,126"/>
+  <line class="ink" x1="246" y1="126" x2="312" y2="126"/>
+  <polygon class="ink" points="312,108 340,126 312,144"/><line class="ink" x1="342" y1="106" x2="342" y2="146"/>
+  <line class="ink" x1="342" y1="126" x2="414" y2="126"/><line class="ink" x1="414" y1="126" x2="414" y2="318"/>
+  <line class="ink" x1="414" y1="318" x2="92" y2="318"/><line class="ink" x1="92" y1="318" x2="92" y2="254"/>
+  <line class="teal" x1="182" y1="86" x2="304" y2="86" marker-end="url(#arrow)"/>
+  <text class="txt" x="218" y="76">iD</text><text class="small" x="304" y="174">A</text><text class="small" x="340" y="174">K</text>
+  <text class="txt" x="46" y="230">VS</text><text class="txt" x="196" y="174">R</text>
+  <text class="small" x="48" y="356">VS &gt; 0：正向偏置；反转电源：反向偏置。</text>
+
+  <text class="head" x="522" y="66">定性 iD–vD 特性</text>
+  <line class="axis" x1="548" y1="250" x2="904" y2="250" marker-end="url(#arrow)"/>
+  <line class="axis" x1="700" y1="354" x2="700" y2="88" marker-end="url(#arrow)"/>
+  <path class="teal" d="M700 250C744 250 770 242 792 214C818 180 842 126 884 88"/>
+  <path class="teal" d="M700 256C650 256 612 258 584 264C570 270 558 300 548 338"/>
+  <line class="orange" x1="574" y1="250" x2="574" y2="338" stroke-dasharray="6 6"/>
+  <text class="small" x="794" y="196">正向指数增长</text><text class="small" x="526" y="286">反向漏电</text>
+  <text class="small" x="522" y="360">击穿</text><text class="math" x="850" y="276">vD</text><text class="math" x="710" y="102">iD</text>
+  <text class="small" x="724" y="328">0.6–0.8 V 不是固定拐点</text>
+
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img">
+  <title>增强型 NMOS 的截面直觉与端口参考</title>
+  <desc>绝缘栅位于氧化层上方，源漏为n加区，正栅压形成表面反型沟道；漏电流从D流入并从S流出。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#006f78"/></marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ad4f16"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#fffaf0}.panel{fill:none;stroke:#87979a;stroke-width:1.5}
+    .ink{fill:none;stroke:#172127;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .axis{fill:none;stroke:#172127;stroke-width:2;stroke-linecap:round}
+    .teal{fill:none;stroke:#006f78;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .orange{fill:none;stroke:#ad4f16;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .node{fill:#172127}.txt{fill:#172127;font:20px sans-serif}
+    .head{fill:#172127;font:bold 21px sans-serif}.small{fill:#59676d;font:16px sans-serif}
+    .math{fill:#172127;font:18px monospace}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#121a1d}.panel{stroke:#607076}.ink,.axis{stroke:#e8eee8}.node{fill:#e8eee8}
+      .txt,.head,.math{fill:#e8eee8}.small{fill:#aebcb9}
+    }
+</style>
+  <rect class="bg" width="960" height="440"/>
+
+  <rect class="panel" x="60" y="70" width="840" height="300" rx="12"/><rect x="310" y="95" width="340" height="55" fill="#87979a"/><text class="head" x="420" y="130">G：绝缘栅</text>
+  <rect x="180" y="210" width="150" height="95" fill="#006f78" opacity=".25"/><rect x="630" y="210" width="150" height="95" fill="#006f78" opacity=".25"/>
+  <text class="head" x="230" y="265">S：n⁺</text><text class="head" x="680" y="265">D：n⁺</text><text class="small" x="405" y="190">SiO₂ 绝缘层</text>
+  <path class="teal" d="M330 250C430 215 530 215 630 250" marker-end="url(#arrow)"/><text class="txt" x="405" y="235">反型沟道</text>
+  <text class="small" x="360" y="340">p 型体区 B 与 S 相连；VGS=VG−VS，VDS=VD−VS</text>
+
+</svg>
