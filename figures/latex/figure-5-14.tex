@@ -1,0 +1,16 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.05cm]
+  \node[op amp] (A1) at (5.3,2.8) {};
+  \draw (A1.-) -- ++(-1.0,0) coordinate (sum);
+  \fill (sum) circle (1.3pt);
+  \foreach \y/\name/\res in {4.2/v_{1}/R_{1},2.8/v_{2}/R_{2},1.4/v_{3}/R_{3}} {
+    \draw (0.5,\y) node[left] {$\name$}
+          to[R,l=$\res$] (3.2,\y) -- (sum);
+  }
+  \draw (A1.+) -- ++(-0.7,0) node[ground] {};
+  \draw (A1.out) -- ++(1.4,0) coordinate (out);
+  \fill (out) circle (1.3pt);
+  \draw (out) node[right=5pt] {$v_{o}$}
+        to[R,l=$R_{L}$] ++(0,-2.5) node[ground] {};
+  \draw (out) -- ++(0,2.2) coordinate (rf-right)
+        to[R,l=$R_{f}$] (rf-right -| sum) -- (sum);
+\end{tikzpicture}

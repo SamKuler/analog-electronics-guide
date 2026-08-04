@@ -1,0 +1,26 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=7.2cm,minimum height=5.4cm] at (3.6,0) {};
+  \node[ae panel,minimum width=7.2cm,minimum height=5.4cm] at (11.2,0) {};
+  \node[font=\bfseries] at (3.6,2.25) {同相环路增益：$T=8$};
+  \node[font=\bfseries] at (11.2,2.25) {相位接近 $-180^\circ$：$T=-0.9$};
+
+  \draw[-{Stealth}] (1.05,.25) -- (6.05,.25) node[right] {$\operatorname{Re}$};
+  \fill (1.05,.25) circle (1.2pt) node[below left] {$0$};
+  \draw[ae accent] (1.05,.25) -- (1.55,.25) node[midway,above] {$1$};
+  \draw[ae arrow] (1.55,.25) -- (5.35,.25)
+    node[midway,above,fill=white,inner sep=1pt] {$T=8$};
+  \fill (5.35,.25) circle (1.4pt) node[below left] {$1+T=9$};
+  \node[font=\scriptsize,text=AEmuted,align=center,text width=5.6cm] at (3.6,-1.3) {
+    $|1+T|=9$\\闭环分母远离零
+  };
+
+  \draw[-{Stealth}] (8.65,.25) -- (13.85,.25) node[right] {$\operatorname{Re}$};
+  \fill (8.65,.25) circle (1.2pt) node[below left] {$0$};
+  \draw[ae accent,-{Stealth}] (8.65,.25) -- (12.45,.25) node[midway,above] {$1$};
+  \draw[ae arrow] (12.45,.25) -- (9.05,.25)
+    node[midway,above,fill=white,inner sep=1pt] {$T=-0.9$};
+  \fill (9.05,.25) circle (1.4pt) node[below right] {$1+T=0.1$};
+  \node[font=\scriptsize,text=AEmuted,align=center,text width=5.6cm] at (11.2,-1.3) {
+    $|1+T|=0.1\ll1$\\闭环响应可能很大
+  };
+\end{tikzpicture}

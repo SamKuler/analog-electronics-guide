@@ -1,0 +1,20 @@
+% Generated from the audited semantic layout; maintained as native TikZ.
+\begin{tikzpicture}[x=.01cm,y=-0.01cm]
+\path[use as bounding box] (0.0,0.0) rectangle (960.0,440.0);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (20,45) rectangle (20+290,45+340);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (335,45) rectangle (335+290,45+340);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (650,45) rectangle (650+290,45+340);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (45,85) {输入阶跃};
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (360,85) {低通：电容充电};
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (675,85) {高通：电阻瞬态};
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M50 285L120 285L120 125L285 125};
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M360 285C390 285 410 165 600 130};
+\draw[draw=AEorange,thick,dashed] (360,125) -- (600,125);
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M675 125C720 130 760 275 915 285};
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (50,285) -- (290,285);
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (360,285) -- (605,285);
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (675,285) -- (920,285);
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (360,330) {$t=\tau$：达到 $63.2\%$};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (675,330) {$t=\tau$：剩余 $36.8\%$};
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (355,370) {\(s_p=-1/\tau,\quad \omega_c=1/\tau\)};
+\end{tikzpicture}

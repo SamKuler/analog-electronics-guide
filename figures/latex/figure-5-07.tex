@@ -1,0 +1,28 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=7.2cm,minimum height=5.2cm] at (3.6,0) {};
+  \node[ae panel,minimum width=7.2cm,minimum height=5.2cm] at (11.4,0) {};
+  \node[font=\bfseries] at (3.6,2.15) {虚断：输入电流近似为零};
+  \node[op amp,scale=1.15] (op) at (4.2,.35) {};
+  \draw (op.+) -- ++(-3.0,0) node[left] {$v_+$};
+  \draw (op.-) -- ++(-3.0,0) node[left] {$v_-$};
+  \draw[ae arrow] ($(op.+)+(-2.75,0)$) -- ($(op.+)+(-1.55,0)$)
+    node[midway,above] {$i_+\approx0$};
+  \draw[ae arrow] ($(op.-)+(-2.75,0)$) -- ($(op.-)+(-1.55,0)$)
+    node[midway,above] {$i_-\approx0$};
+  \draw (op.out) -- ++(.7,0) node[right] {$v_o$};
+  \node[align=center,font=\scriptsize,text=AEmuted] at (3.6,-1.75) {
+    输入端等效电阻 $r_{id}\to\infty$；\\
+    外部信号网络与反馈网络仍可形成闭合回路。
+  };
+
+  \node[font=\bfseries] at (11.4,2.15) {虚短：两输入电位近似相等};
+  \fill (9.8,.45) circle (1.6pt) node[below=2mm] {$v_+$};
+  \fill (13.0,.45) circle (1.6pt) node[below=2mm] {$v_-$};
+  \draw[AEorange,thick] (11.15,.2) -- (11.65,.7);
+  \draw[AEorange,thick] (11.65,.2) -- (11.15,.7);
+  \node[above=6mm] at (11.4,.45) {没有导线，也没有电流通道};
+  \node[align=center,font=\scriptsize] at (11.4,-.65) {$v_d=v_+-v_-=v_o/A\approx0$};
+  \node[align=center,font=\scriptsize,text=AEmuted] at (11.4,-1.75) {
+    仅在负反馈、线性未饱和且\\环路增益足够大时成立。
+  };
+\end{tikzpicture}

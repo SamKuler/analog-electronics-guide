@@ -1,0 +1,20 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.0cm]
+  \node[npn] (Q1) at (5.4,3.0) {};
+  \node[right=4pt] at (Q1) {$Q_{1}$};
+  \draw (3.2,5.8) -- (5.4,5.8) node[vcc] {$V_{CC}$};
+  \draw (5.4,5.8) to[R,l=$R_{C}$] (Q1.C);
+  \draw (3.2,5.8) to[R,l_=$R_{1}$] (3.2,3.0)
+        to[R,l_=$R_{2}$] (3.2,0) node[ground] {};
+  \draw (3.2,3.0) -- (Q1.B);
+  \fill (3.2,3.0) circle (1.3pt);
+  \draw (Q1.B) -- (4.1,3.0) to[C,l=$C_{B}$] (4.1,0) node[ground] {};
+  \draw (Q1.E) to[R,l=$R_{E}$] (5.4,0) node[ground] {};
+  \draw (Q1.E) -- (6.6,2.25)
+        to[C,l=$C_{\mathrm{in}}$] (6.6,1.35)
+        to[R,l=$R_{s}$] (6.6,0.35)
+        to[sV,l=$v_{s}$] (6.6,-1.25) node[ground] {};
+  \draw (Q1.C) to[C,l=$C_{\mathrm{out}}$] ++(2.5,0) coordinate (out);
+  \fill (out) circle (1.3pt);
+  \draw (out) node[right=4pt] {$v_{o}$}
+        to[R,l=$R_{L}$] ++(0,-3.75) node[ground] {};
+\end{tikzpicture}

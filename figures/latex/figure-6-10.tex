@@ -1,0 +1,20 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=15.2cm,minimum height=6.0cm] at (7.6,-.15) {};
+  \node[font=\bfseries] at (7.6,2.2) {电压并联反馈：输出取电压，输入节点作电流求和};
+  \node[circle,draw,minimum size=10mm] (sum) at (2.7,.45) {$\Sigma_i$};
+  \node[draw,rounded corners=2mm,minimum width=3.2cm,minimum height=1.2cm] (amp) at (6.2,.45)
+    {跨阻前向级 $R_m$};
+  \node[draw,rounded corners=2mm,minimum width=2.4cm,minimum height=1cm] (rf) at (6.2,-1.45)
+    {反馈网络 $R_f$};
+  \draw[ae arrow] (.75,.45) node[left] {$i_s$} -- (sum.west);
+  \draw[ae arrow] (sum.east) -- (amp.west) node[midway,above] {$i_e$};
+  \draw[ae arrow] (amp.east) -- (11.9,.45) coordinate (vo) node[right] {$v_o$};
+  \draw[ae arrow,AEorange] (vo) |- (rf.east);
+  \draw[ae arrow,AEorange] (rf.west) -| (sum.south) node[pos=.7,left] {$i_f$};
+  \node[font=\scriptsize,text=AEmuted,align=left,anchor=west] at (12.6,.1) {
+    $i_e=i_s-i_f$\\
+    电压取样：$R_{out}\downarrow$\\
+    并联混合：$R_{in}\downarrow$
+  };
+  \node[font=\scriptsize,text=AEmuted,align=center,text width=4.2cm] at (2.7,-2.45) {求和节点写 KCL，\\不按电阻朝向命名};
+\end{tikzpicture}

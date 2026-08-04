@@ -31,10 +31,10 @@ cd analog-electronics-guide
 ## 内容
 
 - 30 天冲刺轨：每天 45–60 分钟，合计约 23.4 小时；
-- 七章完整教材：概念、模型、推导、例题、边界与口述；
+- 七章主教材与一章频域工具：概念、模型、推导、例题、边界与口述；
 - 分层练习、详细解答、70 个高频问答与两套模拟面试；
 - 七个交互实验：RC 阶跃、二极管波形、BJT 负载线、晶体管放大器信号链、运放反馈、Bode 稳定性和隔离低压整流滤波；
-- 一页公式表、典型电路速查和可交互的参数实验。
+- 一页公式表、典型电路速查、术语缩写表和可交互的参数实验。
 
 主线材料自包含，不要求购买教材或访问外部课程。
 
@@ -53,6 +53,15 @@ uv run mkdocs serve
 ```bash
 uv run mkdocs build --strict
 ```
+
+全部教学图统一由 [`figures/manifest.toml`](figures/manifest.toml) 管理，LaTeX 源文件位于 [`figures/latex/`](figures/latex/)。电路图使用 CircuitikZ，曲线与框图使用 PGFPlots/TikZ；重绘或校验需要本机安装 TeX Live（含 XeLaTeX、CTeX、CircuitikZ、PGFPlots）与 Poppler：
+
+```bash
+uv run python scripts/render_latex_figures.py
+uv run python scripts/render_latex_figures.py --check
+```
+
+生成后的 SVG 会提交到仓库，GitHub Pages 构建不需要安装 TeX。
 
 ## 许可证
 

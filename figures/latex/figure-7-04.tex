@@ -1,0 +1,18 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.0cm]
+  \node[npn] (Q1) at (4.0,2.5) {};
+  \node[npn,xscale=-1] (Q2) at (8.0,2.5) {};
+  \node[right=5pt] at (Q1) {$Q_{1}$};
+  \node[left=5pt] at (Q2) {$Q_{2}$};
+  \draw (Q1.B) -- ++(-2.0,0) node[left] {$v_{1}$};
+  \draw (Q2.B) -- ++(2.0,0) node[right] {$v_{2}$};
+  \draw (Q1.E) -- (4.0,1.0) -- (6.0,1.0) coordinate (tail) -- (8.0,1.0) -- (Q2.E);
+  \fill (tail) circle (1.3pt);
+  \draw (tail) to[I,l=$I_{T}$] (6.0,-1.0) node[vee] {$-V_{EE}$};
+  \draw (Q1.C) to[R,l_=$R_{C}$] (4.0,5.4);
+  \draw (Q2.C) to[R,l=$R_{C}$] (8.0,5.4);
+  \draw (4.0,5.4) -- (8.0,5.4) node[vcc] {$+V_{CC}$};
+  \fill (Q1.C) circle (1.3pt);
+  \fill (Q2.C) circle (1.3pt);
+  \node[left=4pt] at (Q1.C) {$v_{o1}$};
+  \node[right=4pt] at (Q2.C) {$v_{o2}$};
+\end{tikzpicture}

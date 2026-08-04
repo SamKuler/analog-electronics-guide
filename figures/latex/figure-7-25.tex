@@ -1,0 +1,8 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.1cm]
+  \draw (0.5,2.8) node[left] {$V_{\mathrm{in}}$}
+        to[R,l=$R_{s}$] (3.4,2.8) coordinate (out);
+  \fill (out) circle (1.3pt);
+  \node[above] at (out) {$v_{o}\approx V_{Z}$};
+  \draw (out) to[R,l_=$R_{L}$] (3.4,0) node[ground] {};
+  \draw (5.5,0) node[ground] {} to[zD,l_=$D_{Z}$] (5.5,2.8) -- (out);
+\end{tikzpicture}

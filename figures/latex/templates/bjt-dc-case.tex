@@ -1,0 +1,11 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.1cm]
+  \node[npn] (Q) at (4.5,2.4) {};
+  \node[right=5pt] at (Q) {$Q\;(\mathrm{NPN})$};
+  \draw (Q.C) to[R,l={$\RCLabel$},i<_=$I_{C}$] (4.5,5.1)
+        node[vcc] {$\VCCLabel$};
+  \fill (Q.C) circle (1.3pt);
+  \draw (0.5,2.4) to[V,l_={$\VBLabel$}] (0.5,0) node[ground] {};
+  \draw (0.5,2.4) to[R,l={$\RBLabel$}] (Q.B);
+  \fill (Q.B) circle (1.3pt);
+  \draw (Q.E) \EmitterBranch;
+\end{tikzpicture}

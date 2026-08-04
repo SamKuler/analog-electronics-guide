@@ -1,0 +1,13 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.1cm]
+  \node[nmos] (M1) at (5.8,2.5) {};
+  \node[right=5pt] at (M1) {$M_{1}$};
+  \draw (M1.D) to[R,l={$R_{D}=2.00\,\mathrm{k}\Omega$}] (5.8,5.3)
+        node[vcc] {$+12.0\,\mathrm{V}$};
+  \draw (2.2,5.3) -- (5.8,5.3);
+  \draw (2.2,5.3) to[R,l_={$R_{1}=1.00\,\mathrm{M}\Omega$}] (2.2,2.5)
+        to[R,l_={$R_{2}=500\,\mathrm{k}\Omega$}] (2.2,0) node[ground] {};
+  \draw (2.2,2.5) -- (M1.G);
+  \fill (2.2,2.5) circle (1.3pt);
+  \draw (M1.S) to[R,l={$R_{S}=1.00\,\mathrm{k}\Omega$}] (5.8,0) node[ground] {};
+  \node[below right=5pt] at (M1.S) {$S=B$};
+\end{tikzpicture}

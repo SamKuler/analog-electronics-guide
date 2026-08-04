@@ -1,0 +1,26 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=0.9cm]
+  \node[npn] (Q1) at (4.0,2.2) {};
+  \node[npn,xscale=-1] (Q2) at (8.0,2.2) {};
+  \node[right=5pt] at (Q1) {$Q_{1}$};
+  \node[left=5pt] at (Q2) {$Q_{2}$};
+  \draw (Q1.B) -- ++(-1.7,0) node[left] {$v_{1}$};
+  \draw (Q2.B) -- ++(1.7,0) node[right] {$v_{2}$};
+  \draw (Q1.E) -- (4.0,0.8) -- (6.0,0.8) coordinate (tail) -- (8.0,0.8) -- (Q2.E);
+  \draw (tail) to[I,l=$I_{T}$] (6.0,-1.0) node[vee] {$-V_{EE}$};
+
+  \node[pnp,xscale=-1] (Q3) at (4.0,5.3) {};
+  \node[pnp] (Q4) at (8.0,5.3) {};
+  \node[above right=7pt] at (Q3) {$Q_{3}$};
+  \node[above left=7pt] at (Q4) {$Q_{4}$};
+  \draw (Q3.E) -- (4.0,6.7) -- (8.0,6.7) -- (Q4.E);
+  \node[vcc] at (6.0,6.7) {$+V_{CC}$};
+  \draw (Q3.B) -- (Q4.B);
+  \draw (Q3.C) -- ++(0.9,0) coordinate (q3-diode) |- (Q3.B);
+  \fill (Q3.C) circle (1.3pt);
+  \fill (Q3.B) circle (1.3pt);
+  \draw (Q3.C) -- (Q1.C);
+  \draw (Q4.C) -- (Q2.C);
+  \fill (Q2.C) circle (1.3pt);
+  \draw (Q2.C) -- ++(1.5,0) coordinate (out) node[ocirc] {};
+  \node[right=4pt] at (out) {$v_{o}$};
+\end{tikzpicture}

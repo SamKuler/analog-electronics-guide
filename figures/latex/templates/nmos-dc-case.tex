@@ -1,0 +1,11 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.1cm]
+  \node[nmos] (M) at (4.5,2.4) {};
+  \node[right=5pt] at (M) {$M\;(\mathrm{NMOS})$};
+  \draw (M.D) to[R,l={$\RDLabel$},i<_=$I_{D}$] (4.5,5.1)
+        node[vcc] {$\VDDLabel$};
+  \fill (M.D) circle (1.3pt);
+  \draw (0.7,2.4) to[V,l_={$\VGLabel$}] (0.7,0) node[ground] {};
+  \draw (0.7,2.4) -- (M.G);
+  \draw (M.S) \SourceBranch;
+  \node[right=4pt] at (M.S) {$S,B$};
+\end{tikzpicture}

@@ -1,0 +1,15 @@
+% Generated from the audited semantic layout; maintained as native TikZ.
+\begin{tikzpicture}[x=.01cm,y=-0.01cm]
+\path[use as bounding box] (0.0,0.0) rectangle (960.0,460.0);
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (90,390) -- (900,390);
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (90,390) -- (90,55);
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M120 100L390 275L420 100L690 275L720 100L860 190};
+\path[fill=AEteal] (120,100) circle[radius=7];
+\path[fill=AEorange] (390,275) circle[radius=7];
+\draw[draw=AEorange,thick,dashed] (120,100) -- (860,100);
+\draw[draw=AEorange,thick,dashed] (120,275) -- (860,275);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (135,90) {\(V_{\max}\)};
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (405,270) {\(V_{\min}\)};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (205,180) {$\mathrm{d}v_o/\mathrm{d}t\approx-I_L/C$};
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (290,430) {$\Delta V_{pp}\approx I_L/(C f_{\mathrm{ripple}})$};
+\end{tikzpicture}

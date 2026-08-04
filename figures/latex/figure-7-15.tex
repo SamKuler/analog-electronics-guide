@@ -1,0 +1,17 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.0cm]
+  \node[npn] (QN) at (6.0,4.2) {};
+  \node[pnp] (QP) at (6.0,1.8) {};
+  \node[above right=4pt] at (QN) {$Q_{N}$};
+  \node[below right=4pt] at (QP) {$Q_{P}$};
+  \draw (QN.C) -- ++(0,1.3) node[vcc] {$+V_{CC}$};
+  \draw (QP.C) -- ++(0,-1.3) node[vee] {$-V_{EE}$};
+  \draw (1.3,3.0) node[left] {$v_{i}$} -- (3.3,3.0)
+        |- (QN.B);
+  \draw (3.3,3.0) |- (QP.B);
+  \fill (3.3,3.0) circle (1.3pt);
+  \draw (QN.E) -- (8.0,3.0) coordinate (out);
+  \draw (QP.E) -- (out);
+  \fill (out) circle (1.3pt);
+  \draw (out) node[right=4pt] {$v_{o}$}
+        to[R,l=$R_{L}$] ++(0,-2.2) node[ground] {};
+\end{tikzpicture}

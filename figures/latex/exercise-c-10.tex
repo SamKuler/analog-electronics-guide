@@ -1,0 +1,8 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.05cm]
+  \draw (0,3.2) to[V,l_=$10.0\,\mathrm V$] (0,0) node[ground] {};
+  \draw (0,3.2) to[R,l=$2.00\,\mathrm{k\Omega}$] (3.2,3.2) coordinate (a);
+  \draw (a) to[R,l_=$4.00\,\mathrm{k\Omega}$] (3.2,0) node[ground] {};
+  \draw (a) -- (5.7,3.2) to[I,l_=$2.00\,\mathrm{mA}$] (5.7,0) node[ground] {};
+  \fill (a) circle (1.3pt);
+  \node[above] at (a) {$a\;(V_a)$};
+\end{tikzpicture}

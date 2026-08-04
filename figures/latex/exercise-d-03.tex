@@ -1,0 +1,11 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.05cm]
+  \draw (0,0) node[ground] {} to[sV,l=$v_i(t)$] (0,2.6) coordinate (in);
+  \draw (3.2,2.6) coordinate (out) to[D,l_=$D$] (in);
+  \draw (out) to[R,l_=$R_L\;2.00\,\mathrm{k}\Omega$] (3.2,0) node[ground] {};
+  \fill (in) circle (1.3pt);
+  \fill (out) circle (1.3pt);
+  \node[above] at (in) {$v_i$};
+  \node[above] at (out) {$v_o$};
+  \node[above] at (1.0,2.72) {K};
+  \node[above] at (2.25,2.72) {A};
+\end{tikzpicture}

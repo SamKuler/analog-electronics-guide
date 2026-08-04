@@ -1,0 +1,39 @@
+\begin{tikzpicture}
+  \tikzset{panel title/.style={font=\bfseries,anchor=south}}
+  \node[ae panel,minimum width=5.15cm,minimum height=6.3cm] at (2.6,0) {};
+  \node[ae panel,minimum width=5.15cm,minimum height=6.3cm] at (8.2,0) {};
+  \node[ae panel,minimum width=5.15cm,minimum height=6.3cm] at (13.8,0) {};
+  \node[panel title] at (2.6,2.75) {带偏置半波};
+  \node[panel title] at (8.2,2.75) {双向限幅};
+  \node[panel title] at (13.8,2.75) {钳位稳态};
+  \begin{axis}[at={(.45cm,2.15cm)},anchor=north west,width=4.3cm,height=3.35cm,
+    axis lines=middle,xlabel={$\theta$},ylabel={$v_o$},xmin=0,xmax=360,ymin=-4.2,ymax=1.2,
+    xtick={180,360},ytick={0},ticklabel style={font=\scriptsize}]
+    \addplot[ae curve,domain=0:360,samples=240] {min(0,3.5*sin(x)+.65)};
+  \end{axis}
+  \node[text width=4.6cm,align=center,font=\scriptsize] at (2.6,-2.35) {
+    ON：$v_o=v_i+0.65\,\mathrm V$\\
+    $189.35^\circ<\theta<350.65^\circ$
+  };
+  \begin{axis}[at={(6.05cm,2.15cm)},anchor=north west,width=4.3cm,height=3.35cm,
+    axis lines=middle,xlabel={$v_i$},ylabel={$v_o$},xmin=-4,xmax=4,ymin=-3.3,ymax=2.8,
+    xtick={-2.65,2.15},ytick={-2.65,2.15},ticklabel style={font=\tiny}]
+    \addplot[ae curve,domain=-4:4,samples=160] {max(-2.65,min(2.15,x))};
+    \addplot[ae accent,dashed,domain=-4:4] {2.15};
+    \addplot[ae accent,dashed,domain=-4:4] {-2.65};
+  \end{axis}
+  \node[text width=4.7cm,align=center,font=\scriptsize] at (8.2,-2.35) {
+    $v_o=\operatorname{clip}(v_i,-2.65,+2.15)\,\mathrm V$\\
+    中段斜率为 $1$
+  };
+  \begin{axis}[at={(11.65cm,2.15cm)},anchor=north west,width=4.3cm,height=3.35cm,
+    axis lines=middle,xlabel={$t$},ylabel={$v_o$},xmin=0,xmax=360,ymin=-1.5,ymax=6,
+    xtick={180,360},ytick={-.65,5.35},ticklabel style={font=\tiny}]
+    \addplot[ae curve,domain=0:360,samples=240] {2.35+3*sin(x)};
+    \addplot[ae accent,dashed,domain=0:360] {-.65};
+  \end{axis}
+  \node[text width=4.7cm,align=center,font=\scriptsize] at (13.8,-2.35) {
+    最低点钳位在 $-0.65\,\mathrm V$\\
+    稳态正峰为 $+5.35\,\mathrm V$
+  };
+\end{tikzpicture}

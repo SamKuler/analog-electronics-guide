@@ -1,0 +1,41 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=5.0cm,minimum height=6.2cm] (p1) at (2.5,0) {};
+  \node[ae panel,minimum width=5.0cm,minimum height=6.2cm] (p2) at (8.0,0) {};
+  \node[ae panel,minimum width=5.0cm,minimum height=6.2cm] (p3) at (13.5,0) {};
+  \node[font=\bfseries] at (2.5,2.65) {1．在 $Q$ 点取切线};
+  \node[font=\bfseries] at (8.0,2.65) {2．BJT 混合-$\pi$ 模型};
+  \node[font=\bfseries] at (13.5,2.65) {3．MOSFET 小信号模型};
+
+  \begin{axis}[at={(.45cm,1.8cm)},anchor=north west,width=4.2cm,height=3.6cm,
+    axis lines=left,xlabel={$v$},ylabel={$i$},xtick=\empty,ytick=\empty,clip=false]
+    \addplot[ae curve,domain=0:3,samples=120] {.3+.22*x^2};
+    \addplot[ae accent,domain=.6:2.9] {-1.02+1.25*x};
+    \addplot[only marks,mark=*,mark size=2pt] coordinates {(1.9,1.094)};
+    \node[anchor=south west] at (axis cs:1.9,1.094) {$Q$};
+  \end{axis}
+  \node[text width=4.3cm,align=center,font=\scriptsize] at (2.5,-2.15) {
+    $\Delta i\approx g\,\Delta v$\\
+    扰动过大时，切线不再代表原曲线
+  };
+
+  \begin{scope}[shift={(6.05,-1.75)}]
+    \draw (0,3.4) node[left] {$b$} to[R,l={$r_\pi$},v^<={$v_\pi$}] (0,0) node[ground] {};
+    \draw (3.4,3.4) node[right] {$c$} to[cI,l_={$g_m v_\pi$}] (3.4,0) node[ground] {};
+    \draw (2.0,3.4) to[R,l={$r_o$}] (2.0,0);
+    \draw (0,3.4) -- (-.45,3.4);
+    \draw (2.0,3.4) -- (3.85,3.4);
+    \node[align=center,font=\scriptsize] at (1.7,-.65) {
+      $g_m=I_{CQ}/V_T$,\quad $r_\pi=\beta/g_m$
+    };
+  \end{scope}
+
+  \begin{scope}[shift={(11.55,-1.75)}]
+    \draw (0,3.4) node[left] {$g$} -- (.65,3.4);
+    \draw (3.4,3.4) node[right] {$d$} to[cI,l_={$g_m v_{gs}$}] (3.4,0) node[ground] {};
+    \draw (2.0,3.4) to[R,l={$r_o$}] (2.0,0);
+    \draw (2.0,3.4) -- (3.85,3.4);
+    \node[align=center,font=\scriptsize] at (1.7,-.65) {
+      $i_g\approx0$,\quad $i_d=g_m v_{gs}+v_{ds}/r_o$
+    };
+  \end{scope}
+\end{tikzpicture}

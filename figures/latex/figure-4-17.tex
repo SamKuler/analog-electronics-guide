@@ -1,0 +1,67 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=0.78cm]
+  % (a) Common-source stage with DC bias, coupling, bypass, and load.
+  \begin{scope}[yshift=2.2cm]
+    \node[nmos] (M1) at (4.2,8.2) {};
+    \draw (2.6,11.0) -- (4.2,11.0) node[vcc] {$V_{DD}$};
+    \draw (M1.D) to[R,l=$R_{D}$] (4.2,11.0);
+    \draw (2.6,11.0) to[R,l_=$R_{1}$] (2.6,8.2) coordinate (g1)
+          to[R,l_=$R_{2}$] (2.6,5.4) node[ground] {};
+    \draw (g1) -- (M1.G);
+    \fill (g1) circle (1.2pt);
+    \draw (0.1,5.4) node[ground] {} to[sV,l=$v_{s}$] (0.1,8.2)
+          to[R,l=$R_{\mathrm{sig}}$] (1.2,8.2)
+          to[C,l=$C_{\mathrm{in}}$] (g1);
+    \draw (M1.S) to[R,l_=$R_{S}$] (4.2,5.4) node[ground] {};
+    \draw (M1.S) -- (5.2,7.45) to[C,l=$C_{S}$] (5.2,5.4) node[ground] {};
+    \draw (M1.D) to[C,l=$C_{\mathrm{out}}$] (6.4,8.95) coordinate (o1);
+    \fill (o1) circle (1.2pt);
+    \draw (o1) node[right=3pt] {$v_{o}$}
+          to[R,l=$R_{L}$] (6.4,5.4) node[ground] {};
+    \node at (3.3,12.0) {(a) common source};
+  \end{scope}
+
+  % (b) Source follower: drain is at the supply and output is taken from S.
+  \begin{scope}[xshift=8.5cm,yshift=2.2cm]
+    \node[nmos] (M2) at (4.2,8.2) {};
+    \draw (2.6,11.0) -- (4.2,11.0) node[vcc] {$V_{DD}$};
+    \draw (M2.D) -- (4.2,11.0);
+    \draw (2.6,11.0) to[R,l_=$R_{1}$] (2.6,8.2) coordinate (g2)
+          to[R,l_=$R_{2}$] (2.6,5.4) node[ground] {};
+    \draw (g2) -- (M2.G);
+    \fill (g2) circle (1.2pt);
+    \draw (0.1,5.4) node[ground] {} to[sV,l=$v_{s}$] (0.1,8.2)
+          to[R,l=$R_{\mathrm{sig}}$] (1.2,8.2)
+          to[C,l=$C_{\mathrm{in}}$] (g2);
+    \draw (M2.S) to[R,l_=$R_{S}$] (4.2,5.4) node[ground] {};
+    \draw (M2.S) to[C,l=$C_{\mathrm{out}}$] (6.4,7.45) coordinate (o2);
+    \fill (o2) circle (1.2pt);
+    \draw (o2) node[right=3pt] {$v_{o}$}
+          to[R,l=$R_{L}$] (6.4,5.4) node[ground] {};
+    \node at (3.3,12.0) {(b) source follower};
+  \end{scope}
+
+  % (c) Common-gate stage: the divider sets DC gate bias and C_B makes it AC-common.
+  \begin{scope}[xshift=4.25cm]
+    \node[nmos] (M3) at (4.2,2.8) {};
+    \draw (2.6,5.6) -- (4.2,5.6) node[vcc] {$V_{DD}$};
+    \draw (M3.D) to[R,l=$R_{D}$] (4.2,5.6);
+    \draw (2.6,5.6) to[R,l_=$R_{1}$] (2.6,2.8) coordinate (g3)
+          to[R,l_=$R_{2}$] (2.6,0) node[ground] {};
+    \draw (g3) -- (M3.G);
+    \fill (g3) circle (1.2pt);
+    \draw (g3) -- (1.3,2.8) to[C,l_=$C_{B}$] (1.3,0) node[ground] {};
+    \draw (M3.S) to[C,l_=$C_{\mathrm{in}}$] (4.2,0.9)
+          to[R,l_=$R_{\mathrm{sig}}$] (4.2,-0.4)
+          to[sV,l_=$v_{s}$] (4.2,-2.0) node[ground] {};
+    \draw (M3.S) -- (5.2,2.05)
+          to[R,l=$R_{S}$] (5.2,0) node[ground] {};
+    \draw (M3.D) to[C,l=$C_{\mathrm{out}}$] (6.4,3.55) coordinate (o3);
+    \fill (o3) circle (1.2pt);
+    \draw (o3) node[right=3pt] {$v_{o}$}
+          to[R,l=$R_{L}$] (6.4,0) node[ground] {};
+    \node at (3.3,6.6) {(c) common gate};
+  \end{scope}
+
+  % Preserve a small crop margin below the source and ground in panel (c).
+  \path (-0.4,-2.55) rectangle (15.7,14.65);
+\end{tikzpicture}

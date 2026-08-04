@@ -1,0 +1,28 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=0.78cm]
+  \begin{scope}
+    \node[npn] (Q1) at (2.2,2.4) {};
+    \node[npn,xscale=-1] (Q2) at (5.2,2.4) {};
+    \draw (Q1.B) -- ++(-1.2,0) node[left] {$v_{1}$};
+    \draw (Q2.B) -- ++(1.2,0) node[right] {$v_{2}$};
+    \draw (Q1.E) -- (2.2,1.0) -- (3.7,1.0) coordinate (tail) -- (5.2,1.0) -- (Q2.E);
+    \draw (tail) to[I,l=$I_{T}$] (3.7,-0.7) node[vee] {$-V_{EE}$};
+    \draw (Q1.C) to[R] (2.2,5.0);
+    \draw (Q2.C) to[R] (5.2,5.0);
+    \draw (2.2,5.0) -- (5.2,5.0) node[vcc] {$+V_{CC}$};
+    \node at (3.7,6.8) {(a) differential input};
+  \end{scope}
+  \begin{scope}[xshift=8.8cm]
+    \node[npn] (QN) at (3.0,4.0) {};
+    \node[pnp] (QP) at (3.0,1.8) {};
+    \draw (QN.C) -- ++(0,1.1) node[vcc] {$+V_{CC}$};
+    \draw (QP.C) -- ++(0,-1.1) node[vee] {$-V_{EE}$};
+    \draw (0.6,4.0) to[D] (0.6,2.9) to[D] (0.6,1.8);
+    \draw (0.6,4.0) -- (QN.B);
+    \draw (0.6,1.8) -- (QP.B);
+    \draw (-0.8,2.9) node[left] {$v_{i}$} -- (0.6,2.9);
+    \draw (QN.E) -- (5.0,2.9) coordinate (out);
+    \draw (QP.E) -- (out);
+    \draw (out) node[right] {$v_{o}$} to[R,l=$R_{L}$] ++(0,-2.0) node[ground] {};
+    \node at (2.5,6.8) {(b) class-AB output};
+  \end{scope}
+\end{tikzpicture}

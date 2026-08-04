@@ -11,6 +11,8 @@
   --ae-line: rgba(23, 33, 39, 0.18);
   --ae-grid: rgba(0, 111, 120, 0.075);
   --ae-shadow: 5px 5px 0 rgba(23, 33, 39, 0.12);
+  --ae-svg-muted: #46565b;
+  --ae-svg-panel: #7f8e91;
   --md-primary-fg-color: #006f78;
   --md-primary-fg-color--light: #148992;
   --md-primary-fg-color--dark: #004f56;
@@ -38,6 +40,8 @@
   --ae-line: rgba(233, 226, 211, 0.18);
   --ae-grid: rgba(85, 196, 200, 0.07);
   --ae-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
+  --ae-svg-muted: #c3cdca;
+  --ae-svg-panel: #718287;
   --md-default-bg-color: var(--ae-paper);
   --md-default-fg-color: var(--ae-ink);
   --md-default-fg-color--light: var(--ae-muted);
@@ -120,6 +124,13 @@ body {
   font-weight: 750;
 }
 
+.md-nav__title,
+.md-nav__item--section > .md-nav__link,
+.md-sidebar .md-nav__item--section > label.md-nav__link[for] {
+  color: var(--ae-ink);
+  font-weight: 700;
+}
+
 .md-typeset a {
   text-decoration-color: color-mix(in srgb, var(--ae-trace) 45%, transparent);
   text-decoration-thickness: 0.08em;
@@ -184,6 +195,7 @@ body {
 
 .md-typeset .admonition,
 .md-typeset details {
+  --md-admonition-bg-color: var(--ae-paper-raised);
   background: var(--ae-paper-raised);
   border: 1px solid var(--ae-line);
   border-left: 0.28rem solid var(--ae-trace);
@@ -194,6 +206,12 @@ body {
 .md-typeset .admonition-title,
 .md-typeset summary {
   background: color-mix(in srgb, var(--ae-trace) 11%, var(--ae-paper-raised));
+  color: var(--ae-ink);
+}
+
+.md-typeset .admonition > :not(.admonition-title),
+.md-typeset details > :not(summary) {
+  color: var(--ae-ink);
 }
 
 :focus-visible {
@@ -395,7 +413,16 @@ body {
 }
 
 .md-typeset svg.ae-figure .bg {
-  fill: var(--ae-paper-raised);
+  fill: var(--ae-figure-bg);
+}
+
+.md-typeset svg.ae-figure[data-generator="latex"] {
+  color: var(--ae-ink);
+  --ae-figure-bg: var(--ae-paper-raised);
+  --ae-figure-muted: var(--ae-svg-muted);
+  --ae-figure-panel: var(--ae-svg-panel);
+  --ae-figure-teal: var(--ae-trace);
+  --ae-figure-orange: var(--ae-accent);
 }
 
 .md-typeset svg.ae-figure .ink,
@@ -433,6 +460,10 @@ body {
   margin: 0.55rem 0 0;
 }
 
+.md-typeset .ae-figure-frame figcaption > p {
+  margin: 0;
+}
+
 @media (max-width: 52rem) {
   .ae-path-grid {
     grid-template-columns: 1fr;
@@ -440,6 +471,12 @@ body {
 
   .md-typeset .ae-figure {
     min-width: 38rem;
+  }
+
+  .md-typeset svg.ae-figure[data-generator="latex"] {
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
   }
 }
 

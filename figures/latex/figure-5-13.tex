@@ -1,0 +1,10 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.15cm]
+  \node[op amp, noinv input up] (A1) at (4.5,2.8) {};
+  \draw (A1.+) -- ++(-2.5,0) node[left] {$v_{i}$};
+  \draw (A1.out) -- ++(1.5,0) coordinate (out);
+  \fill (out) circle (1.3pt);
+  \node[above right=3pt] at (out) {$v_{o}$};
+  \draw (out) -- ++(1.10,0) coordinate (load-top)
+        to[R,l=$R_{L}$] ++(0,-2.6) node[ground] {};
+  \draw (out) -- ++(0,-1.5) -| (A1.-);
+\end{tikzpicture}

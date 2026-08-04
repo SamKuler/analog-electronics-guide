@@ -1,0 +1,10 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.1cm]
+  \node[nmos] (M1) at (4.8,2.5) {};
+  \node[right=5pt] at (M1) {$M_{1}$};
+  \draw (M1.D) to[R,l={$R_{D}=2.00\,\mathrm{k}\Omega$}] (4.8,5.2)
+        node[vcc] {$+10.0\,\mathrm{V}$};
+  \draw (0.7,2.5) to[V,l_={$V_{G}=+3.00\,\mathrm{V}$}] (0.7,0) node[ground] {};
+  \draw (0.7,2.5) -- (M1.G);
+  \draw (M1.S) -- ++(0,-1.0) node[ground] {};
+  \node[right=4pt] at (M1.S) {$S,B$};
+\end{tikzpicture}

@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+  \begin{axis}[
+    width=13cm,height=7.5cm,
+    axis lines=left,
+    xlabel={$V_{BE}$},ylabel={$I_C$},
+    xmin=.44,xmax=.91,ymin=0,ymax=3.25,
+    xtick={.55,.75},xticklabels={$V_{BE0}$,$V_{BEQ}$},
+    ytick={1.822},yticklabels={$I_{CQ}$},
+    clip=false,
+  ]
+    \addplot[ae curve,domain=.45:.9,samples=180] {exp(3*(x-.55))};
+    \addplot[ae accent,domain=.51:.88,samples=2] {1.822+5.466*(x-.75)};
+    \addplot[only marks,mark=*,mark size=2.2pt] coordinates {(.75,1.822)};
+    \node[anchor=south west] at (axis cs:.75,1.822) {$Q$};
+    \node[anchor=south west,text=AEorange] at (axis cs:.58,2.65) {切线斜率 $g_m$};
+    \draw[dashed,AEmuted] (axis cs:.75,0) -- (axis cs:.75,1.822) -- (axis cs:.44,1.822);
+  \end{axis}
+  \node[below=2mm of current bounding box.south,align=center,text=AEmuted] {
+    $I_C=I_S e^{V_{BE}/V_T}$；在 $Q$ 点附近，$i_c\approx g_m v_{be}$，且 $g_m=I_{CQ}/V_T$。
+  };
+\end{tikzpicture}

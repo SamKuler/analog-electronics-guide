@@ -1,0 +1,24 @@
+\begin{tikzpicture}[node distance=8mm and 7mm]
+  \node[ae block,text width=2.7cm] (source) {
+    \textbf{理想源}\\[1mm]$v_s$
+  };
+  \node[ae block,text width=3.2cm,right=of source] (input) {
+    \textbf{输入分压}\\[1mm]
+    $v_i=v_s\dfrac{R_{\mathrm{in}}}{R_s+R_{\mathrm{in}}}$
+  };
+  \node[ae block,text width=3.1cm,right=of input] (stage) {
+    \textbf{开路级增益}\\[1mm]
+    $v_{o,\mathrm{oc}}=A_{v0}v_i$
+  };
+  \node[ae block,text width=3.4cm,right=of stage] (load) {
+    \textbf{输出加载}\\[1mm]
+    $v_L=v_{o,\mathrm{oc}}\dfrac{R_L}{R_{\mathrm{out}}+R_L}$
+  };
+  \draw[ae arrow] (source) -- (input);
+  \draw[ae arrow] (input) -- (stage);
+  \draw[ae arrow] (stage) -- (load);
+  \node[below=9mm of $(input.south)!0.5!(stage.south)$,align=center,text=AEmuted] {
+    所有电压均以公共地为参考；\quad
+    $G_v=\dfrac{v_L}{v_s}$ 是三个互不重复的因子之积。
+  };
+\end{tikzpicture}

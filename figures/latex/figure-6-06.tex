@@ -1,0 +1,29 @@
+% Generated from the audited semantic layout; maintained as native TikZ.
+\begin{tikzpicture}[x=.01cm,y=-0.01cm]
+\path[use as bounding box] (0.0,0.0) rectangle (960.0,440.0);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (20,45) rectangle (20+290,45+335);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (335,45) rectangle (335+290,45+335);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (650,45) rectangle (650+290,45+335);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (45,85) {(a) 环内输出扰动};
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (360,85) {(b) 输入端噪声};
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (675,85) {(c) 环外扰动};
+\draw[draw=AEteal,thick,-{Stealth[length=2.2mm]}] svg {M45 180L105 180L145 180L205 180L275 180};
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (105,145) rectangle (105+100,145+70);
+\node[anchor=base west,text=black,inner sep=0pt,font={\footnotesize}] at (137,188) {A};
+\draw[draw=AEorange,thick,-{Stealth[length=2.2mm]}] (205,105) -- (205,145);
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (215,120) {$n_o$};
+\draw[draw=AEteal,thick,-{Stealth[length=2.2mm]}] svg {M360 180L420 180L460 180L550 180L600 180};
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (460,145) rectangle (460+90,145+70);
+\node[anchor=base west,text=black,inner sep=0pt,font={\footnotesize}] at (492,188) {A};
+\draw[draw=AEorange,thick,-{Stealth[length=2.2mm]}] (420,105) -- (420,170);
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (430,120) {$n_s$};
+\draw[draw=AEteal,thick,-{Stealth[length=2.2mm]}] svg {M675 180L735 180L795 180L900 180};
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (735,145) rectangle (735+80,145+70);
+\node[anchor=base west,text=black,inner sep=0pt,font={\footnotesize}] at (763,188) {A};
+\path[draw=none,fill=black] (815,180) circle[radius=6];
+\draw[draw=AEorange,thick,-{Stealth[length=2.2mm]}] (865,105) -- (865,170);
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (875,120) {$n_{\mathrm{out}}$};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (45,320) {反馈能看见并抑制};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (360,320) {与有用输入同点相加};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (675,320) {取样点在扰动之前};
+\end{tikzpicture}

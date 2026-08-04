@@ -1,0 +1,47 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=15.2cm,minimum height=3.4cm] at (7.6,2.0) {};
+  \node[font=\bfseries] at (7.6,3.35) {闭环不是“自动虚短”：先有高增益，再有负反馈};
+  \node[circle,draw,minimum size=8mm] (sum) at (2.7,2.0) {$\Sigma$};
+  \node[draw,minimum width=2.2cm,minimum height=1.0cm] (amp) at (5.5,2.0) {$A(s)$};
+  \node[draw,minimum width=2.0cm,minimum height=.8cm] (fb) at (5.5,.65) {$\beta(s)$};
+  \draw[ae arrow] (.55,2.0) node[left] {$v_i$} -- (sum.west);
+  \draw[ae arrow] (sum.east) -- (amp.west) node[midway,above] {$e$};
+  \draw[ae arrow] (amp.east) -- (8.1,2.0) node[right] {$v_o$};
+  \draw[ae arrow,AEorange] (7.65,2.0) |- (fb.east);
+  \draw[ae arrow,AEorange] (fb.west) -| (sum.south);
+  \node[font=\scriptsize] at (2.25,2.38) {$+$};
+  \node[font=\scriptsize] at (2.55,1.48) {$-$};
+  \node[anchor=west,align=left] at (9.1,2.25) {
+    $e=v_i-\beta v_o$\\[1mm]
+    $\displaystyle\frac{v_o}{v_i}=\frac{A}{1+A\beta}$
+  };
+  \node[font=\scriptsize,text=AEmuted,anchor=west,align=left] at (9.1,1.25) {
+    仅当 $A\beta\gg1$ 且放大器未饱和时，$e\approx0$；\\
+    反馈极性错误会使分母变为 $1-A\beta$。
+  };
+
+  \node[ae panel,minimum width=7.4cm,minimum height=5.0cm] at (3.7,-2.75) {};
+  \node[ae panel,minimum width=7.4cm,minimum height=5.0cm] at (11.5,-2.75) {};
+  \node[font=\bfseries] at (3.7,-.7) {反相放大器};
+  \begin{scope}[shift={(1.1,-3.0)}]
+    \node[op amp] (op1) at (4.0,0) {};
+    \draw ($(op1.-)+(-3.0,0)$) node[left] {$v_i$}
+      to[R,l={$R_{\mathrm{in}}$}] (op1.-);
+    \draw (op1.+) -- ++(0,-.65) node[ground] {};
+    \draw (op1.out) -- ++(.85,0) coordinate (vo1) node[right] {$v_o$};
+    \draw (vo1) |- ($(op1.-)+(0,1.4)$)
+      to[R,l={$R_f$}] ($(op1.-)+(-2.2,1.4)$) -| (op1.-);
+    \node at (1.65,-1.65) {$\displaystyle\frac{v_o}{v_i}=-\frac{R_f}{R_{\mathrm{in}}}$};
+  \end{scope}
+
+  \node[font=\bfseries] at (11.5,-.7) {同相放大器};
+  \begin{scope}[shift={(8.9,-3.0)}]
+    \node[op amp] (op2) at (3.7,0) {};
+    \draw ($(op2.+)+(-2.4,0)$) node[left] {$v_i$} -- (op2.+);
+    \draw (op2.out) -- ++(.8,0) coordinate (vo2) node[right] {$v_o$};
+    \draw (op2.-) -- ++(-.8,0) coordinate (nfb);
+    \draw (vo2) |- ($(nfb)+(0,1.4)$) to[R,l={$R_f$}] (nfb);
+    \draw (nfb) to[R,l_={$R_g$}] ++(0,-1.55) node[ground] {};
+    \node at (3.2,-1.65) {$\displaystyle\frac{v_o}{v_i}=1+\frac{R_f}{R_g}$};
+  \end{scope}
+\end{tikzpicture}

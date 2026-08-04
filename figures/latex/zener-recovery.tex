@@ -1,0 +1,40 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=7.3cm,minimum height=6.0cm] at (3.65,0) {};
+  \node[ae panel,minimum width=7.3cm,minimum height=6.0cm] at (11.35,0) {};
+  \node[font=\bfseries] at (3.65,2.55) {齐纳稳压器：反向工作区};
+  \begin{scope}[shift={(1.05,-1.85)}]
+    \draw (0,0) to[V,invert,l_={$V_S$}] (0,3.8)
+      to[R,l={$R$},i>^={$I_R$}] (2.8,3.8)
+      -- (5.0,3.8) coordinate (out)
+      to[R,l={$R_L$},i>^={$I_L$}] (5.0,0) -- (0,0);
+    \draw (2.9,0) to[zD,l_={$D_Z$},i<^={$I_Z$}] (2.9,3.8);
+    \fill (out) circle (1.3pt) node[above right] {$v_o\approx V_Z$};
+    \node[ground] at (2.5,0) {};
+    \node[font=\scriptsize,text=AEmuted] at (2.5,-.72) {
+      先由 $R$ 求总电流，再用 $I_R=I_Z+I_L$ 分流。
+    };
+  \end{scope}
+
+  \node[font=\bfseries] at (11.35,2.55) {普通二极管的反向恢复};
+  \begin{axis}[
+    at={(8.15cm,-2.1cm)},anchor=south west,
+    width=6.5cm,height=4.7cm,
+    axis lines=middle,
+    xlabel={$t$},ylabel={$i_D$},
+    xmin=-2.2,xmax=5.3,ymin=-2.5,ymax=2.5,
+    xtick=\empty,ytick={-1.7,0,1.5},yticklabels={$-I_R$,$0$,$I_F$},
+    clip=false,
+  ]
+    \addplot[ae curve,thick] coordinates {
+      (-2,1.5) (-.25,1.5) (0,-1.7) (1.2,-1.7)
+      (1.55,-1.55) (1.9,-1.05) (2.25,-.42) (2.7,-.08) (5,-.08)
+    };
+    \draw[AEorange,thick,|-|] (axis cs:0,-2.15) -- (axis cs:2.7,-2.15)
+      node[midway,below] {$t_{rr}$};
+    \node[font=\scriptsize,text=AEmuted,anchor=south west] at (axis cs:.2,-1.55) {反向抽取存储电荷};
+    \node[font=\scriptsize,text=AEmuted,anchor=south west] at (axis cs:2.75,-.08) {回到反向漏电};
+  \end{axis}
+  \node[font=\scriptsize,text=AEmuted] at (11.35,-2.55) {
+    反向电流对时间的积分量级对应恢复电荷 $Q_{rr}$。
+  };
+\end{tikzpicture}

@@ -1,0 +1,21 @@
+% Generated from the audited semantic layout; maintained as native TikZ.
+\begin{tikzpicture}[x=.01cm,y=-0.01cm]
+\path[use as bounding box] (0.0,0.0) rectangle (960.0,500.0);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (45,55) {环路幅值 / dB};
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (90,185) -- (900,185);
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M100 95C330 105 500 180 850 300};
+\path[fill=AEteal] (420,185) circle[radius=7];
+\path[fill=AEorange] (760,285) circle[radius=7];
+\draw[draw=AEmuted!70,thin,dashed] (420,185) -- (420,455);
+\draw[draw=AEmuted!70,thin,dashed] (760,285) -- (760,455);
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (390,170) {$f_{gc}=20\,\mathrm{kHz}$};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (710,315) {$f_{pc}:\;-13.98\,\mathrm{dB}$};
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (45,350) {环路相位 / °};
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (90,455) -- (900,455);
+\draw[draw=AEorange,thick,scale=.28346,yscale=-1] svg {M100 350C350 350 520 400 850 450};
+\draw[draw=AEmuted!70,thin,dashed] (90,430) -- (900,430);
+\path[fill=AEteal] (420,375) circle[radius=7];
+\path[fill=AEorange] (760,430) circle[radius=7];
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (430,370) {$-135^\circ$，$PM=45^\circ$};
+\node[anchor=base east,text=AEmuted,inner sep=0pt,font={\tiny}] at (885,420) {$-180^\circ$，$GM=13.98\,\mathrm{dB}$};
+\end{tikzpicture}

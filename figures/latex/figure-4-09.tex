@@ -1,0 +1,23 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.05cm]
+  \node[npn] (Q1) at (6.0,3.0) {};
+  \node[right=4pt] at (Q1) {$Q_{1}$};
+  \draw (3.5,6.0) -- (6.0,6.0) node[vcc] {$V_{CC}=+12\,\mathrm{V}$};
+  \draw (6.0,6.0) to[R,l={$R_{C}=2.20\,\mathrm{k}\Omega$}] (Q1.C);
+
+  \draw (3.5,6.0) to[R,l_={$R_{1}=82\,\mathrm{k}\Omega$}] (3.5,3.0)
+        to[R,l_={$R_{2}=18\,\mathrm{k}\Omega$}] (3.5,0) node[ground] {};
+  \draw (3.5,3.0) -- (Q1.B);
+  \fill (3.5,3.0) circle (1.3pt);
+
+  \draw (0.5,0) node[ground] {} to[sV,l=$v_{s}$] (0.5,3.0)
+        to[R,l={$R_{s}=600\,\Omega$}] (1.8,3.0)
+        to[C,l=$C_{\mathrm{in}}$] (3.5,3.0);
+
+  \draw (Q1.E) to[R,l_={$R_{E}=1.00\,\mathrm{k}\Omega$}] (6.0,0) node[ground] {};
+  \draw (Q1.E) -- (7.4,2.25) to[C,l=$C_{E}$] (7.4,0) node[ground] {};
+
+  \draw (Q1.C) to[C,l=$C_{\mathrm{out}}$] ++(2.3,0) coordinate (out);
+  \fill (out) circle (1.3pt);
+  \draw (out) node[right=4pt] {$v_{o}$}
+        to[R,l={$R_{L}=10\,\mathrm{k}\Omega$}] ++(0,-3.75) node[ground] {};
+\end{tikzpicture}

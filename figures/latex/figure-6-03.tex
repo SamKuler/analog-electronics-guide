@@ -1,0 +1,20 @@
+% Feedback-polarity disturbance test with content-sized flow cards.
+\begin{tikzpicture}[font=\small,node distance=7mm]
+  \tikzset{flow card/.style={ae block,minimum width=3.0cm,minimum height=2.7cm,
+    text width=2.55cm,align=center}}
+
+  \node[flow card] (p1) {\textbf{$x_o\uparrow$}\\[3mm]
+    \footnotesize 假设输出扰动};
+  \node[flow card,right=of p1] (p2) {\textbf{$x_f\uparrow$}\\[3mm]
+    \footnotesize 反馈网络返回};
+  \node[flow card,right=of p2] (p3) {\textbf{$x_e$ 改变}\\[2mm]
+    \scriptsize 负反馈：$x_e=x_s-x_f$\\[1mm]
+    正反馈：$x_e=x_s+x_f$};
+  \node[flow card,right=of p3] (p4) {\textbf{输出响应}\\[3mm]
+    \footnotesize 抵消或继续强化};
+
+  \draw[ae arrow] (p1.east) -- (p2.west);
+  \draw[ae arrow] (p2.east) -- (p3.west);
+  \draw[ae arrow] (p3.east) -- (p4.west);
+  \draw[ae orange arrow] (p4.south) -- ++(0,-.8) -| (p1.south);
+\end{tikzpicture}

@@ -1,0 +1,16 @@
+% Generated from the audited semantic layout; maintained as native TikZ.
+\begin{tikzpicture}[x=.01cm,y=-0.01cm]
+\path[use as bounding box] (0.0,0.0) rectangle (960.0,460.0);
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (100,390) -- (890,390);
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (100,390) -- (100,55);
+\node[anchor=west,font=\scriptsize] at (890,390) {$v_o$};
+\node[anchor=south,font=\scriptsize] at (100,55) {$i_o$};
+\draw[draw=AEorange,thick,dashed] (100,130) -- (850,130);
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (720,115) {理想 $I_{\mathrm{set}}$};
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M100 390C160 385 210 250 280 165L760 125};
+\draw[draw=AEmuted!70,thin,dashed] (280,80) -- (280,390);
+\draw[draw=AEmuted!70,thin,dashed] (760,80) -- (760,390);
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (225,425) {$V_{\mathrm{compliance,min}}$};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (700,425) {耐压/功耗上限};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (430,160) {斜率约 $1/r_o$};
+\end{tikzpicture}

@@ -1,0 +1,8 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.1cm]
+  \draw (0.5,0) node[ground] {} to[sV,l=$v_{s}$] (0.5,2.5)
+        to[R,l=$R_{s}$] (2.3,2.5)
+        to[C,l=$C_{\mathrm{in}}$] (4.1,2.5) coordinate (in);
+  \fill (in) circle (1.3pt);
+  \node[above] at (in) {$v_{i}$};
+  \draw (in) to[R,l=$R_{\mathrm{in}}$] (4.1,0) node[ground] {};
+\end{tikzpicture}

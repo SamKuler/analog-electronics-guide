@@ -1,0 +1,929 @@
+[[figures]]
+source = "latex/figure-4-05.tex"
+output = "docs/assets/figures/figure-4-05.svg"
+title = "简单共射极放大器的完整直流偏置电路"
+description = "十伏电源分别通过三百九十千欧基极电阻和二千欧集电极电阻连接到 NPN 晶体管。发射极接地，集电极节点作为对地输出；图中标出了三个端口电流的参考方向。"
+
+[[figures]]
+source = "latex/figure-5-11.tex"
+output = "docs/assets/figures/figure-5-11.svg"
+title = "同相运算放大器的完整连接"
+description = "输入直接连接同相端；输出经反馈电阻回到反相端，反相端再经接地电阻接地。负载从输出节点接地。"
+
+[[figures]]
+source = "latex/figure-7-09.tex"
+output = "docs/assets/figures/figure-7-09.svg"
+title = "基本 NPN 电流镜的参考与输出回路"
+description = "Q1 的集电极与基极短接并经参考电阻接正电源；两管基极相连、发射极共地。Q2 集电极作为输出并经负载接负载电源。"
+
+[[figures]]
+source = "latex/figure-5-02.tex"
+output = "docs/assets/figures/figure-5-02.svg"
+title = "带供电、输入符号和负载返回的运放符号"
+description = "运算放大器的同相端、反相端、正负供电、输出端和对地负载均完整画出；差分输入定义为同相端电压减反相端电压。"
+
+[[figures]]
+source = "latex/figure-5-08.tex"
+output = "docs/assets/figures/figure-5-08.svg"
+title = "反相运算放大器"
+description = "输入经电阻接到反相端，同相端接地，反馈电阻从输出返回反相端；负载由输出端接地。"
+
+[[figures]]
+source = "latex/figure-5-10.tex"
+output = "docs/assets/figures/figure-5-10.svg"
+title = "反相闭环输出电阻的测试端口"
+description = "独立输入已置零、负载已移除，反馈网络保留；输出端接入对地测试电流源，以测试电压除以注入电流定义闭环输出电阻。"
+
+[[figures]]
+source = "latex/figure-5-13.tex"
+output = "docs/assets/figures/figure-5-13.svg"
+title = "电压跟随器"
+description = "输入直接连接同相端，输出直接反馈到反相端，并驱动对地负载。"
+
+[[figures]]
+source = "latex/figure-5-14.tex"
+output = "docs/assets/figures/figure-5-14.svg"
+title = "三个输入的反相加权求和器"
+description = "三个输入分别经 R1、R2 和 R3 汇入反相求和节点；反馈电阻从输出返回该节点，同相端接地。"
+
+[[figures]]
+source = "latex/figure-5-16.tex"
+output = "docs/assets/figures/figure-5-16.svg"
+title = "四电阻差分放大器的指定拓扑"
+description = "v1 经 R1 连接反相端，R2 从输出反馈到反相端；v2 经 R3 连接同相端，R4 从同相端接地。"
+
+[[figures]]
+source = "latex/figure-5-18.tex"
+output = "docs/assets/figures/figure-5-18.svg"
+title = "反相积分器的基本连接"
+description = "输入经电阻连接反相端，电容从输出反馈到反相端，同相端接地。"
+
+[[figures]]
+source = "latex/figure-5-20.tex"
+output = "docs/assets/figures/figure-5-20.svg"
+title = "并联泄放电阻的实用反相积分器"
+description = "反馈电容与泄放电阻并联；泄放电阻限制直流增益，避免失调长期积分至饱和。"
+
+[[figures]]
+source = "latex/figure-5-21.tex"
+output = "docs/assets/figures/figure-5-21.svg"
+title = "反相微分器的基本连接"
+description = "输入经电容连接反相端，反馈电阻从输出返回反相端，同相端接地。"
+
+[[figures]]
+source = "latex/figure-5-23.tex"
+output = "docs/assets/figures/figure-5-23.svg"
+title = "输入串联电阻、反馈并联电容的实用带限微分器"
+description = "输入电容与电阻串联；反馈电阻与反馈电容并联，以限制高频增益。"
+
+[[figures]]
+source = "latex/figure-5-24.tex"
+output = "docs/assets/figures/figure-5-24.svg"
+title = "同相比较器的两种输出拓扑"
+description = "两幅比较器均以输入接同相端、参考电压接反相端且没有反馈；左图驱动对地负载，右图使用外部上拉电阻。"
+
+[[figures]]
+source = "latex/figure-5-26.tex"
+output = "docs/assets/figures/figure-5-26.svg"
+title = "反相施密特触发器"
+description = "输入只接反相端；输出经 R1 回送同相端，同相端再经 R2 连接参考电压，形成正反馈和双阈值。"
+
+[[figures]]
+source = "latex/figure-3-06.tex"
+output = "docs/assets/figures/figure-3-06.svg"
+title = "固定基极偏置完整电路"
+description = "NPN 集电极经 2.00 kΩ 接 +10.0 V，基极经 470 kΩ 接 +10.0 V，发射极接地。"
+
+[[figures]]
+source = "latex/figure-3-08.tex"
+output = "docs/assets/figures/figure-3-08.svg"
+title = "分压—发射极电阻偏置完整电路"
+description = "R1 与 R2 构成基极分压器，集电极经 RC 接电源，发射极经 RE 接公共地。"
+
+[[figures]]
+source = "latex/figure-3-15.tex"
+output = "docs/assets/figures/figure-3-15.svg"
+title = "固定栅压的电阻负载 NMOS 完整电路"
+description = "漏极经 2.00 kΩ 接 +10.0 V，栅极由共地 3.00 V 理想源偏置，源极与体端接地。"
+
+[[figures]]
+source = "latex/figure-3-16.tex"
+output = "docs/assets/figures/figure-3-16.svg"
+title = "栅分压—源极电阻偏置完整电路"
+description = "栅极由 1.00 MΩ 与 500 kΩ 分压，漏极经 2.00 kΩ 接 +12.0 V，源极经 1.00 kΩ 接地。"
+
+[[figures]]
+source = "latex/figure-3-19.tex"
+output = "docs/assets/figures/figure-3-19.svg"
+title = "BJT 状态案例 B-1"
+description = "集电极经 1 kΩ 接 +5 V，基极经 100 kΩ 接 0 V，发射极接地。"
+
+[[figures]]
+source = "latex/figure-3-20.tex"
+output = "docs/assets/figures/figure-3-20.svg"
+title = "BJT 状态案例 B-2"
+description = "集电极经 1 kΩ 接 +5 V，基极经 100 kΩ 接 +1.0 V，发射极接地。"
+
+[[figures]]
+source = "latex/figure-3-21.tex"
+output = "docs/assets/figures/figure-3-21.svg"
+title = "BJT 状态案例 B-3"
+description = "集电极经 1 kΩ 接 +5 V，基极经 10 kΩ 接 +3.0 V，发射极接地。"
+
+[[figures]]
+source = "latex/figure-3-22.tex"
+output = "docs/assets/figures/figure-3-22.svg"
+title = "BJT 状态案例 B-4"
+description = "集电极经 1 kΩ 接 +5 V，基极经 100 kΩ 接 +1.2 V，发射极接 +1.0 V 共地理想源。"
+
+[[figures]]
+source = "latex/figure-3-23.tex"
+output = "docs/assets/figures/figure-3-23.svg"
+title = "BJT 状态案例 B-5"
+description = "集电极经 2 kΩ 接 +6 V，基极经 100 kΩ 接 +2.0 V，发射极接 +1.0 V 共地理想源。"
+
+[[figures]]
+source = "latex/figure-3-24.tex"
+output = "docs/assets/figures/figure-3-24.svg"
+title = "BJT 状态案例 B-6"
+description = "集电极经 1 kΩ 接 +0.5 V，基极经 100 kΩ 接 +1.7 V，发射极接地。"
+
+[[figures]]
+source = "latex/figure-3-25.tex"
+output = "docs/assets/figures/figure-3-25.svg"
+title = "NMOS 状态案例 M-1"
+description = "漏极经 1 kΩ 接 +5 V，栅极接 +0.5 V 共地理想源，源极与体端接地。"
+
+[[figures]]
+source = "latex/figure-3-26.tex"
+output = "docs/assets/figures/figure-3-26.svg"
+title = "NMOS 状态案例 M-2"
+description = "漏极经 1 kΩ 接 +5 V，栅极接 +2.0 V 共地理想源，源极与体端接地。"
+
+[[figures]]
+source = "latex/figure-3-27.tex"
+output = "docs/assets/figures/figure-3-27.svg"
+title = "NMOS 状态案例 M-3"
+description = "漏极经 1 kΩ 接 +5 V，栅极接 +4.0 V 共地理想源，源极与体端接地。"
+
+[[figures]]
+source = "latex/figure-3-28.tex"
+output = "docs/assets/figures/figure-3-28.svg"
+title = "NMOS 状态案例 M-4"
+description = "漏极经 1 kΩ 接 +5 V，栅极接 +1.8 V，源极与体端接 +1.0 V 共地理想源。"
+
+[[figures]]
+source = "latex/figure-3-29.tex"
+output = "docs/assets/figures/figure-3-29.svg"
+title = "NMOS 状态案例 M-5"
+description = "漏极经 2 kΩ 接 +6 V，栅极接 +3.0 V，源极与体端接 +1.0 V 共地理想源。"
+
+[[figures]]
+source = "latex/figure-3-30.tex"
+output = "docs/assets/figures/figure-3-30.svg"
+title = "NMOS 状态案例 M-6"
+description = "漏极经 1 kΩ 接 +2 V，栅极接 +3.0 V 共地理想源，源极与体端接地。"
+
+[[figures]]
+source = "latex/figure-4-08.tex"
+output = "docs/assets/figures/figure-4-08.svg"
+title = "同一放大器的直流图与中频小信号图"
+description = "左图保留直流电源和晶体管以求静态工作点；右图把直流电源置为交流地，用 rπ 与 gm·vπ 受控源描述 Q 点附近的中频增量。"
+
+[[figures]]
+source = "latex/figure-4-09.tex"
+output = "docs/assets/figures/figure-4-09.svg"
+title = "分压偏置、耦合电容和发射极旁路齐全的共射极放大器"
+description = "单电源共射极放大器，含源电阻、输入与输出耦合电容、基极分压、集电极与发射极电阻、发射极旁路电容及对地负载。"
+
+[[figures]]
+source = "latex/figure-4-10.tex"
+output = "docs/assets/figures/figure-4-10.svg"
+title = "共射极中频混合-π小信号图"
+description = "偏置电阻与 rπ 从基极接交流地；集电极并联 RC、RL 和由集电极流向发射极交流地的 gm·vπ 受控电流源。"
+
+[[figures]]
+source = "latex/figure-4-11.tex"
+output = "docs/assets/figures/figure-4-11.svg"
+title = "有发射极退化的共射极小信号回路"
+description = "rπ 连接基极与发射极，发射极经 RE 接交流地；gm·vπ 受控电流源由集电极流向发射极。"
+
+[[figures]]
+source = "latex/figure-4-12.tex"
+output = "docs/assets/figures/figure-4-12.svg"
+title = "分压偏置射极跟随器的完整电路"
+description = "集电极直接接正电源，基极由分压网络偏置并经输入耦合电容接收信号；发射极经电阻接地并通过输出耦合电容驱动负载。"
+
+[[figures]]
+source = "latex/figure-4-13.tex"
+output = "docs/assets/figures/figure-4-13.svg"
+title = "射极跟随器的完整中频小信号图"
+description = "rπ 连接基极与输出发射极；发射极经 RE 与 RL 并联接地，受控电流源从交流接地的集电极流向发射极。"
+
+[[figures]]
+source = "latex/figure-4-14.tex"
+output = "docs/assets/figures/figure-4-14.svg"
+title = "单电源共基极放大器的完整电路"
+description = "基极由分压网络建立直流偏置并经旁路电容交流接地；信号送入发射极，集电极经电阻上拉并通过输出耦合电容驱动负载。"
+
+[[figures]]
+source = "latex/figure-4-15.tex"
+output = "docs/assets/figures/figure-4-15.svg"
+title = "共基极的中频混合-π小信号图"
+description = "基极为交流地；输入经源电阻送入发射极，rπ 从发射极接交流地，受控源跨接集电极与发射极。"
+
+[[figures]]
+source = "latex/figure-4-17.tex"
+output = "docs/assets/figures/figure-4-17.svg"
+title = "共源、源极跟随器与共栅三种 MOS 放大电路"
+description = "三图均画出单电源、栅极分压、输入输出耦合与负载返回；共源从漏极输出，源极跟随器从源极输出，共栅由旁路电容把有直流偏置的栅极设为交流公共端。"
+
+[[figures]]
+source = "latex/figure-4-18.tex"
+output = "docs/assets/figures/figure-4-18.svg"
+title = "三种 MOS 组态的中频小信号图"
+description = "共源、源极跟随器和共栅网络均画出栅极偏置返回、gm·vgs 受控电流源、源漏负载和交流地。"
+
+[[figures]]
+source = "latex/figure-4-20.tex"
+output = "docs/assets/figures/figure-4-20.svg"
+title = "耦合、旁路、源内阻与负载齐全的放大器接口"
+description = "完整共射极放大器接口，明确输入源、源内阻、耦合电容、偏置网络、旁路电容、输出耦合和负载返回。"
+
+[[figures]]
+source = "latex/figure-4-22.tex"
+output = "docs/assets/figures/figure-4-22.svg"
+title = "单个输入耦合电容形成的一阶高通"
+description = "共地交流源经源电阻和串联耦合电容驱动输入节点，输入等效电阻由该节点接交流地。"
+
+[[figures]]
+source = "latex/figure-4-23.tex"
+output = "docs/assets/figures/figure-4-23.svg"
+title = "用于故障定位的完整 DC 与 AC 测量基准"
+description = "左侧为保留直流电源的偏置基准，右侧为电源交流接地后的中频小信号基准。"
+
+[[figures]]
+source = "latex/figure-6-13.tex"
+output = "docs/assets/figures/figure-6-13.svg"
+title = "一阶 RC 低通完整电路"
+description = "交流电压源经串联电阻到输出节点，电容由输出节点接公共地，输出取电容两端。"
+
+[[figures]]
+source = "latex/figure-6-14.tex"
+output = "docs/assets/figures/figure-6-14.svg"
+title = "一阶 RC 高通完整电路"
+description = "交流电压源经串联电容到输出节点，电阻由输出节点接公共地，输出取电阻两端。"
+
+[[figures]]
+source = "latex/figure-7-04.tex"
+output = "docs/assets/figures/figure-7-04.svg"
+title = "带双电阻负载的对称 NPN 差分对"
+description = "匹配 NPN 差分对由两个集电电阻接正电源，发射极汇合后由理想尾电流源接负电源；两输入分别驱动两基极。"
+
+[[figures]]
+source = "latex/figure-7-10.tex"
+output = "docs/assets/figures/figure-7-10.svg"
+title = "基本 NMOS 电流镜的完整连接"
+description = "M1 漏极与栅极短接并经参考电阻接 VDD，两管栅极相连、源极共地；M2 漏极作为输出。"
+
+[[figures]]
+source = "latex/figure-7-12.tex"
+output = "docs/assets/figures/figure-7-12.svg"
+title = "带 PNP 电流镜有源负载的 NPN 差分级"
+description = "下方 NPN 差分对共用尾电流源，上方匹配 PNP 管构成电流镜有源负载；右支路为单端高阻输出。"
+
+[[figures]]
+source = "latex/figure-7-14.tex"
+output = "docs/assets/figures/figure-7-14.svg"
+title = "电阻负载串馈的 A 类概念级"
+description = "NPN 共射极 A 类级由分压网络偏置，输入经电容耦合到基极，集电极经 RC 接电源，发射极经 RE 接地。"
+
+[[figures]]
+source = "latex/figure-7-15.tex"
+output = "docs/assets/figures/figure-7-15.svg"
+title = "互补 B 类推挽射极跟随器"
+description = "NPN 与 PNP 基极由同一输入驱动，两个发射极汇合成输出；集电极分别接正、负电源。"
+
+[[figures]]
+source = "latex/figure-7-17.tex"
+output = "docs/assets/figures/figure-7-17.svg"
+title = "带预偏置和发射极电阻的互补 AB 类核心"
+description = "两个串联二极管在上下功率管基极间建立预偏置，发射极分别经小电阻汇合为输出。"
+
+[[figures]]
+source = "latex/figure-7-21.tex"
+output = "docs/assets/figures/figure-7-21.svg"
+title = "三种整流拓扑的次级侧连接"
+description = "依次给出单二极管半波、中心抽头双二极管全波和四二极管桥式整流。"
+
+[[figures]]
+source = "latex/figure-7-22.tex"
+output = "docs/assets/figures/figure-7-22.svg"
+title = "桥式整流加并联电容滤波的完整网络"
+description = "四只二极管构成桥式整流；正输出接滤波电容和负载上端，负输出作为共同回流。"
+
+[[figures]]
+source = "latex/figure-7-25.tex"
+output = "docs/assets/figures/figure-7-25.svg"
+title = "齐纳并联稳压器的完整电流路径"
+description = "输入经串联电阻到输出节点，负载和反向齐纳二极管并联接地；齐纳阴极接输出、阳极接地。"
+
+[[figures]]
+source = "latex/current-mirrors.tex"
+output = "docs/assets/figures/current-mirrors.svg"
+title = "BJT 与 NMOS 下拉电流镜"
+description = "左图为 NPN 下拉电流镜，右图为 NMOS 下拉电流镜；参考管均采用二极管连接，输出支路经负载接正电源。"
+
+[[figures]]
+source = "latex/diode-waveforms.tex"
+output = "docs/assets/figures/diode-waveforms.svg"
+title = "半波整流、双向偏置限幅与正钳位电路及波形"
+description = "三列分别给出具有公共参考地的完整半波整流、双参考双二极管限幅和正钳位电路；虚线为输入，实线为输出。"
+
+[[figures]]
+source = "latex/amplifier-topologies.tex"
+output = "docs/assets/figures/amplifier-topologies.svg"
+title = "三种基本 BJT 放大组态"
+description = "共射极从基极输入、集电极输出；射极跟随器从基极输入、发射极输出；共基极从发射极输入、集电极输出。"
+
+[[figures]]
+source = "latex/amplifier-topologies.tex"
+output = "docs/assets/figures/figure-4-16.svg"
+title = "CE、CC、CB 的公共端与信号方向"
+description = "三种 BJT 基本组态按输入端、交流公共端和输出端区分；公共端仍可承载非零直流电压与电流。"
+
+[[figures]]
+source = "latex/mos-amplifier-topologies.tex"
+output = "docs/assets/figures/mos-amplifier-topologies.svg"
+title = "三种基本 NMOS 放大组态"
+description = "共源从栅极输入、漏极输出；源极跟随器从栅极输入、源极输出；共栅从源极输入、漏极输出。"
+
+[[figures]]
+source = "latex/differential-power.tex"
+output = "docs/assets/figures/differential-power.svg"
+title = "差分输入级与互补推挽输出级"
+description = "左侧为带双电阻负载和尾电流源的差分对，右侧为带二极管预偏置的互补 AB 推挽级。"
+
+[[figures]]
+source = "latex/reference-directions.tex"
+output = "docs/assets/figures/reference-directions.svg"
+title = "关联参考方向与功率正负"
+description = "左图采用关联参考方向，电流流入电压正端；右图保持电压参考不变而反转电流参考方向。"
+
+[[figures]]
+source = "latex/basic-circuit-laws.tex"
+output = "docs/assets/figures/basic-circuit-laws.svg"
+title = "电容参考方向、节点电流与串联回路"
+description = "三幅图依次展示电容的电压电流参考方向、节点的流入流出电流，以及含电压源和两个串联电阻的 KVL 回路。"
+
+[[figures]]
+source = "latex/independent-sources.tex"
+output = "docs/assets/figures/independent-sources.svg"
+title = "理想独立电压源与电流源"
+description = "左图规定电压源端电压而电流由外电路决定；右图规定电流源支路电流而端电压由外电路决定。"
+
+[[figures]]
+source = "latex/network-equivalents.tex"
+output = "docs/assets/figures/network-equivalents.svg"
+title = "节点分析电路与戴维南—诺顿等效"
+description = "左图为电压源、两个电阻和电流源构成的节点电路；右图比较同一端口的戴维南与诺顿等效。"
+
+[[figures]]
+source = "latex/controlled-sources.tex"
+output = "docs/assets/figures/controlled-sources.svg"
+title = "四类线性受控源及其控制关系"
+description = "依次展示压控电压源、压控电流源、流控电压源和流控电流源的菱形符号、输出参考方向、控制量与增益单位。"
+
+[[figures]]
+source = "latex/exercise-c-10.tex"
+output = "docs/assets/figures/exercise-c-10.svg"
+title = "C-10 带流出电流源的节点电路"
+description = "节点 a 经二千欧连接正十伏，经四千欧接地，另有二毫安理想电流源由节点 a 流向地。"
+
+[[figures]]
+source = "latex/exercise-d-03.tex"
+output = "docs/assets/figures/exercise-d-03.svg"
+title = "D-03 负半波整流器"
+description = "交流输入经反向串联二极管连接输出，二极管阴极朝输入、阳极朝输出；二千欧负载由输出接地。"
+
+[[figures]]
+source = "latex/exercise-d-04.tex"
+output = "docs/assets/figures/exercise-d-04.svg"
+title = "D-04 非对称偏置双二极管限幅器"
+description = "输入经一千欧到输出；上管阳极接输出、阴极接正一点五伏，下管阳极接负二伏、阴极接输出。"
+
+[[figures]]
+source = "latex/exercise-d-06.tex"
+output = "docs/assets/figures/exercise-d-06.svg"
+title = "D-06 两二极管偏置限幅器"
+description = "输入源经一千欧到输出；D1 阳极接输出、阴极接正一伏，D2 阳极接地、阴极接输出。"
+
+[[figures]]
+source = "latex/bjt-regions.tex"
+output = "docs/assets/figures/bjt-regions.svg"
+title = "NPN 端子电流、结偏置与工作区"
+description = "左侧使用带发射极箭头的标准NPN符号标出基极、集电极和发射极传统电流方向；右侧按BE结与BC结的正反偏组合列出截止、前向有源、反向有源和饱和四个工作区。"
+
+[[figures]]
+source = "latex/bode-solved-examples.tex"
+output = "docs/assets/figures/bode-solved-examples.svg"
+title = "一阶RC与多拐点Bode图"
+description = "三幅图依次展示一阶低通的精确角频率和阶跃时间常数、带通网络的斜率变化、以及零点和极点造成的渐近斜率与相位方向。"
+
+[[figures]]
+source = "latex/bode-stability.tex"
+output = "docs/assets/figures/bode-stability.svg"
+title = "环路增益伯德图中的交越频率与相位裕度"
+description = "上图画出环路增益幅值随对数频率下降并穿过零分贝；下图在同一交越频率读取相位，与负一百八十度之间的距离就是相位裕度，同时提示第二极点过早出现会压缩裕度。"
+
+[[figures]]
+source = "latex/diode-bias-iv.tex"
+output = "docs/assets/figures/diode-bias-iv.svg"
+title = "二极管偏置回路与电流电压特性"
+description = "左图给出电源、电阻和二极管构成的完整测试回路与参考方向；右图显示正向指数区、反向漏电区和反向击穿区。"
+
+[[figures]]
+source = "latex/diode-dc-analysis.tex"
+output = "docs/assets/figures/diode-dc-analysis.svg"
+title = "恒压降二极管例题与负载线"
+description = "左图是5伏电源、1千欧电阻和0.7伏恒压降二极管的串联回路；右图用负载线与二极管曲线的交点表示工作点。"
+
+[[figures]]
+source = "latex/diode-models-loadline.tex"
+output = "docs/assets/figures/diode-models-loadline.svg"
+title = "二极管特性、负载线、Q 点与小信号切线"
+description = "左图在同一坐标显示指数特性、恒压降门槛和外电路负载线，交点为 Q 点；右图放大 Q 点附近，区分直流割线和小信号切线。"
+
+[[figures]]
+source = "latex/diode-solved-waveforms.tex"
+output = "docs/assets/figures/diode-solved-waveforms.svg"
+title = "二极管分段题的三类波形"
+description = "三幅图分别给出带偏置半波输出、双向限幅传输与时间波形、以及钳位电路首周期到稳态的关键电平。"
+
+[[figures]]
+source = "latex/figure-3-02.tex"
+output = "docs/assets/figures/figure-3-02.svg"
+title = "NPN 结构、端子角色与统一参考方向"
+description = "发射区注入电子，薄基区只有少量复合，集电区借助反偏电场收集大部分电子；传统电流方向与电子运动相反。"
+
+[[figures]]
+source = "latex/figure-3-03.tex"
+output = "docs/assets/figures/figure-3-03.svg"
+title = "正向有源区的载流子输运链"
+description = "电子从发射极经薄基区扩散到集电结，再由电场扫入集电极；少量复合需要基极补充电荷。"
+
+[[figures]]
+source = "latex/figure-3-04.tex"
+output = "docs/assets/figures/figure-3-04.svg"
+title = "由 BE、BC 两个结偏置构成的 BJT 工作区地图"
+description = "二维工作区表按BE结与BC结是否正向偏置区分截止、正向有源、饱和和反向相关状态。"
+
+[[figures]]
+source = "latex/figure-3-07.tex"
+output = "docs/assets/figures/figure-3-07.svg"
+title = "固定基极偏置电路的直流负载线"
+description = "负载线连接VCE等于零时的五毫安截距与IC等于零时的十伏截距，Q点位于六点零四伏和一点九八毫安。"
+
+[[figures]]
+source = "latex/figure-3-09.tex"
+output = "docs/assets/figures/figure-3-09.svg"
+title = "BJT 指数特性在 Q 点的局部线性化"
+description = "非线性器件特性在静态工作点Q附近用切线近似，切线斜率为跨导gm；小信号增量必须足够小。"
+
+[[figures]]
+source = "latex/figure-3-10.tex"
+output = "docs/assets/figures/figure-3-10.svg"
+title = "增强型 NMOS 的截面直觉与端口参考"
+description = "绝缘栅位于氧化层上方，源漏为n加区，正栅压形成表面反型沟道；漏电流从D流入并从S流出。"
+
+[[figures]]
+source = "latex/figure-3-11.tex"
+output = "docs/assets/figures/figure-3-11.svg"
+title = "增强型 NMOS 的零栅偏、耗尽与反型序列"
+description = "栅压升高先排斥表面空穴形成耗尽区，超过阈值后电子反型层把源漏连接成可控沟道。"
+
+[[figures]]
+source = "latex/figure-3-12.tex"
+output = "docs/assets/figures/figure-3-12.svg"
+title = "长沟道 NMOS 输出特性的区域图"
+description = "多条输出特性从三极管区弯曲进入饱和区，边界随各条曲线的过驱动电压变化。"
+
+[[figures]]
+source = "latex/figure-3-13.tex"
+output = "docs/assets/figures/figure-3-13.svg"
+title = "沟道渐变与夹断"
+description = "VDS 增大使漏端沟道电荷逐渐减少；在VDS等于过驱动电压时漏端刚夹断，载流子仍被强电场扫向漏极。"
+
+[[figures]]
+source = "latex/figure-3-17.tex"
+output = "docs/assets/figures/figure-3-17.svg"
+title = "NMOS 饱和平方律在 Q 点的局部线性化"
+description = "非线性器件特性在静态工作点Q附近用切线近似，切线斜率为跨导gm；小信号增量必须足够小。"
+
+[[figures]]
+source = "latex/figure-3-18.tex"
+output = "docs/assets/figures/figure-3-18.svg"
+title = "两类晶体管的端口控制表述"
+description = "BJT与NMOS都以控制端口电压产生增量输出电流，但BJT有有限rπ，理想低频MOS栅端没有电导电流。"
+
+[[figures]]
+source = "latex/figure-4-02.tex"
+output = "docs/assets/figures/figure-4-02.svg"
+title = "放大器的能量与信号角色"
+description = "输入信号控制有源器件从直流电源向负载传递能量；负载功率不是由输入源直接提供。"
+
+[[figures]]
+source = "latex/figure-4-03.tex"
+output = "docs/assets/figures/figure-4-03.svg"
+title = "输入、输出电阻的测试源定义"
+description = "输入电阻测试在实际输出终端下由输入测试源测vt除以it；输出电阻测试移除负载、将独立信号源置零并保留受控源与反馈。"
+
+[[figures]]
+source = "latex/figure-4-04.tex"
+output = "docs/assets/figures/figure-4-04.svg"
+title = "从源到负载的电压链"
+description = "总电压传递依次包含输入分压、开路级增益和输出加载，三个因子不得重复计入。"
+
+[[figures]]
+source = "latex/figure-4-06.tex"
+output = "docs/assets/figures/figure-4-06.svg"
+title = "数值负载线与近对称 Q 点"
+description = "十伏共射极电路的负载线连接零伏五毫安与十伏零毫安，Q点位于五点二三一伏和二点三八五毫安，靠近两侧摆幅余量对称位置。"
+
+[[figures]]
+source = "latex/figure-4-07.tex"
+output = "docs/assets/figures/figure-4-07.svg"
+title = "简单共射极放大器的反相输出与两侧削顶"
+description = "左侧用同一时间轴对齐基极增量与反相集电极输出；中图显示静态集电极电流过高时的底部削顶；右图显示静态集电极电流过低时的顶部削顶。"
+
+[[figures]]
+source = "latex/figure-4-19.tex"
+output = "docs/assets/figures/figure-4-19.svg"
+title = "MOS 源极退化的局部因果链"
+description = "源极电阻让漏电流增加抬高源电压，从而减小vgs并抵消一部分原变化，同时漏极输出仍反相。"
+
+[[figures]]
+source = "latex/figure-4-21.tex"
+output = "docs/assets/figures/figure-4-21.svg"
+title = "从理想源到负载的幅值账本"
+description = "输入分压、反相级增益和输出加载依次作用于同一信号，负号表示相位反转而不是负幅值。"
+
+[[figures]]
+source = "latex/figure-4-24.tex"
+output = "docs/assets/figures/figure-4-24.svg"
+title = "统一电压参考下的 CE 和 CS 削顶画廊"
+description = "三幅波形分别表示线性反相输出、截止侧的顶部削平和强导通侧的底部削平，纵轴均为集电极或漏极对地电压。"
+
+[[figures]]
+source = "latex/figure-5-03.tex"
+output = "docs/assets/figures/figure-5-03.svg"
+title = "有限电源下的开环传输"
+description = "运放开环传输中央只有极窄的线性区，斜率为开环增益A；两端分别饱和在VOH和VOL。"
+
+[[figures]]
+source = "latex/figure-5-04.tex"
+output = "docs/assets/figures/figure-5-04.svg"
+title = "信号控制与能量路径"
+description = "运放差分输入只控制输出级，负载电流和功率由正负电源提供。"
+
+[[figures]]
+source = "latex/figure-5-05.tex"
+output = "docs/assets/figures/figure-5-05.svg"
+title = "反相端取样的负反馈方向检查"
+description = "若输出上升使反相输入上升，则差分输入下降，运放驱动输出回落并抵消原扰动。"
+
+[[figures]]
+source = "latex/figure-5-06.tex"
+output = "docs/assets/figures/figure-5-06.svg"
+title = "正反馈的自增强方向"
+description = "输出回送同相端时，输出上升令差分输入增加，运放进一步推高输出，形成状态翻转而非线性虚短。"
+
+[[figures]]
+source = "latex/figure-5-07.tex"
+output = "docs/assets/figures/figure-5-07.svg"
+title = "虚断与虚短不能望文生义"
+description = "虚断表示输入引脚电流近似为零而外部电阻电流仍经反馈返回；虚短表示特定负反馈线性状态下两输入电位近似相等，但两端没有导线相连。"
+
+[[figures]]
+source = "latex/figure-5-09.tex"
+output = "docs/assets/figures/figure-5-09.svg"
+title = "反相输出波形"
+description = "输入与输出使用同一时间轴；反相放大器输出相对输入旋转一百八十度，幅值按闭环电阻比放大。"
+
+[[figures]]
+source = "latex/figure-5-12.tex"
+output = "docs/assets/figures/figure-5-12.svg"
+title = "同相放大器的波形方向"
+description = "同相放大器的输入和输出阶跃沿同一方向变化，输出幅值由闭环增益决定，实际边沿受带宽和压摆率限制。"
+
+[[figures]]
+source = "latex/figure-5-15.tex"
+output = "docs/assets/figures/figure-5-15.svg"
+title = "求和器的权重与共同饱和边界"
+description = "三个输入在线性区分别乘负权重后相加；任何一路使总候选输出越轨，整个输出一起饱和。"
+
+[[figures]]
+source = "latex/figure-5-17.tex"
+output = "docs/assets/figures/figure-5-17.svg"
+title = "差模与共模的分解"
+description = "两个输入由共同的平均值和相反的半差值组成；理想差分级只放大差模，匹配误差和有限CMRR会让共模泄漏。"
+
+[[figures]]
+source = "latex/figure-5-19.tex"
+output = "docs/assets/figures/figure-5-19.svg"
+title = "正恒压输入产生负斜坡"
+description = "反相积分器在正恒压输入期间以负一除以RC乘输入电压的斜率下降，直到触及负输出极限。"
+
+[[figures]]
+source = "latex/figure-5-22.tex"
+output = "docs/assets/figures/figure-5-22.svg"
+title = "三角波的斜率映射成反相方波"
+description = "反相微分器把三角波的正斜率映射成负恒定输出，把负斜率映射成正恒定输出；输出幅值由斜率和RfC决定。"
+
+[[figures]]
+source = "latex/figure-5-25.tex"
+output = "docs/assets/figures/figure-5-25.svg"
+title = "同相比较器的阈值波形"
+description = "输入三角波高于固定参考电压时输出为高电平，低于参考时输出为低电平；交越附近的传播延迟和噪声会移动实际边沿。"
+
+[[figures]]
+source = "latex/figure-5-27.tex"
+output = "docs/assets/figures/figure-5-27.svg"
+title = "反相施密特触发器的双阈值波形"
+description = "输入上穿上阈值时输出从高翻为低，输入下穿下阈值时输出从低翻为高；两阈值之间保持历史状态并抑制小噪声翻转。"
+
+[[figures]]
+source = "latex/figure-5-28.tex"
+output = "docs/assets/figures/figure-5-28.svg"
+title = "反相施密特触发器的滞回传输"
+description = "输入上升时沿高电平支路向右并在VTH下跳，输入下降时沿低电平支路向左并在VTL上跳；两阈值间输出取决于历史。"
+
+[[figures]]
+source = "latex/figure-5-29.tex"
+output = "docs/assets/figures/figure-5-29.svg"
+title = "从输入、开环到输出的非理想检查链"
+description = "理想闭环公式成立前必须同时检查输入范围、开环动态、稳定性、输出摆幅、电流、压摆率和负载。"
+
+[[figures]]
+source = "latex/figure-6-02.tex"
+output = "docs/assets/figures/figure-6-02.svg"
+title = "统一负反馈方框图"
+description = "外加量xs与反馈量xf在比较点相减得到xe，前向通道A把xe变为xo，反馈网络β从输出取样并沿下支路返回。"
+
+[[figures]]
+source = "latex/figure-6-03.tex"
+output = "docs/assets/figures/figure-6-03.svg"
+title = "反馈极性的扰动判定"
+description = "负反馈沿环路返回抵消原变化，正反馈沿环路返回强化原变化；额外一百八十度相移会在某频率反转低频直觉。"
+
+[[figures]]
+source = "latex/figure-6-04.tex"
+output = "docs/assets/figures/figure-6-04.svg"
+title = "一加环路增益的复数几何意义"
+description = "左图中正实环路增益与一同向相加使分母增大；右图中环路增益接近负一时，一加T接近零并逼近不稳定边界。"
+
+[[figures]]
+source = "latex/figure-6-05.tex"
+output = "docs/assets/figures/figure-6-05.svg"
+title = "负反馈数值例的去敏与端口变化"
+description = "开环增益增加百分之二十时，闭环增益只变化约百分之一点八九；电压串联反馈同时提高输入电阻并降低输出电阻。"
+
+[[figures]]
+source = "latex/figure-6-06.tex"
+output = "docs/assets/figures/figure-6-06.svg"
+title = "三种扰动注入位置"
+description = "环内输出扰动可被反馈看见并压低，输入端噪声会被当作输入一起传递，取样点之后的环外扰动不能由该环路纠正。"
+
+[[figures]]
+source = "latex/figure-6-07.tex"
+output = "docs/assets/figures/figure-6-07.svg"
+title = "反馈纠错的四个必要环节"
+description = "扰动必须被取样看见、形成误差、落在有效环路带宽内，且前向通道仍有输出余量，才能由反馈减小。"
+
+[[figures]]
+source = "latex/figure-6-09.tex"
+output = "docs/assets/figures/figure-6-09.svg"
+title = "电压串联反馈"
+description = "电压串联反馈方框图明确区分输出取样方式与输入混合方式，并给出对应闭环量。"
+
+[[figures]]
+source = "latex/figure-6-10.tex"
+output = "docs/assets/figures/figure-6-10.svg"
+title = "电压并联反馈"
+description = "电压并联反馈方框图明确区分输出取样方式与输入混合方式，并给出对应闭环量。"
+
+[[figures]]
+source = "latex/figure-6-11.tex"
+output = "docs/assets/figures/figure-6-11.svg"
+title = "电流串联反馈"
+description = "电流串联反馈方框图明确区分输出取样方式与输入混合方式，并给出对应闭环量。"
+
+[[figures]]
+source = "latex/figure-6-12.tex"
+output = "docs/assets/figures/figure-6-12.svg"
+title = "电流并联反馈"
+description = "电流并联反馈方框图明确区分输出取样方式与输入混合方式，并给出对应闭环量。"
+
+[[figures]]
+source = "latex/figure-6-15.tex"
+output = "docs/assets/figures/figure-6-15.svg"
+title = "低通精确幅频与相位标记"
+description = "低通精确幅频与相位标记使用对数频率轴，精确曲线在截止频率处为负三点零一分贝，相位跨三个典型频点平滑变化。"
+
+[[figures]]
+source = "latex/figure-6-16.tex"
+output = "docs/assets/figures/figure-6-16.svg"
+title = "高通精确幅频与相位标记"
+description = "高通精确幅频与相位标记使用对数频率轴，精确曲线在截止频率处为负三点零一分贝，相位跨三个典型频点平滑变化。"
+
+[[figures]]
+source = "latex/figure-6-17.tex"
+output = "docs/assets/figures/figure-6-17.svg"
+title = "一阶 Bode 手绘与自检流程"
+description = "先因式分解并标拐点，再累计渐近线斜率、补拐点精确修正和相位，最后检查低高频物理极限与频率单位。"
+
+[[figures]]
+source = "latex/figure-6-18.tex"
+output = "docs/assets/figures/figure-6-18.svg"
+title = "RC 阶跃与截止频率的同一极点"
+description = "低通电容电压从零指数上升至V，高通电阻电压从V指数衰减至零；两者具有相同时间常数τ和频域拐点一除以τ。"
+
+[[figures]]
+source = "latex/figure-6-19.tex"
+output = "docs/assets/figures/figure-6-19.svg"
+title = "含低频与高频电容的完整放大器接口"
+description = "低频由输入输出耦合和发射极或源极旁路电容主导，高频由器件输入、桥接、结电容和负载电容主导。"
+
+[[figures]]
+source = "latex/figure-6-20.tex"
+output = "docs/assets/figures/figure-6-20.svg"
+title = "多低频、多高频转折的放大器 Bode 包络"
+description = "总幅频曲线在多个低频转折后进入中频平台，再在多个高频极点后以更陡斜率下降；总负三分贝点不一定等于任一单独拐点。"
+
+[[figures]]
+source = "latex/figure-6-21.tex"
+output = "docs/assets/figures/figure-6-21.svg"
+title = "单主极点负反馈的增益—带宽交换"
+description = "负反馈把低频增益除以一加T0，同时把闭环极点提高相同倍数；仅在单主极点和常数反馈系数模型中增益带宽乘积近似不变。"
+
+[[figures]]
+source = "latex/figure-6-22.tex"
+output = "docs/assets/figures/figure-6-22.svg"
+title = "桥接阻抗的 Miller 两端等效"
+description = "原桥接阻抗连接输入和输出；在给定电压增益Av下可等效为输入对地阻抗和输出对地阻抗，但建立Av的受控放大通道仍必须保留。"
+
+[[figures]]
+source = "latex/figure-6-23.tex"
+output = "docs/assets/figures/figure-6-23.svg"
+title = "闭环分母与环路增益测试概念"
+description = "闭环信号沿A和β回到比较点；测环路增益需在保持直流偏置与端口加载的断点注入测试量并测返回量。"
+
+[[figures]]
+source = "latex/figure-6-24.tex"
+output = "docs/assets/figures/figure-6-24.svg"
+title = "同一环路的相位裕度与增益裕度读图"
+description = "幅值图在二十千赫兹穿越零分贝，对应相位负一百三十五度并给出四十五度相位裕度；相位在八十千赫兹到负一百八十度时幅值为负十三点九八分贝。"
+
+[[figures]]
+source = "latex/figure-6-25.tex"
+output = "docs/assets/figures/figure-6-25.svg"
+title = "稳定、超调、振铃和振荡的时域联系"
+description = "四幅阶跃响应依次表示阻尼良好、欠阻尼但收敛、稳定边界附近的等幅振铃和振幅增长的不稳定响应。"
+
+[[figures]]
+source = "latex/figure-7-02.tex"
+output = "docs/assets/figures/figure-7-02.svg"
+title = "输入坐标的分解与重构"
+description = "两个对地输入可唯一变换为差模与共模坐标，并由平均值加减半差值重构。"
+
+[[figures]]
+source = "latex/figure-7-03.tex"
+output = "docs/assets/figures/figure-7-03.svg"
+title = "CMRR 的两次小信号测量"
+description = "差模测量保持平均值固定并让两输入反向等量变化；共模测量令两输入同相等幅，供电、频率、负载和偏置必须相同。"
+
+[[figures]]
+source = "latex/figure-7-05.tex"
+output = "docs/assets/figures/figure-7-05.svg"
+title = "差分对的大信号电流转向"
+description = "差模输入从负到正时，固定尾电流从Q2支路逐渐转向Q1支路；两支电流之和近似为IT，中点各为一半。"
+
+[[figures]]
+source = "latex/figure-7-06.tex"
+output = "docs/assets/figures/figure-7-06.svg"
+title = "差模小信号的完整符号链"
+description = "纯差模时两输入分别为正负半个差模电压，理想尾源令增量尾电流为零，因此两支集电极电流增量等大反向。"
+
+[[figures]]
+source = "latex/figure-7-07.tex"
+output = "docs/assets/figures/figure-7-07.svg"
+title = "差分对的输出极性与增益倍数"
+description = "正差模输入使左支电流增加、左输出降低，同时右支电流减少、右输出升高；差分读出幅值为单端读出的两倍。"
+
+[[figures]]
+source = "latex/figure-7-08.tex"
+output = "docs/assets/figures/figure-7-08.svg"
+title = "理想与有限尾电流源的共模路径"
+description = "共模上升时理想尾源让发射节点近似同升并保持总电流；有限尾阻会调制总电流，对称单端输出共同移动，失配才泄漏到差分输出。"
+
+[[figures]]
+source = "latex/figure-7-11.tex"
+output = "docs/assets/figures/figure-7-11.svg"
+title = "电流源的顺从区和有限斜率"
+description = "实际电流源在最低顺从电压之前不能维持设定电流，进入工作区后仍因有限输出电阻略有斜率，过高电压又受耐压和功耗限制。"
+
+[[figures]]
+source = "latex/figure-7-13.tex"
+output = "docs/assets/figures/figure-7-13.svg"
+title = "A、B、AB 类的导通角波形"
+description = "同一零到三百六十度周期中，A类器件全周期导通，B类上下管各导通一百八十度，AB类每只超过一百八十度并在过零附近重叠。"
+
+[[figures]]
+source = "latex/figure-7-16.tex"
+output = "docs/assets/figures/figure-7-16.svg"
+title = "B 类交越失真的时域机制"
+description = "理想输出是平滑正弦；实际B类互补跟随器在每次过零附近两管均截止，输出出现平段和尖锐误差。"
+
+[[figures]]
+source = "latex/figure-7-18.tex"
+output = "docs/assets/figures/figure-7-18.svg"
+title = "理想 B 类效率推导的波形与积分区间"
+description = "负载电压是完整正弦，正轨与负轨电流各为半波；每条电源轨的整周期平均电流为Ip除以π，最大理想效率只在输出峰值等于电源电压时达到π除以四。"
+
+[[figures]]
+source = "latex/figure-7-19.tex"
+output = "docs/assets/figures/figure-7-19.svg"
+title = "功率级的能量与热路径"
+description = "电源输入功率分为负载平均功率和输出管损耗，器件热量再沿结、壳、界面、散热器到环境；平均热估算不能替代SOA检查。"
+
+[[figures]]
+source = "latex/figure-7-23.tex"
+output = "docs/assets/figures/figure-7-23.svg"
+title = "桥式整流、滤波电压与二极管脉冲电流"
+description = "四幅同轴波形依次为交流次级电压、全波整流电压、电容负载上的充放电纹波和峰值附近的窄二极管充电脉冲。"
+
+[[figures]]
+source = "latex/figure-7-24.tex"
+output = "docs/assets/figures/figure-7-24.svg"
+title = "小纹波常流负载下的电容放电近似"
+description = "电容在峰值附近快速充到Vmax，随后以近似负IL除以C的斜率向负载放电到Vmin；峰峰纹波约为IL除以C再乘一除以纹波频率。"
+
+[[figures]]
+source = "latex/figure-7-26.tex"
+output = "docs/assets/figures/figure-7-26.svg"
+title = "串联型线性稳压器的核心闭环"
+description = "误差放大器比较反馈采样与基准，驱动串联调整管改变压降，使输出回到设定值；调整管同时承担负载电流与功耗。"
+
+[[figures]]
+source = "latex/figure-7-27.tex"
+output = "docs/assets/figures/figure-7-27.svg"
+title = "线调整率、负载调整率与滤波稳压分工"
+description = "线调整测试固定负载只改变输入，负载调整测试固定输入只改变负载；滤波电容负责储能，稳压器靠参考与反馈校正。"
+
+[[figures]]
+source = "latex/mosfet-regions.tex"
+output = "docs/assets/figures/mosfet-regions.svg"
+title = "NMOS 反型沟道、输出特性与工作区边界"
+description = "左侧为增强型 NMOS 的栅、漏、源、体和反型沟道；右侧为多条漏电流输出特性，三极管区与饱和区由 VDS 等于过驱动电压 VOV 的边界分开。"
+
+[[figures]]
+source = "latex/opamp-feedback.tex"
+output = "docs/assets/figures/opamp-feedback.svg"
+title = "运算放大器负反馈的闭环逻辑与两种基本电路"
+description = "上部从求差、开环增益和反馈网络说明负反馈如何压小误差；下部对比反相与同相放大器的接法、虚短条件和闭环增益。"
+
+[[figures]]
+source = "latex/pn-junction.tex"
+output = "docs/assets/figures/pn-junction.svg"
+title = "PN 结耗尽区、内建电场与载流子运动"
+description = "中间是由固定负受主离子和固定正施主离子组成的耗尽区，内建电场从 n 区指向 p 区；电子与空穴的扩散方向和电场驱动的漂移方向相反。"
+
+[[figures]]
+source = "latex/rc-transient.tex"
+output = "docs/assets/figures/rc-transient.svg"
+title = "RC切换回路与一阶响应"
+description = "左图展示电压源、开关、电阻和电容构成的完整充电回路；右图展示电容电压从V0指数趋近Vf并在一个时间常数达到总变化的63.2%。"
+
+[[figures]]
+source = "latex/rectifier-filter.tex"
+output = "docs/assets/figures/rectifier-filter.svg"
+title = "桥式整流与电容滤波的电流路径、充放电和纹波"
+description = "左侧标出桥式整流在输入正负半周各有两只二极管导通，负载电流方向不变；右侧将全波整流波形、电容峰值充电和负载放电造成的纹波对齐，并给出近似关系。"
+
+[[figures]]
+source = "latex/semiconductor-foundations.tex"
+output = "docs/assets/figures/semiconductor-foundations.svg"
+title = "能带与掺杂载流子"
+description = "左图显示导带、禁带和价带，右图比较n型与p型半导体中的固定离子、多数载流子和少数载流子。"
+
+[[figures]]
+source = "latex/small-signal-models.tex"
+output = "docs/assets/figures/small-signal-models.svg"
+title = "从静态工作点线性化到 BJT 与 MOSFET 小信号模型"
+description = "左侧展示非线性曲线在 Q 点的切线近似；中间是 BJT 的混合-π 模型；右侧是 MOSFET 的跨导模型，并标出模型成立的微小扰动条件。"
+
+[[figures]]
+source = "latex/zener-recovery.tex"
+output = "docs/assets/figures/zener-recovery.svg"
+title = "齐纳反向稳压与二极管反向恢复"
+description = "左图展示齐纳二极管反向击穿时由串联电阻限流的回路；右图展示换向后出现反向恢复电流并在trr后回到漏电。"

@@ -1,0 +1,16 @@
+\begin{tikzpicture}[x=.01cm,y=-.01cm]
+  \path[use as bounding box] (0,0) rectangle (960,480);
+  \draw[ae axis] (100,390) -- (890,390) node[below left] {$v_i$};
+  \draw[ae axis] (480,420) -- (480,55) node[right] {$v_o$};
+  \draw[AEorange,dashed] (260,90) -- (260,390);
+  \draw[AEorange,dashed] (700,90) -- (700,390);
+  \node[below] at (260,390) {$V_{TL}$};
+  \node[below] at (700,390) {$V_{TH}$};
+  \node[left] at (100,115) {$V_{OH}$};
+  \node[left] at (100,345) {$V_{OL}$};
+  \draw[ae arrow] (155,115) -- (700,115);
+  \draw[ae arrow] (700,115) -- (700,345);
+  \draw[ae arrow] (805,345) -- (260,345);
+  \draw[ae arrow] (260,345) -- (260,115);
+  \node[align=center,text=AEmuted] at (480,450) {$V_H=V_{TH}-V_{TL}$；两阈值之间的输出由历史状态决定。};
+\end{tikzpicture}

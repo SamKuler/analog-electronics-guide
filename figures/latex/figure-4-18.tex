@@ -1,0 +1,25 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=0.82cm]
+  \draw (0.5,2.4) coordinate (g1) node[left] {$v_{i}$}
+        to[R,l_=$R_{G}$] (0.5,0) node[ground] {};
+  \draw (2.2,3.3) coordinate (d1) to[cisource,l_=$g_{m}v_{gs}$] (2.2,0) node[ground] {};
+  \draw (d1) -- (3.4,3.3) to[R,l=$R_{D}\parallel R_{L}$] (3.4,0) node[ground] {};
+  \node[above] at (d1) {$v_{o}$};
+  \node at (2.0,4.8) {(a) CS};
+
+  \draw (5.3,2.4) coordinate (g2) node[left] {$v_{i}$}
+        to[R,l_=$R_{G}$] (5.3,0) node[ground] {};
+  \draw (7.0,4.0) node[ground] {} to[cisource,l=$g_{m}v_{gs}$] (7.0,1.6) coordinate (s2);
+  \draw (s2) -- (8.3,1.6) to[R,l=$R_{S}\parallel R_{L}$] (8.3,0) node[ground] {};
+  \node[above] at (s2) {$v_{o}$};
+  \node at (7.0,4.8) {(b) CD};
+
+  \draw (10.0,0) node[ground] {} to[sV,l=$v_{s}$] (10.0,1.6)
+        to[R,l=$R_{s}$] (11.4,1.6) coordinate (s3);
+  \draw (s3) to[R,l_=$R_{S}$] (11.4,0) node[ground] {};
+  \draw (s3) -- (12.8,1.6);
+  \draw (12.8,3.5) coordinate (d3) to[cisource,l_=$g_{m}v_{gs}$] (12.8,1.6);
+  \draw (d3) -- (14.3,3.5) to[R,l=$R_{D}\parallel R_{L}$] (14.3,0) node[ground] {};
+  \node[above] at (13.5,3.5) {$v_{o}$};
+  \draw (11.0,3.2) node[above] {$g$} -- (11.0,2.5) node[ground] {};
+  \node at (12.7,4.8) {(c) CG};
+\end{tikzpicture}

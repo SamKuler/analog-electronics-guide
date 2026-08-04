@@ -1,0 +1,12 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=0.95cm]
+  \draw (0.4,0) node[ground] {} to[sV,l=$v_{s}$] (0.4,2.5)
+        to[R,l=$R_{s}$] (2.3,2.5) coordinate (b);
+  \fill (b) circle (1.3pt);
+  \draw (b) to[R,l_=$R_{B}$] (2.3,0) node[ground] {};
+  \draw (b) -- (3.9,2.5) to[R,l=$r_{\pi}$] (3.9,0) node[ground] {};
+  \draw (7.7,3.2) coordinate (c) to[R,l_=$R_{C}$] (7.7,0) node[ground] {};
+  \draw (c) -- (9.2,3.2) to[R,l=$R_{L}$] (9.2,0) node[ground] {};
+  \draw (c) -- (6.0,3.2) to[cisource,l_=$g_{m}v_{\pi}$] (6.0,0) node[ground] {};
+  \fill (c) circle (1.3pt);
+  \node[above] at (c) {$v_{o}$};
+\end{tikzpicture}

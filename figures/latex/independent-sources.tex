@@ -1,0 +1,17 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.2cm]
+  \draw (2.0,4.0) to[V,l_=$V_{S}$,i>^=$i_{v}$] (2.0,0.5);
+  \fill (2.0,0.5) circle (1.3pt);
+  \fill (2.0,4.0) circle (1.3pt);
+  \node[above] at (2.0,4.0) {$a$};
+  \node[below] at (2.0,0.5) {$b$};
+  \node at (2.0,5.2) {(a) voltage source};
+  \node at (2.0,-0.5) {$v_{ab}=V_{S}$};
+
+  \draw (7.0,4.0) to[I,l_=$I_{S}$,v^>=$v_{ab}$] (7.0,0.5);
+  \fill (7.0,0.5) circle (1.3pt);
+  \fill (7.0,4.0) circle (1.3pt);
+  \node[above] at (7.0,4.0) {$a$};
+  \node[below] at (7.0,0.5) {$b$};
+  \node at (7.0,5.2) {(b) current source};
+  \node at (7.0,-0.5) {$i_{ab}=I_{S}$};
+\end{tikzpicture}

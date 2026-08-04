@@ -1,0 +1,12 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.1cm]
+  \node[npn] (Q1) at (5.8,2.5) {};
+  \node[right=5pt] at (Q1) {$Q_{1}$};
+  \draw (Q1.C) to[R,l={$R_{C}=2.20\,\mathrm{k}\Omega$}] (5.8,5.3)
+        node[vcc] {$+12.0\,\mathrm{V}$};
+  \draw (2.2,5.3) -- (5.8,5.3);
+  \draw (2.2,5.3) to[R,l_={$R_{1}=82.0\,\mathrm{k}\Omega$}] (2.2,2.5)
+        to[R,l_={$R_{2}=18.0\,\mathrm{k}\Omega$}] (2.2,0) node[ground] {};
+  \draw (2.2,2.5) -- (Q1.B);
+  \fill (2.2,2.5) circle (1.3pt);
+  \draw (Q1.E) to[R,l={$R_{E}=1.00\,\mathrm{k}\Omega$}] (5.8,0) node[ground] {};
+\end{tikzpicture}

@@ -1,0 +1,58 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=8.0cm,minimum height=6.5cm] at (4.0,0) {};
+  \node[ae panel,minimum width=7.2cm,minimum height=6.5cm] at (12.0,0) {};
+  \node[font=\bfseries] at (4.0,2.8) {桥式整流与电容滤波};
+  \begin{scope}[shift={(1.0,-1.65)},scale=.78,transform shape]
+    \coordinate (A) at (0,2.4);
+    \coordinate (B) at (5.2,2.4);
+    \coordinate (P) at (2.6,4.8);
+    \coordinate (N) at (2.6,0);
+    \draw (A) to[D,l={$D_1$}] (P);
+    \draw (B) to[D,l_={$D_2$}] (P);
+    \draw (N) to[D,l={$D_3$}] (A);
+    \draw (N) to[D,l_={$D_4$}] (B);
+    \fill (A) circle (1.5pt) node[left] {$A\sim$};
+    \fill (B) circle (1.5pt);
+    \node[below=5mm of B] {$B\sim$};
+    \fill (P) circle (1.5pt) node[above] {$+$};
+    \fill (N) circle (1.5pt) node[below] {$-$};
+    \draw (P) -- (7.2,4.8) to[R,l={$R_L$}] (7.2,0) -- (N);
+    \draw (P) -- (5.8,4.8) to[C,l_={$C$}] (5.8,0) -- (N);
+    \draw[ae arrow] (6.65,3.7) -- (6.65,2.7) node[midway,left] {$i_L$};
+    \node[font=\scriptsize,text=AEmuted,align=center] at (3.7,-1.0) {
+      每半周恰有两只二极管导通；\\负载电流始终从 $+$ 端流向 $-$ 端。
+    };
+  \end{scope}
+
+  \node[font=\bfseries] at (12.0,2.8) {峰顶充电、峰间放电};
+  \begin{axis}[
+    at={(8.65cm,-1.15cm)},anchor=south west,
+    width=6.5cm,height=3.7cm,
+    axis lines=left,
+    ylabel={归一化电压},
+    xmin=0,xmax=12.57,ymin=-1.15,ymax=1.25,
+    xtick={0,3.1416,6.2832,9.4248,12.566},
+    xticklabels={$0$,$\pi$,$2\pi$,$3\pi$,$4\pi$},
+    ytick={-1,0,1},clip=false,
+    legend style={draw=none,fill=white,fill opacity=.82,text opacity=1,
+      font=\scriptsize,at={(.02,.97)},anchor=north west,legend columns=1},
+  ]
+    \addplot[AEmuted,dashed,domain=0:12.57,samples=240] {sin(deg(x))};
+    \addlegendentry{$v_s$}
+    \addplot[ae curve,thin,domain=0:12.57,samples=240] {abs(sin(deg(x)))};
+    \addlegendentry{整流后}
+    \addplot[ae accent,thick] coordinates {
+      (0,0) (.35,.35) (.8,.72) (1.25,.95) (1.57,1)
+      (3.0,.80) (4.2,.72) (4.55,.90) (4.71,1)
+      (6.1,.80) (7.35,.72) (7.7,.90) (7.85,1)
+      (9.25,.80) (10.5,.72) (10.85,.90) (11.0,1) (12.57,.78)
+    };
+    \addlegendentry{$v_o$}
+    \draw[AEorange,thick,|-|] (axis cs:11.9,.78) -- (axis cs:11.9,1.0)
+      node[midway,left] {$\Delta V$};
+  \end{axis}
+  \node[font=\scriptsize,text=AEmuted,align=center] at (12.0,-2.58) {
+    $\Delta V\approx I_{\mathrm{load}}/(f_{\mathrm{ripple}}C)$，全波整流时\\
+    $f_{\mathrm{ripple}}=2f_{\mathrm{line}}$；增大 $C$ 会减小纹波但提高充电峰流。
+  };
+\end{tikzpicture}

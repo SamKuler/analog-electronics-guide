@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+  \node[nmos] (M1) at (2.0,2.5) {};
+  \draw (M1.G) -- ++(-1.2,0) node[left] {$v_{i}$};
+  \draw (M1.D) -- ++(1.0,0) node[right] {$v_{o}$};
+  \draw (M1.S) -- ++(0,-0.8) node[ground] {};
+  \node at (2.0,5.4) {(a) CS};
+
+  \node[nmos] (M2) at (6.5,2.5) {};
+  \draw (M2.G) -- ++(-1.2,0) node[left] {$v_{i}$};
+  \draw (M2.D) -- ++(0,0.8) node[ground,rotate=180] {};
+  \draw (M2.S) -- ++(1.0,0) node[right] {$v_{o}$};
+  \node at (6.5,5.4) {(b) source follower};
+
+  \node[nmos] (M3) at (11.0,2.5) {};
+  \draw (M3.G) -- ++(-0.8,0) -- ++(0,-0.7) node[ground] {};
+  \draw (M3.S) -- ++(-1.0,0) node[left] {$v_{i}$};
+  \draw (M3.D) -- ++(1.0,0) node[right] {$v_{o}$};
+  \node at (11.0,5.4) {(c) CG};
+\end{tikzpicture}

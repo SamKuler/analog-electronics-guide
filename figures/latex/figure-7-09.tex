@@ -1,0 +1,26 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.15cm]
+  \node[npn,xscale=-1] (Q1) at (2.4,2.1) {};
+  \node[npn] (Q2) at (6.2,2.1) {};
+  \node at (1.45,1.45) {$Q_{1}$};
+  \node at (7.15,1.45) {$Q_{2}$};
+
+  \draw (Q1.E) -- (2.4,0.0)
+        -- (6.2,0.0) -- (Q2.E);
+  \draw (4.3,0.0) node[ground] {};
+
+  \draw (Q1.B) -- (Q2.B);
+  \draw (Q1.C) -- (Q1.C -| Q1.B) -- (Q1.B);
+  \fill (Q1.C) circle (1.3pt);
+  \fill (Q1.B) circle (1.3pt);
+
+  \draw (Q1.C)
+        to[R,l_=$R_{\mathrm{ref}}$,i<_=$I_{\mathrm{ref}}$] (2.4,5.1)
+        node[vcc] {$V_{CC}$};
+  \draw (Q2.C)
+        to[R,l=$R_{L}$,i<_=$I_{O}$] (6.2,5.1)
+        node[vcc] {$V_{\mathrm{LOAD}}$};
+
+  \fill (Q2.C) circle (1.3pt);
+  \draw (Q2.C) -- ++(1.5,0) coordinate (out) node[ocirc] {};
+  \node[right=4pt] at (out) {$v_{\mathrm{out}}$};
+\end{tikzpicture}

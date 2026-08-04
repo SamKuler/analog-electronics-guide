@@ -1,0 +1,16 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=0.95cm]
+  \coordinate (left) at (1.0,3.0);
+  \coordinate (right) at (7.0,3.0);
+  \coordinate (top) at (4.0,5.2);
+  \coordinate (bottom) at (4.0,0.8);
+  \draw (left) to[D,l=$D_{1}$] (top);
+  \draw (right) to[D,l_=$D_{2}$] (top);
+  \draw (bottom) to[D,l_=$D_{3}$] (left);
+  \draw (bottom) to[D,l=$D_{4}$] (right);
+  \node[left] at (left) {$a\sim$};
+  \node[right] at (right) {$\sim b$};
+  \node[above] at (top) {$+v_{\mathrm{raw}}$};
+  \node[below] at (bottom) {$0\,\mathrm{V}$};
+  \draw (top) -- (8.7,5.2) to[eC,l=$C$] (8.7,0.8) -- (bottom);
+  \draw (top) -- (10.6,5.2) to[R,l=$R_{L}$] (10.6,0.8) -- (bottom);
+\end{tikzpicture}

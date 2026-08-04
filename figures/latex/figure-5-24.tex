@@ -1,0 +1,19 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.0cm]
+  \node[op amp, noinv input up] (A1) at (3.2,2.4) {};
+  \draw (A1.+) -- ++(-1.8,0) node[left] {$v_{i}$};
+  \draw (A1.-) -- ++(-1.8,0) node[left] {$V_{\mathrm{ref}}$};
+  \draw (A1.out) -- ++(1.1,0) coordinate (out1);
+  \fill (out1) circle (1.3pt);
+  \draw (out1) node[right=4pt] {$v_{o}$}
+        to[R,l=$R_{L}$] ++(0,-2.0) node[ground] {};
+  \node at (3.2,5.0) {(a)};
+
+  \node[op amp, noinv input up] (A2) at (10.0,2.4) {};
+  \draw (A2.+) -- ++(-1.8,0) node[left] {$v_{i}$};
+  \draw (A2.-) -- ++(-1.8,0) node[left] {$V_{\mathrm{ref}}$};
+  \draw (A2.out) -- ++(1.1,0) coordinate (out2);
+  \fill (out2) circle (1.3pt);
+  \draw (out2) node[right=4pt] {$v_{o}$}
+        to[R,l=$R_{PU}$] ++(0,2.0) node[vcc] {$V_{PU}$};
+  \node at (10.0,5.0) {(b)};
+\end{tikzpicture}

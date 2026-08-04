@@ -1,0 +1,43 @@
+% Generated from the audited semantic layout; maintained as native TikZ.
+\begin{tikzpicture}[x=.01cm,y=-0.01cm]
+\path[use as bounding box] (0.0,0.0) rectangle (960.0,480.0);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (18,24) rectangle (18+298,24+430);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (331,24) rectangle (331+298,24+430);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (644,24) rectangle (644+298,24+430);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (38,60) {一阶 \(R_C\) 低通};
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (46,310) -- (294,310);
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (66,336) -- (66,88);
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M66 118C140 118 166 120 192 144C220 170 248 226 286 282};
+\draw[draw=AEorange,thick,dashed] (192,98) -- (192,310);
+\path[fill=AEorange] (192,144) circle[radius=6];
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (198,136) {\(f_c\)：\(-\)3.010 dB};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (198,330) {4.980 kHz};
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (46,376) {\(\tau = 31.96\,\mu\mathrm{s}\)};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (38,418) {$t=\tau$ 时阶跃达到终值的 $63.2\%$。};
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (351,60) {多拐点带通};
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (352,310) -- (608,310);
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (372,336) -- (372,88);
+\draw[draw=AEteal,thick] (372,284) -- (414,230) -- (452,178) -- (532,178) -- (568,232) -- (602,286);
+\draw[draw=AEorange,thick] (452,178) -- (532,178);
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (390,274) {+40};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (418,218) {+20};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (470,164) {0 dB/dec};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (548,218) {\(-\)20};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (576,274) {\(-\)40};
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (356,376) {\(f_L \approx 211.5 Hz\)};
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (474,400) {\(f_H \approx 19.80 kHz\)};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (351,428) {每遇一个零点斜率 +20，};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (351,450) {每遇一个极点 \(-\)20。};
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (664,60) {零点、极点与相位};
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (668,310) -- (918,310);
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (688,336) -- (688,88);
+\draw[draw=AEteal,thick] (688,270) -- (748,270) -- (794,202) -- (852,202) -- (910,270);
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (716,288) {0};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (752,236) {+20};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (804,190) {0};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (864,236) {\(-\)20};
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (670,366) {\(LHP 零点：0^{\circ} \to +90^{\circ}\)};
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (670,390) {\(RHP 零点：0^{\circ} \to -90^{\circ}\)};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (664,420) {幅频可以相同；};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (664,442) {相位方向决定稳定性含义。};
+\end{tikzpicture}

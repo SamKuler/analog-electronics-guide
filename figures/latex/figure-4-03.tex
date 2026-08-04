@@ -1,0 +1,38 @@
+% Port-resistance test setups with complete source-return paths.
+\begin{tikzpicture}[font=\small]
+  \path[use as bounding box] (-.2,-.35) rectangle (15.25,5.35);
+
+  \draw[ae panel] (0,0) rectangle (7.25,5.05);
+  \node[anchor=west,font=\bfseries] at (.35,4.62)
+    {(a) 测 $R_{\mathrm{in}}$：保留实际输出终端};
+
+  \node[ae block,minimum width=2.15cm,minimum height=1.25cm] (ain) at (3.55,2.75)
+    {放大级};
+  \coordinate (in-port) at (2.475,2.75);
+  \coordinate (in-source) at (1.15,2.75);
+  \draw (in-source) -- (in-port);
+  \draw[ae arrow] (1.35,2.75) -- (2.25,2.75)
+    node[midway,above] {$i_t$};
+  \draw (in-source) to[V,l_=$v_t$] (1.15,1.25) node[ground] {};
+  \draw (ain.east) -- (5.75,2.75)
+    to[R,l=$R_L$] (5.75,1.25) node[ground] {};
+  \node[font=\small] at (3.55,.48) {$R_{\mathrm{in}}=v_t/i_t$};
+
+  \draw[ae panel] (7.7,0) rectangle (15.05,5.05);
+  \node[anchor=west,font=\bfseries] at (8.05,4.62)
+    {(b) 测 $R_{\mathrm{out}}$：移除 $R_L$};
+
+  \node[ae block,minimum width=2.55cm,minimum height=1.35cm,align=center]
+    (aout) at (10.55,2.75) {放大级\\[-1mm]\scriptsize 受控源与反馈保留};
+  \draw (aout.west) -- (8.75,2.75) -- (8.75,1.25) node[ground] {};
+  \node[align=center,text=AEmuted,font=\scriptsize] at (8.72,3.55)
+    {独立输入\\$v_s=0$};
+  \coordinate (out-source) at (13.65,2.75);
+  \draw (aout.east) -- (out-source);
+  \draw[ae arrow] (13.35,2.75) -- (12.15,2.75)
+    node[midway,above] {$i_t$};
+  \draw (out-source) to[V,l_=$v_t$] (13.65,1.25) node[ground] {};
+  \node[anchor=south,text=AEmuted,font=\scriptsize] at (12.35,3.48)
+    {$R_L$ 已移除};
+  \node[font=\small] at (11.35,.48) {$R_{\mathrm{out}}=v_t/i_t$};
+\end{tikzpicture}

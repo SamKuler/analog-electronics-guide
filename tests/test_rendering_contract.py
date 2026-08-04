@@ -2,6 +2,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import tomllib
 import unittest
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -176,7 +177,9 @@ class RenderingContractTests(unittest.TestCase):
 
                 self.assertEqual("svg", local_name)
                 self.assertTrue(root.attrib.get("viewBox"))
-                self.assertTrue(children.get("title"))
+                self.assertEqual(root.attrib.get("role"), "img")
+                self.assertTrue(root.attrib.get("aria-label"))
+                self.assertNotIn("title", children)
                 self.assertTrue(children.get("desc"))
                 self.assertFalse(
                     any(element.tag.rsplit("}", 1)[-1] == "image" for element in all_elements)
@@ -192,29 +195,54 @@ class RenderingContractTests(unittest.TestCase):
                     any(element.attrib.get("class") == "bg" for element in all_elements),
                     f"{filename} 必须自带背景，避免站点主题与系统主题不一致时失去对比度",
                 )
+                svg = path.read_text(encoding="utf-8")
+                self.assertIn("@media(prefers-color-scheme:dark)", svg)
+                self.assertIn("currentColor", svg)
 
-    def test_physics_figures_keep_key_semantic_roles(self):
-        expected_roles = {
-            "pn-junction.svg": {"hole-drift", "electron-drift"},
-            "diode-models-loadline.svg": {"load-line-q", "small-signal-q"},
-            "small-signal-models.svg": {
-                "curve-q",
-                "bjt-gm-source",
-                "mos-gm-source",
-                "mos-ro",
-            },
-            "rectifier-filter.svg": {"filter-capacitor", "load-resistor"},
+    def test_latex_manifest_owns_every_figure_source_and_output(self):
+        manifest = tomllib.loads(
+            (ROOT / "figures" / "manifest.toml").read_text(encoding="utf-8")
+        )
+        entries = manifest["figures"]
+        declared_outputs = {entry["output"] for entry in entries}
+        actual_outputs = {
+            path.relative_to(ROOT).as_posix()
+            for path in (DOCS / "assets" / "figures").glob("*.svg")
         }
 
-        for filename, roles in expected_roles.items():
-            with self.subTest(filename=filename):
-                root = ET.parse(DOCS / "assets" / "figures" / filename).getroot()
-                actual = {
-                    element.attrib["data-role"]
-                    for element in root.iter()
-                    if "data-role" in element.attrib
-                }
-                self.assertTrue(roles <= actual)
+        self.assertEqual(len(entries), len(declared_outputs))
+        self.assertEqual(actual_outputs, declared_outputs)
+
+        for entry in entries:
+            with self.subTest(output=entry["output"]):
+                source = ROOT / "figures" / entry["source"]
+                output = ROOT / entry["output"]
+                self.assertTrue(source.is_file())
+                self.assertTrue(output.is_file())
+                svg = output.read_text(encoding="utf-8")
+                self.assertIn('data-generator="latex"', svg)
+                root = ET.fromstring(svg)
+                self.assertEqual(root.attrib.get("role"), "img")
+                self.assertEqual(root.attrib.get("aria-label"), entry["title"])
+                self.assertNotIn("<title>", svg)
+                self.assertNotIn("<style>:root", svg)
+                self.assertIn("--ae-figure-bg", svg)
+                self.assertIn("--ae-figure-teal", svg)
+                self.assertIn("--ae-figure-orange", svg)
+                self.assertIn(
+                    f'data-source="{entry["source"]}"',
+                    svg,
+                )
+                self.assertNotIn("<text", svg)
+                self.assertNotRegex(
+                    svg, r'(?:fill|stroke)(?::|=")rgb\(0%,\s*0%,\s*0%\)'
+                )
+                self.assertNotRegex(
+                    svg,
+                    r'fill(?:\:|=")rgb\(100%,\s*100%,\s*100%\)',
+                )
+                self.assertNotIn("rgb(0%, 43.499756%, 47.099304%)", svg)
+                self.assertNotIn("rgb(67.799377%, 30.999756%, 8.599854%)", svg)
 
     def test_transistor_lab_calls_its_limits_an_abstract_output_window(self):
         html = (DOCS / "labs" / "transistor-amplifier.html").read_text(
@@ -291,10 +319,10 @@ class RenderingContractTests(unittest.TestCase):
         self.assertIn("overflow-x: auto;", css)
         self.assertIn("max-width: 100%;", css)
 
-    def test_teaching_figures_are_embedded_in_guides_with_alt_text(self):
-        guides = "\n".join(
+    def test_teaching_figures_are_embedded_in_public_pages_with_alt_text(self):
+        public_pages = "\n".join(
             path.read_text(encoding="utf-8")
-            for path in sorted((DOCS / "guide").glob("*.md"))
+            for path in sorted(DOCS.rglob("*.md"))
         )
 
         for filename in self.TEACHING_FIGURES:
@@ -303,7 +331,7 @@ class RenderingContractTests(unittest.TestCase):
                     rf"!\[([^\]\n]+)\]\(\.\./assets/figures/{re.escape(filename)}\)"
                     r"\{\s*\.ae-figure\s*\}"
                 )
-                match = figure.search(guides)
+                match = figure.search(public_pages)
                 self.assertIsNotNone(match)
                 self.assertTrue(match.group(1).strip())
 
@@ -342,8 +370,6 @@ class BuiltSiteRenderingTests(unittest.TestCase):
             html,
             r'<svg\b[^>]*class="[^"]*\bae-figure\b[^"]*"',
         )
-        self.assertIn('id="ae-mosfet-regions-a"', html)
-        self.assertIn("url(#ae-mosfet-regions-a)", html)
         self.assertNotRegex(
             html,
             r'<img\b[^>]*\bsrc="[^"]*/assets/figures/[^"]+\.svg"',

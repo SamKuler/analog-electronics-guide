@@ -1,0 +1,31 @@
+% Generated from the audited semantic layout; maintained as native TikZ.
+\begin{tikzpicture}[x=.01cm,y=-0.01cm]
+\path[use as bounding box] (0.0,0.0) rectangle (1080.0,600.0);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (28,38) {稳定性要看环路增益 $T(s)=A(s)\beta(s)$，不是只看闭环增益};
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (25,60) rectangle (25+1030,60+240);
+\draw[draw=black,semithick] (105,260) -- (1015,260);
+\draw[draw=black,semithick] (105,85) -- (105,270);
+\draw[draw=AEmuted!45,dashed,thin] (105,220) -- (1015,220);
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (50,226) {\(0 dB\)};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (42,102) {|T| dB};
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M110 106 L350 106 C410 106 445 118 490 155 L640 220 L910 280};
+\draw[draw=AEorange,thick,dashed,scale=.28346,yscale=-1] svg {M490 155 C560 182 590 225 640 252 L870 290};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (720,268) {第二极点更早：斜率更陡};
+\draw[draw=violet,thick,dashed] (640,70) -- (640,555);
+\path[fill=violet] (640,220) circle[radius=6];
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (650,211) {\(\omega_c:\lvert T\rvert=1\)};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (210,282) {低频高环路增益};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (890,292) {高频衰减};
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (25,325) rectangle (25+1030,325+240);
+\draw[draw=black,semithick] (105,525) -- (1015,525);
+\draw[draw=black,semithick] (105,345) -- (105,535);
+\draw[draw=AEmuted!45,dashed,thin] (105,500) -- (1015,500);
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (38,506) {\(-180^{\circ}\)};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (45,362) {∠T};
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M110 370 C320 372 400 390 480 430 S580 455 640 458 S760 474 930 500};
+\draw[draw=AEorange,thick,dashed,scale=.28346,yscale=-1] svg {M110 370 C330 372 410 400 490 455 S580 492 640 510 S760 520 930 525};
+\path[fill=violet] (640,458) circle[radius=6];
+\draw[draw=AEorange,thick,-{Stealth[length=2.2mm]}] (675,458) -- (675,500);
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (692,484) {\(\mathrm{PM}=180^{\circ}+\angle T(j\omega_c)\)};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (735,548) {裕度越小，振铃和失稳风险越高};
+\end{tikzpicture}

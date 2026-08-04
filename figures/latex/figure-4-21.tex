@@ -1,0 +1,20 @@
+% Generated from the audited semantic layout; maintained as native TikZ.
+\begin{tikzpicture}[x=.01cm,y=-0.01cm]
+\path[use as bounding box] (0.0,0.0) rectangle (960.0,370.0);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (35,115) rectangle (35+190,115+160);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (53,160) {$10.0\,\mathrm{mV_{pk}}$};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (53,202) {理想源 \(v_s\)};
+\draw[draw=AEteal,thick,-{Stealth[length=2.2mm]}] (225,195) -- (255,195);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (263,115) rectangle (263+190,115+160);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (281,160) {$7.50\,\mathrm{mV_{pk}}$};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (281,202) {输入分压后 \(v_i\)};
+\draw[draw=AEteal,thick,-{Stealth[length=2.2mm]}] (453,195) -- (483,195);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (491,115) rectangle (491+190,115+160);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (509,160) {$-0.804\,\mathrm{V_{pk}}$};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (509,202) {开路输出估计};
+\draw[draw=AEteal,thick,-{Stealth[length=2.2mm]}] (681,195) -- (711,195);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (719,115) rectangle (719+190,115+160);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (737,160) {$-0.659\,\mathrm{V_{pk}}$};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (737,202) {负载端 $v_L$};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (50,330) {低失真检查还需确认 $|v_{be}|\ll V_T$；不能只核对比例。};
+\end{tikzpicture}

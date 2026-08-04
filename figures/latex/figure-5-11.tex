@@ -1,0 +1,27 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.15cm]
+  \node[op amp, noinv input up] (A1) at (4.5,2.8) {};
+
+  \draw (A1.+) -- ++(-2.6,0) node[left] {$v_{i}$};
+  \draw (A1.-) -- ++(-1.25,0) coordinate (fb);
+  \fill (fb) circle (1.3pt);
+
+  \draw (fb) -- ++(-1.1,0)
+        to[R,l_=$R_{g}$] ++(0,-2.15)
+        node[ground] {};
+
+  \draw (A1.out) -- (6.6,2.8) coordinate (out);
+  \fill (out) circle (1.3pt);
+  \node[above right=3pt] at (out) {$v_{o}$};
+  \draw (out) -- ++(1.10,0) coordinate (load-top)
+        to[R,l=$R_{L}$] ++(0,-2.8)
+        node[ground] {};
+
+  \draw (out) -- ++(0,-2.15) coordinate (rf-right)
+        to[R,l_=$R_{f}$] (rf-right -| fb)
+        -- (fb);
+  \draw (A1.up) -- ++(0,0.35) coordinate (vcc-node) node[vcc] {};
+  \node[right=6pt] at (vcc-node) {$+V_{CC}$};
+  \draw (A1.down) -- ++(0,-0.30) -- ++(0.85,0)
+        coordinate (vee-node) node[vee] {};
+  \node[right=6pt] at (vee-node) {$-V_{EE}$};
+\end{tikzpicture}

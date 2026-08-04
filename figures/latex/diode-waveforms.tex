@@ -1,0 +1,68 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=0.78cm]
+  % Panel A: a complete half-wave rectifier.
+  \begin{scope}[xshift=0cm]
+    \node at (2.25,6.85) {(a) half-wave rectifier};
+    \draw (0.45,5.75)
+          to[sV,l_=$v_i$] (0.45,3.25) node[ground] {};
+    \draw (0.45,5.75) to[D,l=$D$] (3.35,5.75) coordinate (rect-out);
+    \fill (rect-out) circle (1.3pt);
+    \node[right=2pt] at (rect-out) {$v_o$};
+    \draw (rect-out) to[R,l=$R_L$] (3.35,3.25) node[ground] {};
+
+    \draw[->] (0.40,1.45) -- (4.15,1.45) node[right] {$t$};
+    \draw[->] (0.55,0.35) -- (0.55,2.55);
+    \draw[densely dashed,domain=0.55:4.05,samples=100,smooth]
+          plot (\x,{1.45+0.78*sin(180*(\x-0.55))});
+    \draw[very thick,domain=0.55:4.05,samples=100,smooth]
+          plot (\x,{1.45+max(0,0.78*sin(180*(\x-0.55))-0.11)});
+  \end{scope}
+
+  % Panel B: symmetric biased limiter.  The two rail symbols denote ideal
+  % reference sources whose other terminals share the common ground.
+  \begin{scope}[xshift=5.10cm]
+    \node at (2.25,6.85) {(b) biased limiter};
+    \draw (0.20,5.50)
+          to[sV,l_=$v_i$] (0.20,3.25) node[ground] {};
+    \draw (0.20,5.50) to[R,l=$R$] (2.15,5.50) coordinate (limit-out);
+    \fill (limit-out) circle (1.3pt);
+    \node[above=3pt] at (limit-out) {$v_o$};
+    \draw (limit-out) to[D,l=$D_+$] (4.05,5.50)
+          node[vcc] {$+V_R$};
+    \draw (limit-out) -- (2.15,4.25);
+    \draw (3.65,4.25) to[D,l_=$D_-$] (2.15,4.25);
+    \draw (3.65,4.25) -- (3.65,3.80) node[vee] {$-V_R$};
+
+    \draw[->] (0.40,1.45) -- (4.15,1.45) node[right] {$t$};
+    \draw[->] (0.55,0.35) -- (0.55,2.55);
+    \draw[densely dashed,domain=0.55:4.05,samples=100,smooth]
+          plot (\x,{1.45+0.78*sin(180*(\x-0.55))});
+    \draw[densely dotted] (0.55,1.93) -- (4.05,1.93);
+    \draw[densely dotted] (0.55,0.97) -- (4.05,0.97);
+    \draw[very thick,domain=0.55:4.05,samples=100,smooth]
+          plot (\x,{1.45+max(-0.48,min(0.48,0.78*sin(180*(\x-0.55))))});
+  \end{scope}
+
+  % Panel C: positive clamper; the diode anode is grounded and its cathode is at vo.
+  \begin{scope}[xshift=10.20cm]
+    \node at (2.25,6.85) {(c) positive clamper};
+    \draw (0.20,5.75)
+          to[sV,l_=$v_i$] (0.20,3.25) node[ground] {};
+    \draw (0.20,5.75) to[C,l=$C$] (2.15,5.75) coordinate (clamp-out);
+    \fill (clamp-out) circle (1.3pt);
+    \node[above=3pt] at (clamp-out) {$v_o$};
+    \draw (clamp-out) to[R,l=$R_L$] (2.15,3.25) node[ground] {};
+    \draw (4.00,3.25) node[ground] {} to[D,l_=$D$] (4.00,5.75) -- (clamp-out);
+
+    \draw[->] (0.40,1.30) -- (4.15,1.30) node[right] {$t$};
+    \draw[->] (0.55,0.25) -- (0.55,2.65);
+    \draw[densely dashed,domain=0.55:4.05,samples=100,smooth]
+          plot (\x,{1.30+0.60*sin(180*(\x-0.55))});
+    \draw[very thick,domain=0.55:4.05,samples=100,smooth]
+          plot (\x,{1.816+0.60*sin(180*(\x-0.55))});
+  \end{scope}
+
+  \draw[densely dashed] (4.75,-0.05) -- (5.45,-0.05)
+        node[right] {$v_i$};
+  \draw[very thick] (7.15,-0.05) -- (7.85,-0.05)
+        node[right] {$v_o$};
+\end{tikzpicture}

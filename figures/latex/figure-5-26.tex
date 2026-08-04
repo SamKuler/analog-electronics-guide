@@ -1,0 +1,14 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.1cm]
+  \node[op amp] (A1) at (4.8,2.8) {};
+  \draw (A1.-) -- ++(-2.5,0) node[left] {$v_{i}$};
+  \draw (A1.+) -- ++(-1.0,0) coordinate (plus);
+  \fill (plus) circle (1.3pt);
+  \draw (plus) to[R,l=$R_{2}$] ++(-2.2,0) node[left] {$V_{\mathrm{ref}}$};
+  \draw (A1.out) -- ++(1.4,0) coordinate (out);
+  \fill (out) circle (1.3pt);
+  \node[above right=3pt] at (out) {$v_{o}$};
+  \draw (out) -- ++(1.10,0) coordinate (load-top)
+        to[R,l=$R_{L}$] ++(0,-2.5) node[ground] {};
+  \draw (out) -- ++(0,-1.7) coordinate (r1-right)
+        to[R,l_=$R_{1}$] (r1-right -| plus) -- (plus);
+\end{tikzpicture}

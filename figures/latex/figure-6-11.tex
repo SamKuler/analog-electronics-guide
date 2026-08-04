@@ -1,0 +1,24 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=15.2cm,minimum height=5.3cm] at (7.6,0) {};
+  \node[font=\bfseries] at (7.6,2.2) {电流串联反馈：输出支路串联取样，输入作电压差};
+  \node[circle,draw,minimum size=9mm] (sum) at (2.3,.45) {$\Sigma$};
+  \node[draw,rounded corners=2mm,minimum width=2.8cm,minimum height=1.2cm] (amp) at (5.3,.45)
+    {跨导前向级 $G_m$};
+  \node[draw,rounded corners=2mm,minimum width=2.2cm,minimum height=1.0cm] (sense) at (8.6,.45)
+    {电流传感器};
+  \node[draw,rounded corners=2mm,minimum width=2.4cm,minimum height=1.0cm] (beta) at (6.0,-1.45)
+    {$i_o\mapsto v_f$};
+  \draw[ae arrow] (.85,.45) node[left] {$v_s$} -- (sum.west);
+  \draw[ae arrow] (sum.east) -- (amp.west) node[midway,above] {$v_e$};
+  \draw[ae arrow] (amp.east) -- (sense.west);
+  \draw[ae arrow] (sense.east) -- (11.7,.45) coordinate (io) node[right] {$i_o$};
+  \draw[ae arrow,AEorange] (sense.south) |- (beta.east);
+  \draw[ae arrow,AEorange] (beta.west) -| (sum.south) node[pos=.7,left] {$v_f$};
+  \node at (1.85,.85) {$+$};
+  \node at (2.15,-.05) {$-$};
+  \node[font=\scriptsize,text=AEmuted,align=left,anchor=west] at (12.3,.1) {
+    $v_e=v_s-v_f$\\
+    电流取样：$R_{out}\uparrow$\\
+    串联混合：$R_{in}\uparrow$
+  };
+\end{tikzpicture}

@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+  \begin{scope}[local bounding box=rc]
+    \draw (0,0) to[V,l_={$V_f$}] (0,3.1)
+      to[closing switch,l={$t=0$}] (2.2,3.1)
+      to[R,l={$R$},i>^={$i_C(t)$}] (4.3,3.1)
+      -- (5.2,3.1)
+      to[C,l={$C$},v^<={$v_C(t)$}] (5.2,0)
+      -- (0,0);
+    \node[ground] at (2.6,0) {};
+    \node[below=7mm of rc.south,align=center] {
+      $v_C(t)=V_f+(V_0-V_f)e^{-t/(RC)}$,\qquad $\tau=RC$
+    };
+  \end{scope}
+  \begin{axis}[
+    at={(8cm,0)},anchor=south west,
+    width=8.2cm,height=6.1cm,
+    axis lines=left,
+    xlabel={$t$},ylabel={$v_C(t)$},
+    xmin=0,xmax=5,ymin=0,ymax=1.12,
+    xtick={1},xticklabels={$\tau$},
+    ytick={.632,1},yticklabels={$V_0+0.632(V_f-V_0)$,$V_f$},
+    clip=false,
+  ]
+    \addplot[ae curve,domain=0:5,samples=160] {1-exp(-x)};
+    \addplot[ae accent,dashed,domain=0:5] {1};
+    \draw[dashed,AEmuted] (axis cs:1,0) -- (axis cs:1,.632) -- (axis cs:0,.632);
+    \addplot[only marks,mark=*,mark size=2pt] coordinates {(1,.632)};
+    \node[anchor=south west] at (axis cs:1,.632) {$t=\tau$：完成总变化的 $63.2\%$};
+  \end{axis}
+\end{tikzpicture}

@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+  \node[npn] (Q1) at (2.0,2.5) {};
+  \draw (Q1.B) -- ++(-1.2,0) node[left] {$v_{i}$};
+  \draw (Q1.C) -- ++(1.0,0) node[right] {$v_{o}$};
+  \draw (Q1.E) -- ++(0,-0.8) node[ground] {};
+  \node at (2.0,5.4) {(a) CE};
+
+  \node[npn] (Q2) at (6.5,2.5) {};
+  \draw (Q2.B) -- ++(-1.2,0) node[left] {$v_{i}$};
+  \draw (Q2.C) -- ++(0,0.8) node[ground,rotate=180] {};
+  \draw (Q2.E) -- ++(1.0,0) node[right] {$v_{o}$};
+  \node at (6.5,5.4) {(b) CC};
+
+  \node[npn] (Q3) at (11.0,2.5) {};
+  \draw (Q3.B) -- ++(-0.8,0) -- ++(0,-0.7) node[ground] {};
+  \draw (Q3.E) -- ++(-1.0,0) node[left] {$v_{i}$};
+  \draw (Q3.C) -- ++(1.0,0) node[right] {$v_{o}$};
+  \node at (11.0,5.4) {(c) CB};
+\end{tikzpicture}

@@ -6,7 +6,6 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "mkdocs-material==9.7.7",
-    "schemdraw==0.23",
 ]
 
 [tool.uv]

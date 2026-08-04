@@ -1,0 +1,26 @@
+% Closed negative-feedback loop; all four signal paths are explicit.
+\begin{tikzpicture}[font=\small,node distance=1.45cm and 1.75cm]
+  \node[circle,draw,semithick,minimum size=10mm,inner sep=0pt] (sum) {};
+  \node at ($(sum.center)+(-.8mm,1.9mm)$) {$+$};
+  \node at ($(sum.center)+(-.8mm,-2.0mm)$) {$-$};
+  \node[ae block,minimum width=2.5cm,minimum height=1.35cm,right=of sum]
+    (forward) {$A(s)$};
+  \node[ae block,minimum width=2.5cm,minimum height=1.15cm,below=1.45cm of forward]
+    (feedback) {$\beta(s)$};
+
+  \coordinate (source) at ($(sum.west)+(-1.55cm,0)$);
+  \draw[ae arrow] (source) -- (sum.west)
+    node[midway,above] {$x_s$};
+  \draw[ae arrow] (sum.east) -- (forward.west)
+    node[midway,above] {$x_e$};
+
+  \coordinate (pickoff) at ($(forward.east)+(2.25cm,0)$);
+  \coordinate (output) at ($(pickoff)+(1.10cm,0)$);
+  \draw[ae arrow] (forward.east) -- (output)
+    node[pos=.58,above] {$x_o$};
+  \fill (pickoff) circle[radius=1.3pt];
+
+  \draw[ae orange arrow] (pickoff) |- (feedback.east);
+  \draw[ae orange arrow] (feedback.west) -| (sum.south)
+    node[pos=.28,below] {$x_f=\beta(s)x_o$};
+\end{tikzpicture}

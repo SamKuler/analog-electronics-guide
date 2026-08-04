@@ -1,0 +1,13 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.15cm]
+  \node[op amp] (A1) at (4.6,2.7) {};
+  \draw (A1.-) -- ++(-1.1,0) coordinate (sum);
+  \fill (sum) circle (1.3pt);
+  \draw (sum) to[R,l=$R_{\mathrm{in}}$] ++(-2.5,0) node[left] {$v_{i}$};
+  \draw (A1.+) -- ++(-0.7,0) node[ground] {};
+  \draw (A1.out) -- ++(1.5,0) coordinate (out);
+  \fill (out) circle (1.3pt);
+  \draw (out) node[right=5pt] {$v_{o}$}
+        to[R,l=$R_{L}$] ++(0,-2.5) node[ground] {};
+  \draw (out) -- ++(0,2.0) coordinate (cf-right)
+        to[C,l=$C_{f}$] (cf-right -| sum) -- (sum);
+\end{tikzpicture}

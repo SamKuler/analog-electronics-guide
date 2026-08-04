@@ -1,0 +1,24 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.0cm]
+  \draw (0.2,2.7) to[C,l=$C$] (3.2,2.7);
+  \draw[->] (0.45,3.55) -- (2.95,3.55)
+        node[midway,above] {$i_{C}$};
+  \node at (0.65,2.05) {$+$};
+  \node at (1.70,2.05) {$v_{C}$};
+  \node at (2.75,2.05) {$-$};
+  \node at (1.7,4.4) {(a) capacitor reference};
+  \node at (1.7,0.8) {$i_{C}=C\,\dfrac{dv_{C}}{dt}$};
+
+  \fill (6.0,2.7) circle (1.5pt);
+  \draw (6.0,4.4) to[short,i>_=$i_{1}$] (6.0,2.7);
+  \draw (6.0,2.7) to[short,i>_=$i_{3}$] (7.8,2.7);
+  \draw (6.0,2.7) to[short,i>^=$i_{2}$] (4.2,2.7);
+  \node at (6.0,5.2) {(b) KCL node};
+  \node at (6.0,1.0) {$i_{1}=i_{2}+i_{3}$};
+
+  \draw (10.0,3.8) to[V,l=$V_{S}$] (10.0,0.8)
+        -- (14.0,0.8) -- (14.0,3.8)
+        to[R,l_=$R_{2}$] (12.0,3.8)
+        to[R,l_=$R_{1}$] (10.0,3.8);
+  \node at (12.0,5.2) {(c) KVL loop};
+  \node at (12.0,0.1) {$V_{S}-iR_{1}-iR_{2}=0$};
+\end{tikzpicture}

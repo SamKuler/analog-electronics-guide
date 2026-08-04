@@ -1,0 +1,38 @@
+% Generated from the audited semantic layout; maintained as native TikZ.
+\begin{tikzpicture}[x=.01cm,y=-0.01cm]
+\path[use as bounding box] (0.0,0.0) rectangle (960.0,600.0);
+\node[align=center,text width=4.2cm,text=black,inner sep=0pt,font={\footnotesize}] at (245,48) {增强型 NMOS：\(V_{GS}\) 超过门槛后形成反型沟道};
+\path[draw=AEteal,fill=AEteal,fill opacity=.13] (75,240) rectangle (75+110,240+100);
+\path[draw=AEteal,fill=AEteal,fill opacity=.13] (305,240) rectangle (305+110,240+100);
+\path[draw=violet,fill=violet,fill opacity=.12] (185,185) rectangle (185+120,185+42);
+\path[fill=violet,draw=AEmuted,fill opacity=.07] (60,340) rectangle (60+370,340+72);
+\draw[draw=AEorange,very thick] (185,260) -- (305,260);
+\draw[draw=black,semithick] (245,185) -- (245,105);
+\draw[draw=black,semithick] (130,240) -- (130,120);
+\draw[draw=black,semithick] (360,240) -- (360,120);
+\draw[draw=black,semithick] (245,412) -- (245,458);
+\node[anchor=base west,text=black,inner sep=0pt,font={\footnotesize}] at (233,96) {G};
+\node[anchor=base west,text=black,inner sep=0pt,font={\footnotesize}] at (118,111) {S};
+\node[anchor=base west,text=black,inner sep=0pt,font={\footnotesize}] at (350,111) {D};
+\node[anchor=base west,text=black,inner sep=0pt,font={\footnotesize}] at (231,486) {B};
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (360,112) -- (360,176);
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (377,144) {$I_D:\ D\to S$};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (196,287) {反型沟道};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (92,373) {p 型体区；电子沿 S \(\to\) D 运动};
+\node[align=center,text width=4.1cm,text=black,inner sep=0pt,font={\footnotesize}] at (735,48) {输出特性族：区域名称由不等式决定};
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (530,455) -- (910,455);
+\draw[draw=black,semithick,-{Stealth[length=2.2mm]}] (550,475) -- (550,92);
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (875,490) {\(V_{DS}\)};
+\node[anchor=base west,text=black,inner sep=0pt,font={\scriptsize}] at (510,105) {\(I_D\)};
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M550 455 C610 432 642 416 676 405 C745 383 825 382 895 382};
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M550 455 C610 410 650 372 698 346 C757 314 830 312 895 312};
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M550 455 C612 382 663 315 727 271 C778 236 842 236 895 236};
+\draw[draw=AEteal,thick,scale=.28346,yscale=-1] svg {M550 455 C618 352 691 245 757 190 C803 152 855 154 895 154};
+\draw[draw=AEorange,thick,dashed,scale=.28346,yscale=-1] svg {M585 442 C650 405 705 350 757 280 C799 223 827 170 845 112};
+\node[anchor=base west,text=black,inner sep=0pt,font={\footnotesize}] at (585,160) {三极管区};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (574,188) {\(V_{DS}\) < \(V_{OV}\)};
+\node[anchor=base west,text=black,inner sep=0pt,font={\footnotesize}] at (790,420) {饱和区};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (780,445) {\(V_{DS}\) ≥ \(V_{OV}\)};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (565,545) {边界：\(V_{DS}=V_{GS}-V_{TH}=V_{OV}\)；};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (565,572) {区域名称与 BJT 的“饱和”含义不同};
+\end{tikzpicture}

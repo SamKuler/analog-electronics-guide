@@ -1,0 +1,29 @@
+% Numerical CE load line with explicit axes, units, intercepts and slope.
+\begin{tikzpicture}[x=1cm,y=.78cm,font=\small]
+  \path[use as bounding box] (-1.45,-1.65) rectangle (11.45,6.15);
+  \draw[ae axis] (0,0) -- (10.8,0);
+  \node[anchor=north east] at (10.8,-.28) {$V_{CE}\; (\mathrm V)$};
+  \draw[ae axis] (0,0) -- (0,5.55)
+    node[anchor=south] {$I_C\; (\mathrm{mA})$};
+
+  \draw[ae accent] (0,5.00) -- (10.00,0);
+  \draw (10,0.10) -- (10,-0.10);
+  \node[below] at (10,0) {$10.0$};
+  \draw (0.10,5) -- (-0.10,5);
+  \node[left] at (0,5) {$5.00$};
+
+  \coordinate (q) at (5.231,2.385);
+  \draw[AEteal,semithick,dashed] (q) -- (5.231,0);
+  \draw[AEteal,semithick,dashed] (q) -- (0,2.385);
+  \fill[AEteal] (q) circle[radius=2.2pt];
+  \node[anchor=south west,font=\bfseries] at (5.43,2.48)
+    {Q $(5.231\,\mathrm V,\ 2.385\,\mathrm{mA})$};
+
+  \fill[AEorange] (.20,4.90) circle[radius=1.8pt];
+  \node[anchor=west,text=AEmuted,font=\scriptsize] at (.52,4.82)
+    {饱和边界约 $(0.20\,\mathrm V,\ 4.90\,\mathrm{mA})$};
+
+  \node[anchor=north] at (5.25,-.82)
+    {$\displaystyle \frac{\Delta I_C}{\Delta V_{CE}}
+      =-\frac{1}{R_C}=-0.500\,\mathrm{mA/V}$};
+\end{tikzpicture}

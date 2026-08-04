@@ -1,0 +1,21 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=15.2cm,minimum height=5.3cm] at (7.6,0) {};
+  \node[font=\bfseries] at (7.6,2.2) {电压串联反馈：输出取电压，输入作电压差};
+  \node[circle,draw,minimum size=9mm] (sum) at (2.6,.45) {$\Sigma$};
+  \node[draw,rounded corners=2mm,minimum width=3cm,minimum height=1.2cm] (amp) at (6.0,.45)
+    {前向电压放大级 $A_v$};
+  \node[draw,rounded corners=2mm,minimum width=2.5cm,minimum height=1cm] (beta) at (6.0,-1.45)
+    {电压取样 $\beta_v$};
+  \draw[ae arrow] (.75,.45) node[left] {$v_s$} -- (sum.west);
+  \draw[ae arrow] (sum.east) -- (amp.west) node[midway,above] {$v_e$};
+  \draw[ae arrow] (amp.east) -- (11.8,.45) coordinate (vo) node[right] {$v_o$};
+  \draw[ae arrow,AEorange] (vo) |- (beta.east);
+  \draw[ae arrow,AEorange] (beta.west) -| (sum.south) node[pos=.7,left] {$v_f$};
+  \node at (2.15,.85) {$+$};
+  \node at (2.45,-.05) {$-$};
+  \node[font=\scriptsize,text=AEmuted,align=left,anchor=west] at (12.5,.1) {
+    $v_e=v_s-v_f$\\
+    电压取样：$R_{out}\downarrow$\\
+    串联混合：$R_{in}\uparrow$
+  };
+\end{tikzpicture}

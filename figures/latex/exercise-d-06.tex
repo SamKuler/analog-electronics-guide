@@ -1,0 +1,15 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.0cm]
+  \draw (0,2.5) to[V,l_=$V_S$] (0,0) node[ground] {};
+  \draw (0,2.5) to[R,l=$1.00\,\mathrm{k}\Omega$] (3.2,2.5) coordinate (out);
+  \fill (out) circle (1.3pt);
+  \node[above] at (out) {$v_o$};
+
+  \draw (out) to[D,l=$D_1$] (3.2,4.5) coordinate (upper);
+  \draw (upper) -- (5.4,4.5) to[V,l_=$+1.00\,\mathrm V$] (5.4,0) node[ground] {};
+  \node[left] at (3.05,3.05) {A};
+  \node[left] at (3.05,4.0) {K};
+
+  \draw (out) to[D,l_=$D_2$,invert] (3.2,0) node[ground] {};
+  \node[left] at (3.05,2.0) {K};
+  \node[left] at (3.05,1.0) {A};
+\end{tikzpicture}

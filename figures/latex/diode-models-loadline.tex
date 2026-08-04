@@ -1,0 +1,52 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=7.7cm,minimum height=7.5cm] at (3.85,0) {};
+  \node[ae panel,minimum width=7.7cm,minimum height=7.5cm] at (12.05,0) {};
+  \node[font=\bfseries] at (3.85,3.25) {大信号工作点：器件曲线与负载线的交点};
+  \begin{axis}[
+    at={(1.0cm,-1.72cm)},anchor=south west,
+    width=6.4cm,height=4.8cm,
+    axis lines=left,ylabel={$i_D$},
+    xmin=0,xmax=1.0,ymin=0,ymax=5.5,
+    xtick={0,.7,1},xticklabels={$0$,$V_D$,$V_S$},
+    ytick=\empty,clip=false,
+  ]
+    \addplot[ae curve,domain=.12:.83,samples=120] {.25*exp(5*(x-.35))};
+    \addplot[ae accent,domain=0:1,samples=2] {5*(1-x)};
+    \addplot[only marks,mark=*,mark size=2.2pt] coordinates {(.7,1.438)};
+    \draw[AEmuted,dashed] (axis cs:.7,0) -- (axis cs:.7,1.438);
+    \node[anchor=south west] at (axis cs:.7,1.438) {$Q(V_D,I_D)$};
+    \node[font=\scriptsize,text=AEorange,anchor=south west] at (axis cs:.05,4.6)
+      {负载线斜率 $-1/R$};
+    \node[font=\scriptsize,text=AEmuted,anchor=west] at (axis cs:.5,.45)
+      {二极管指数特性};
+  \end{axis}
+  \node[font=\scriptsize,text=AEmuted,align=center,text width=6.7cm] at (3.85,-3.2) {
+    恒压降模型把弯曲区近似为 $v_D\approx V_\gamma$，\\但精确工作点仍由两条方程同时决定。
+  };
+
+  \node[font=\bfseries] at (12.05,3.25) {$Q$ 点局部：直流割线不等于小信号切线};
+  \begin{axis}[
+    at={(9.15cm,-1.72cm)},anchor=south west,
+    width=6.3cm,height=4.8cm,
+    axis lines=left,ylabel={$i_D$},
+    xmin=0,xmax=.9,ymin=0,ymax=2.6,
+    xtick={.7},xticklabels={$V_D$},
+    ytick={1.438},yticklabels={$I_D$},
+    clip=false,
+  ]
+    \addplot[ae curve,domain=.12:.83,samples=120] {.25*exp(5*(x-.35))};
+    \addplot[ae accent,domain=0:.7,samples=2] {1.438/.7*x};
+    \addplot[violet,thick,domain=.53:.82,samples=2] {1.438+7.19*(x-.7)};
+    \addplot[only marks,mark=*,mark size=2.2pt] coordinates {(.7,1.438)};
+    \draw[AEmuted,dashed] (axis cs:.7,0) -- (axis cs:.7,1.438);
+    \draw[AEmuted,dashed] (axis cs:0,1.438) -- (axis cs:.7,1.438);
+    \node[font=\scriptsize,text=AEorange,anchor=north west] at (axis cs:.25,.62)
+      {割线：$R_D=V_D/I_D$};
+    \node[font=\scriptsize,text=violet,anchor=south west] at (axis cs:.58,2.15)
+      {切线：$r_d=(\mathrm{d}i_D/\mathrm{d}v_D)^{-1}$};
+  \end{axis}
+  \node[font=\scriptsize,text=AEmuted,align=center,text width=6.7cm] at (12.05,-3.2) {
+    总量沿割线联系；小增量满足 $\widetilde v_d=r_d\widetilde i_d$。\\
+    小信号模型只在所选 $Q$ 点附近成立。
+  };
+\end{tikzpicture}

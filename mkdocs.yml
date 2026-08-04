@@ -45,6 +45,7 @@ nav:
       - 第 1 章 · 最小电路基础: guide/01-最小电路基础.md
       - 第 2 章 · 二极管与半导体: guide/02-二极管与半导体基础.md
       - 第 3 章 · BJT 与 MOSFET: guide/03-BJT与MOSFET.md
+      - 工具章 · 交流、相量与频域: guide/03A-交流相量与频域工具.md
       - 第 4 章 · 基本放大电路: guide/04-基本放大电路.md
       - 第 5 章 · 运算放大器: guide/05-运算放大器.md
       - 第 6 章 · 反馈与频率响应: guide/06-反馈与频率响应.md
@@ -67,6 +68,7 @@ nav:
   - 速查表:
       - 一页公式表: cheatsheets/一页公式表.md
       - 典型电路速查: cheatsheets/典型电路速查.md
+      - 术语与缩写: cheatsheets/术语与缩写.md
   - 使用学习助手: assistant/使用学习助手.md
 
 markdown_extensions:

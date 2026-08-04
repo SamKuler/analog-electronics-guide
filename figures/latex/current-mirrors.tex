@@ -1,0 +1,29 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=0.82cm]
+  \node[npn,xscale=-1] (Q1) at (2.2,2.0) {};
+  \node[npn] (Q2) at (5.2,2.0) {};
+  \node at (1.55,1.25) {$Q_{1}$};
+  \node at (5.85,1.25) {$Q_{2}$};
+  \draw (Q1.E) -- (2.2,0) -- (5.2,0) -- (Q2.E);
+  \node[ground] at (3.7,0) {};
+  \draw (Q1.B) -- (Q2.B);
+  \draw (Q1.C) -- (Q1.C -| Q1.B) -- (Q1.B);
+  \fill (Q1.C) circle (1.3pt);
+  \fill (Q1.B) circle (1.3pt);
+  \draw (Q1.C) to[R,l_=$R_{\mathrm{ref}}$] (2.2,4.8) node[vcc] {$V_{CC}$};
+  \draw (Q2.C) to[R,l=$R_{L}$] (5.2,4.8) node[vcc] {$V_{\mathrm{LOAD}}$};
+  \node at (3.7,5.7) {(a) NPN};
+
+  \node[nmos,xscale=-1] (M1) at (9.0,2.0) {};
+  \node[nmos] (M2) at (12.0,2.0) {};
+  \node at (8.35,1.25) {$M_{1}$};
+  \node at (12.65,1.25) {$M_{2}$};
+  \draw (M1.S) -- (9.0,0) -- (12.0,0) -- (M2.S);
+  \node[ground] at (10.5,0) {};
+  \draw (M1.G) -- (M2.G);
+  \draw (M1.D) -- (M1.D -| M1.G) -- (M1.G);
+  \fill (M1.D) circle (1.3pt);
+  \fill (M1.G) circle (1.3pt);
+  \draw (M1.D) to[R,l_=$R_{\mathrm{ref}}$] (9.0,4.8) node[vcc] {$V_{DD}$};
+  \draw (M2.D) to[R,l=$R_{L}$] (12.0,4.8) node[vcc] {$V_{\mathrm{LOAD}}$};
+  \node at (10.5,5.7) {(b) NMOS};
+\end{tikzpicture}

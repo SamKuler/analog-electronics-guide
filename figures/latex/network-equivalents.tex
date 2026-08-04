@@ -1,0 +1,22 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=0.9cm]
+  \draw (0.3,3.5) to[V,l_=$12\,\mathrm{V}$] (0.3,0) node[ground] {};
+  \draw (0.3,3.5) to[R,l={$R_{1}=2\,\mathrm{k}\Omega$}] (3.0,3.5) coordinate (a);
+  \draw (a) to[R,l={$R_{2}=4\,\mathrm{k}\Omega$}] (3.0,0) node[ground] {};
+  \draw (5.0,0) node[ground] {} to[I,l_=$1\,\mathrm{mA}$] (5.0,3.5) -- (a);
+  \fill (a) circle (1.3pt);
+  \node[above right=3pt] at (a) {$a,\ V_{a}$};
+  \node at (2.6,5.0) {(a) node circuit};
+
+  \draw (7.2,3.0) to[V,l=$V_{\mathrm{th}}$] (7.2,0) node[ground] {};
+  \draw (7.2,3.0) to[R,l=$R_{\mathrm{th}}$] (9.8,3.0) coordinate (p1);
+  \fill (p1) circle (1.3pt);
+  \node[right] at (p1) {$p$};
+  \node at (8.5,4.3) {(b) Thevenin};
+
+  \draw (12.0,0) node[ground] {} to[I,l=$I_{N}$] (12.0,3.0) -- (14.4,3.0) coordinate (p2);
+  \draw (14.4,3.0) to[R,l=$R_{\mathrm{th}}$] (14.4,0) node[ground] {};
+  \fill (p2) circle (1.3pt);
+  \node[right] at (p2) {$p$};
+  \node at (13.2,4.3) {(c) Norton};
+  \node at (10.8,-0.8) {$V_{\mathrm{th}}=I_{N}R_{\mathrm{th}}$};
+\end{tikzpicture}

@@ -1,0 +1,38 @@
+\begin{tikzpicture}
+  \begin{axis}[
+    width=13.5cm,height=4.4cm,
+    axis lines=middle,
+    xlabel={$t$},ylabel={$v_i$},
+    xmin=0,xmax=8,ymin=-3.3,ymax=3.3,
+    xtick=\empty,ytick={-1,1},yticklabels={$V_{TL}$,$V_{TH}$},
+    clip=false,
+  ]
+    \addplot[ae curve] coordinates {(0,-2.5) (2,2.5) (4,-2.5) (6,2.5) (8,-2.5)};
+    \addplot[ae accent,dashed,domain=0:8] {1};
+    \addplot[ae accent,dashed,domain=0:8] {-1};
+    \draw[dashed,AEmuted] (axis cs:1.4,-3.3) -- (axis cs:1.4,3.3);
+    \draw[dashed,AEmuted] (axis cs:3.4,-3.3) -- (axis cs:3.4,3.3);
+    \draw[dashed,AEmuted] (axis cs:5.4,-3.3) -- (axis cs:5.4,3.3);
+    \draw[dashed,AEmuted] (axis cs:7.4,-3.3) -- (axis cs:7.4,3.3);
+  \end{axis}
+  \begin{axis}[
+    at={(0,-4.0cm)},anchor=north west,
+    width=13.5cm,height=3.7cm,
+    axis lines=middle,
+    xlabel={$t$},ylabel={$v_o$},
+    xmin=0,xmax=8,ymin=-3.3,ymax=3.3,
+    xtick=\empty,ytick={-2.5,2.5},yticklabels={$V_{OL}$,$V_{OH}$},
+    clip=false,
+  ]
+    \addplot[ae curve,const plot] coordinates {
+      (0,2.5) (1.4,-2.5) (3.4,2.5) (5.4,-2.5) (7.4,2.5) (8,2.5)
+    };
+    \draw[dashed,AEmuted] (axis cs:1.4,-3.3) -- (axis cs:1.4,3.3);
+    \draw[dashed,AEmuted] (axis cs:3.4,-3.3) -- (axis cs:3.4,3.3);
+    \draw[dashed,AEmuted] (axis cs:5.4,-3.3) -- (axis cs:5.4,3.3);
+    \draw[dashed,AEmuted] (axis cs:7.4,-3.3) -- (axis cs:7.4,3.3);
+  \end{axis}
+  \node[below=1mm of current bounding box.south,align=center,text=AEmuted] {
+    上穿 $V_{TH}$：高\(\to\)低；下穿 $V_{TL}$：低\(\to\)高。两阈值之间保持原状态。
+  };
+\end{tikzpicture}

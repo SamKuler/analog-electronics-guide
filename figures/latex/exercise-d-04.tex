@@ -1,0 +1,18 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.0cm]
+  \draw (0,0) node[ground] {} to[sV,l=$v_i(t)$] (0,2.5)
+        to[R,l=$1.00\,\mathrm{k}\Omega$] (3.2,2.5) coordinate (out);
+  \fill (out) circle (1.3pt);
+  \node[above] at (out) {$v_o$};
+
+  \draw (out) to[D,l=$D_+$] (3.2,4.5) coordinate (upper);
+  \draw (upper) -- (5.3,4.5)
+        to[V,l_=$+1.50\,\mathrm V$] (5.3,3.15) node[ground] {};
+  \node[left] at (3.05,3.05) {A};
+  \node[left] at (3.05,4.0) {K};
+
+  \draw (5.3,-0.75) node[ground] {}
+        to[V,l=$-2.00\,\mathrm V$] (5.3,0.6) coordinate (lower);
+  \draw (lower) -- (3.2,0.6) to[D,l_=$D_-$] (out);
+  \node[left] at (3.05,1.0) {A};
+  \node[left] at (3.05,2.0) {K};
+\end{tikzpicture}

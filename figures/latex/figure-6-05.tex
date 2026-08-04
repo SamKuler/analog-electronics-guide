@@ -1,0 +1,18 @@
+% Numerical feedback example; deliberate line breaks prevent card overflow.
+\begin{tikzpicture}[font=\small,node distance=7mm]
+  \tikzset{result card/.style={ae block,minimum width=3.0cm,minimum height=2.5cm,
+    text width=2.5cm,align=center}}
+
+  \node[result card] (r1) {\textbf{$A:200\to240$}\\[3mm]
+    \footnotesize 器件变化 $+20\%$};
+  \node[result card,right=of r1] (r2) {\textbf{$A_f:22.22\to22.64$}\\[3mm]
+    \footnotesize 闭环变化\\$+1.89\%$};
+  \node[result card,right=of r2] (r3) {\textbf{$R_{\mathrm{in}}$}\\[3mm]
+    \footnotesize $10\,\mathrm{k}\Omega\to90\,\mathrm{k}\Omega$};
+  \node[result card,right=of r3] (r4) {\textbf{$R_{\mathrm{out}}$}\\[3mm]
+    \footnotesize $900\,\Omega\to100\,\Omega$};
+
+  \draw[ae arrow] (r1.east) -- (r2.west);
+  \draw[ae arrow] (r2.east) -- (r3.west);
+  \draw[ae arrow] (r3.east) -- (r4.west);
+\end{tikzpicture}

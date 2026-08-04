@@ -1,0 +1,26 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=0.8cm]
+  \draw (0.2,7.4) node[left] {$a\sim$} to[D,l=$D$] (3.0,7.4) coordinate (h);
+  \draw (h) to[R,l=$R_{L}$] (3.0,5.0) -- (0.2,5.0) node[left] {$b\sim$};
+  \node at (1.6,8.7) {(a) half-wave};
+
+  \draw (5.0,8.0) node[left] {$a\sim$} to[D,l=$D_{1}$] (8.2,7.1) coordinate (p);
+  \draw (5.0,6.2) node[left] {$b\sim$} to[D,l_=$D_{2}$] (p);
+  \draw (p) to[R,l=$R_{L}$] (8.2,4.6) -- (5.0,4.6) node[left] {CT};
+  \node[above] at (p) {$+v_{o}$};
+  \node at (6.6,8.7) {(b) center-tapped};
+
+  \coordinate (left) at (1.5,1.4);
+  \coordinate (right) at (5.5,1.4);
+  \coordinate (top) at (3.5,3.2);
+  \coordinate (bottom) at (3.5,-0.4);
+  \draw (left) to[D,l=$D_{1}$] (top);
+  \draw (right) to[D,l_=$D_{2}$] (top);
+  \draw (bottom) to[D,l_=$D_{3}$] (left);
+  \draw (bottom) to[D,l=$D_{4}$] (right);
+  \node[left] at (left) {$a\sim$};
+  \node[right] at (right) {$\sim b$};
+  \node[above] at (top) {$p$};
+  \node[below] at (bottom) {$n$};
+  \draw (top) -- (7.2,3.2) to[R,l=$R_{L}$] (7.2,-0.4) -- (bottom);
+  \node at (3.5,3.9) {(c) bridge};
+\end{tikzpicture}

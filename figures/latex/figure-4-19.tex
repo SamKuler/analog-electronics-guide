@@ -1,0 +1,20 @@
+% Generated from the audited semantic layout; maintained as native TikZ.
+\begin{tikzpicture}[x=.01cm,y=-0.01cm]
+\path[use as bounding box] (0.0,0.0) rectangle (960.0,370.0);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (35,115) rectangle (35+190,115+160);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (53,160) {\(v_g\) 上升};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (53,202) {控制端变化};
+\draw[draw=AEteal,thick,-{Stealth[length=2.2mm]}] (225,195) -- (255,195);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (263,115) rectangle (263+190,115+160);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (281,160) {\(v_{gs}\) 上升};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (281,202) {$i_d=g_m v_{gs}$};
+\draw[draw=AEteal,thick,-{Stealth[length=2.2mm]}] (453,195) -- (483,195);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (491,115) rectangle (491+190,115+160);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (509,160) {\(v_s\) 上升};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (509,202) {$v_s=i_dR_S$};
+\draw[draw=AEteal,thick,-{Stealth[length=2.2mm]}] (681,195) -- (711,195);
+\path[draw=AEmuted!70,thin,rounded corners=2mm] (719,115) rectangle (719+190,115+160);
+\node[anchor=base west,text=black,inner sep=0pt,font={\bfseries\scriptsize}] at (737,160) {局部抵消};
+\node[align=center,text width=1.55cm,text=AEmuted,inner sep=0pt,font={\tiny}] at (814,208) {\(v_{gs}=v_g-v_s\)\\减小};
+\node[anchor=base west,text=AEmuted,inner sep=0pt,font={\tiny}] at (50,330) {漏极：\(i_d\)↑ \(\to\) RD 压降↑ \(\to\) \(v_o\)↓；\(R_S\) 未被旁路。};
+\end{tikzpicture}

@@ -1,0 +1,17 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.1cm]
+  \node[nmos,xscale=-1] (M1) at (2.5,2.2) {};
+  \node[nmos] (M2) at (6.3,2.2) {};
+  \node at (1.55,1.5) {$M_{1}$};
+  \node at (7.25,1.5) {$M_{2}$};
+  \draw (M1.S) -- (2.5,0) -- (6.3,0) -- (M2.S);
+  \draw (4.4,0) node[ground] {};
+  \draw (M1.G) -- (M2.G);
+  \draw (M1.D) -- (M1.D -| M1.G) -- (M1.G);
+  \fill (M1.D) circle (1.3pt);
+  \fill (M1.G) circle (1.3pt);
+  \draw (M1.D) to[R,l_=$R_{\mathrm{ref}}$,i<_=$I_{\mathrm{ref}}$] (2.5,5.1) node[vcc] {$V_{DD}$};
+  \draw (M2.D) to[R,l=$R_{L}$,i<_=$I_{O}$] (6.3,5.1) node[vcc] {$V_{\mathrm{LOAD}}$};
+  \fill (M2.D) circle (1.3pt);
+  \draw (M2.D) -- ++(1.5,0) coordinate (out) node[ocirc] {};
+  \node[right=4pt] at (out) {$v_{\mathrm{out}}$};
+\end{tikzpicture}

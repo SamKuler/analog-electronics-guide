@@ -1,0 +1,22 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=15.2cm,minimum height=5.3cm] at (7.6,0) {};
+  \node[font=\bfseries] at (7.6,2.2) {电流并联反馈：输出支路串联取样，输入节点作电流求和};
+  \node[circle,draw,minimum size=10mm] (sum) at (2.3,.45) {$\Sigma_i$};
+  \node[draw,rounded corners=2mm,minimum width=2.8cm,minimum height=1.2cm] (amp) at (5.3,.45)
+    {电流前向级 $A_i$};
+  \node[draw,rounded corners=2mm,minimum width=2.2cm,minimum height=1.0cm] (sense) at (8.6,.45)
+    {电流传感器};
+  \node[draw,rounded corners=2mm,minimum width=2.4cm,minimum height=1.0cm] (beta) at (6.0,-1.45)
+    {$i_o\mapsto i_f$};
+  \draw[ae arrow] (.85,.45) node[left] {$i_s$} -- (sum.west);
+  \draw[ae arrow] (sum.east) -- (amp.west) node[midway,above] {$i_e$};
+  \draw[ae arrow] (amp.east) -- (sense.west);
+  \draw[ae arrow] (sense.east) -- (11.7,.45) coordinate (io) node[right] {$i_o$};
+  \draw[ae arrow,AEorange] (sense.south) |- (beta.east);
+  \draw[ae arrow,AEorange] (beta.west) -| (sum.south) node[pos=.7,left] {$i_f$};
+  \node[font=\scriptsize,text=AEmuted,align=left,anchor=west] at (12.3,.1) {
+    $i_e=i_s-i_f$\\
+    电流取样：$R_{out}\uparrow$\\
+    并联混合：$R_{in}\downarrow$
+  };
+\end{tikzpicture}

@@ -1,0 +1,17 @@
+\begin{tikzpicture}[circuitikz/bipoles/length=1.05cm]
+  \draw (0.8,3.0) to[cV,l_=$\mu v_x$,v^>=$v_o$] (0.8,0.4);
+  \node[align=center] at (0.8,3.9) {VCVS};
+  \node[align=center] at (0.8,-0.45) {$v_o=\mu v_x$\\$\mu$: dimensionless};
+
+  \draw (4.0,3.0) to[cI,l_=$g_m v_x$,v^>=$v_o$] (4.0,0.4);
+  \node[align=center] at (4.0,3.9) {VCCS};
+  \node[align=center] at (4.0,-0.45) {$i_o=g_m v_x$\\$g_m$: S};
+
+  \draw (7.2,3.0) to[cV,l_=$r_m i_x$,v^>=$v_o$] (7.2,0.4);
+  \node[align=center] at (7.2,3.9) {CCVS};
+  \node[align=center] at (7.2,-0.45) {$v_o=r_m i_x$\\$r_m$: $\Omega$};
+
+  \draw (10.4,3.0) to[cI,l_=$\beta i_x$,v^>=$v_o$] (10.4,0.4);
+  \node[align=center] at (10.4,3.9) {CCCS};
+  \node[align=center] at (10.4,-0.45) {$i_o=\beta i_x$\\$\beta$: dimensionless};
+\end{tikzpicture}

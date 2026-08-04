@@ -1,0 +1,33 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=6.0cm,minimum height=6.9cm] at (3.0,-.2) {};
+  \node[font=\bfseries] at (3.0,2.65) {NPN 端子与传统电流方向};
+  \node[npn,scale=1.45] (Q) at (3.0,-.2) {};
+  \draw (Q.B) -- ++(-1.35,0) node[left] {$B$};
+  \draw (Q.C) -- ++(0,1.25) node[above] {$C$};
+  \draw (Q.E) -- ++(0,-1.25) node[below] {$E$};
+  \draw[ae arrow] ($(Q.B)+(-1.15,.35)$) -- ($(Q.B)+(-.25,.35)$)
+    node[midway,above] {$I_B$};
+  \draw[ae arrow] ($(Q.C)+(0,1.05)$) -- ($(Q.C)+(0,.25)$)
+    node[midway,right] {$I_C$};
+  \draw[ae arrow] ($(Q.E)+(0,-.15)$) -- ($(Q.E)+(0,-1.0)$)
+    node[midway,right] {$I_E$};
+  \node[text width=5.1cm,align=center,font=\scriptsize,text=AEmuted] at (3.0,-2.75) {
+    传统电流：$I_B$、$I_C$ 流入器件，$I_E$ 流出；\\
+    电子的主输运方向为 $E\to C$。
+  };
+
+  \matrix[matrix of nodes,
+    right=1.0cm of Q.center,
+    xshift=5.2cm,
+    nodes={draw=AEmuted!70,minimum width=3.25cm,minimum height=1.55cm,align=center,font=\scriptsize},
+    column sep=-\pgflinewidth,row sep=-\pgflinewidth,
+  ] (regions) {
+    \shortstack{截止\\两结均未正偏，$I_C\approx0$} & \shortstack{反向有源\\BE 未正偏，BC 正偏} \\
+    \shortstack{正向有源\\BE 正偏，BC 反偏\\$I_C\approx\beta I_B$} & \shortstack{饱和\\BE、BC 均正偏} \\
+  };
+  \node[font=\bfseries,above=5mm of regions.north] {由两个结的偏置状态判区};
+  \node[above=1mm of regions-1-1.north] {BC 反偏};
+  \node[above=1mm of regions-1-2.north] {BC 正偏};
+  \node[left=2mm of regions-1-1.west,align=right] {BE 未正偏};
+  \node[left=2mm of regions-2-1.west,align=right] {BE 正偏};
+\end{tikzpicture}

@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+  \begin{axis}[
+    width=13cm,height=7.5cm,
+    axis lines=left,
+    xlabel={$V_{GS}$},ylabel={$I_D$},
+    xmin=.8,xmax=3.3,ymin=0,ymax=5.4,
+    xtick={1,2.2},xticklabels={$V_{TH}$,$V_{GSQ}$},
+    ytick={1.44},yticklabels={$I_{DQ}$},
+    clip=false,
+  ]
+    \addplot[ae curve,domain=1:3.25,samples=160] {(x-1)^2};
+    \addplot[ae accent,domain=1.4:3.15,samples=2] {1.44+2.4*(x-2.2)};
+    \addplot[only marks,mark=*,mark size=2.2pt] coordinates {(2.2,1.44)};
+    \node[anchor=south west] at (axis cs:2.2,1.44) {$Q$};
+    \node[anchor=south west,text=AEorange] at (axis cs:1.55,3.9) {切线斜率 $g_m$};
+    \draw[dashed,AEmuted] (axis cs:2.2,0) -- (axis cs:2.2,1.44) -- (axis cs:.8,1.44);
+  \end{axis}
+  \node[below=2mm of current bounding box.south,align=center,text=AEmuted] {
+    $I_D=\tfrac12 k(V_{GS}-V_{TH})^2$；在 $Q$ 点附近，$i_d\approx g_m v_{gs}$。
+  };
+\end{tikzpicture}

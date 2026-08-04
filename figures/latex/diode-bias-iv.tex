@@ -1,0 +1,36 @@
+\begin{tikzpicture}[font=\small]
+  \node[ae panel,minimum width=7.2cm,minimum height=6.0cm] at (3.6,0) {};
+  \node[ae panel,minimum width=7.2cm,minimum height=6.0cm] at (11.2,0) {};
+  \node[font=\bfseries] at (3.6,2.55) {完整偏置回路};
+  \begin{scope}[shift={(1.0,-1.45)}]
+    \draw (0,0) to[V,invert,l_={$V_S$}] (0,3.1)
+      to[R,l={$R$},i>^={$i_D$}] (2.6,3.1)
+      to[D,v^>={$v_D$}] (4.7,3.1)
+      -- (4.7,0) -- (0,0);
+    \node[ground] at (2.35,0) {};
+    \node[font=\scriptsize,text=AEmuted] at (2.35,-.92) {
+      正接 $V_S$ 为正向偏置；反接为反向偏置。
+    };
+  \end{scope}
+
+  \node[font=\bfseries] at (11.2,2.55) {定性 $i_D$--$v_D$ 特性};
+  \begin{axis}[
+    at={(8.0cm,-2.25cm)},anchor=south west,
+    width=6.5cm,height=4.9cm,
+    axis lines=middle,
+    xlabel={$v_D$},ylabel={$i_D$},
+    xmin=-5.2,xmax=1.0,ymin=-2.2,ymax=5.4,
+    xtick={-4.6,0,.7},xticklabels={$-V_{\mathrm{BR}}$,$0$,$\approx0.7\,\mathrm V$},
+    ytick=\empty,clip=false,
+  ]
+    \addplot[ae curve,domain=-5.0:-4.3,samples=80] {-0.05-1.6*exp(-9*(x+5.0))};
+    \addplot[ae curve,domain=-4.3:.25,samples=2] {-0.05};
+    \addplot[ae curve,domain=.25:.78,samples=120] {.08*(exp(8*(x-.25))-1)};
+    \node[font=\scriptsize,text=AEmuted,anchor=west] at (axis cs:.34,3.4) {正向电流快速增长};
+    \node[font=\scriptsize,text=AEmuted,anchor=south] at (axis cs:-2.2,-.05) {反向漏电};
+    \node[font=\scriptsize,text=AEmuted,anchor=east] at (axis cs:-4.65,-1.5) {反向击穿};
+  \end{axis}
+  \node[font=\scriptsize,text=AEmuted,align=center] at (11.2,-2.55) {
+    $0.6$--$0.8\,\mathrm V$ 是常见硅二极管工作电压范围，\\不是器件特性上的固定“拐点”。
+  };
+\end{tikzpicture}
